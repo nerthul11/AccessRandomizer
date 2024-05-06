@@ -1,5 +1,4 @@
-﻿using AccessRandomizer.IC;
-using AccessRandomizer.Manager;
+﻿using AccessRandomizer.Manager;
 using AccessRandomizer.Settings;
 using Modding;
 using System;
@@ -8,8 +7,8 @@ namespace AccessRandomizer
 {
     public class AccessRandomizer : Mod, ILocalSettings<LocalSettings>, IGlobalSettings<GlobalSettings> 
     {
-        new public string GetName() => "RespectRandomizer";
-        public override string GetVersion() => "1.0.0.0";
+        new public string GetName() => "AccessRandomizer";
+        public override string GetVersion() => "1.0.0.1";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()

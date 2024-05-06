@@ -8,8 +8,8 @@
     <Product>RespectRandomizer</Product>
     <Description>A Randomizer add-on for a few miscellaneous access checks.</Description>
     <Copyright>Copyright © </Copyright>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -78,9 +78,6 @@
     </Reference>
     <Reference Include="ItemChanger">
       <HintPath>$(LocalRefs)/Mods/ItemChanger/ItemChanger.dll</HintPath>
-    </Reference>
-    <Reference Include="ItemChangerDataLoader">
-      <HintPath>$(LocalRefs)/Mods/ItemChangerDataLoader/ItemChangerDataLoader.dll</HintPath>
     </Reference>
     <Reference Include="KorzUtils">
       <HintPath>$(LocalRefs)/Mods/KorzUtils/KorzUtils.dll</HintPath>

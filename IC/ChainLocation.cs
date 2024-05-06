@@ -4,7 +4,6 @@ using ItemChanger.Locations;
 using ItemChanger.Util;
 using ItemChanger.Tags;
 using Satchel;
-using UnityEngine;
 
 namespace AccessRandomizer.IC
 {
@@ -37,11 +36,19 @@ namespace AccessRandomizer.IC
         {
             Events.RemoveFsmEdit(sceneName, new(fsmName, "Control"), UnbreakableChainCheck);
             Events.RemoveFsmEdit(sceneName, new("Gate", "Control"), ExitableGate);
+            Events.RemoveFsmEdit(sceneName, new("Boss Control", "Battle Start"), FixChainCount);
         }
         protected override void OnLoad()
         {
             Events.AddFsmEdit(sceneName, new(fsmName, "Control"), UnbreakableChainCheck);
             Events.AddFsmEdit(sceneName, new("Gate", "Control"), ExitableGate);
+            Events.AddFsmEdit(sceneName, new("Boss Control", "Battle Start"), FixChainCount);
+        }
+
+        private void FixChainCount(PlayMakerFSM fsm)
+        {
+            if (Placement.AllObtained())
+                fsm.FsmVariables.GetFsmInt("Chains").Value -= 1;
         }
 
         private void ExitableGate(PlayMakerFSM fsm)

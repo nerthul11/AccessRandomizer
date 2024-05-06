@@ -3,7 +3,6 @@ using ItemChanger.Locations;
 using ItemChanger.Util;
 using ItemChanger.Tags;
 using Satchel;
-using System;
 
 namespace AccessRandomizer.IC
 {
