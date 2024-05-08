@@ -5,5 +5,6 @@ namespace AccessRandomizer.Settings
         public bool Enabled { get; set; }
         public bool MantisRespect { get; set;}
         public bool HollowKnightChains { get; set;}
+        public bool UniqueKeys { get; set; }
     }
 }

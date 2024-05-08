@@ -2,7 +2,10 @@ using ItemChanger;
 using ItemChanger.Locations;
 using ItemChanger.Util;
 using ItemChanger.Tags;
+using KorzUtils.Helper;
 using Satchel;
+using System.Linq;
+using HutongGames.PlayMaker.Actions;
 
 namespace AccessRandomizer.IC
 {
@@ -60,8 +63,13 @@ namespace AccessRandomizer.IC
         private void ToggleChallenge(PlayMakerFSM fsm)
         {
             // Disable if location is cleared
-            if (Placement.AllObtained())
+            if (Placement.AllObtained() || Placement.Items.All(x => x.WasEverObtained()))
+            {
                 fsm.ChangeTransition("Can Talk Bool?", "TRUE", "Idle 2");
+                // Keep the location disabled but spawn shiny item
+                if (Placement.Items.All(x => x.WasEverObtained()))
+                    ItemHelper.SpawnShiny(new(30.2f, 7.4f), Placement);
+            }
             else
                 // Force enable if it isn't
                 On.DeactivateIfPlayerdataTrue.OnEnable += ButStillWeFight;
@@ -93,6 +101,8 @@ namespace AccessRandomizer.IC
             // If they respect you, then they shall bow and open the gate. Otherwise, they WILL troll you.
             if (PlayerData.instance.defeatedMantisLords || Placement.GetUIName() == "Mantis' Respect")
                 fsm.AddTransition("GiveItem", "FINISHED", "Bow");
+            else
+                fsm.AddAction("GiveItem", new Fsm.CustomAudio("MantisLord"));
         }
     }
 }

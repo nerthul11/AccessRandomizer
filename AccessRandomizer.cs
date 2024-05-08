@@ -8,7 +8,7 @@ namespace AccessRandomizer
     public class AccessRandomizer : Mod, ILocalSettings<LocalSettings>, IGlobalSettings<GlobalSettings> 
     {
         new public string GetName() => "AccessRandomizer";
-        public override string GetVersion() => "1.0.0.1";
+        public override string GetVersion() => "1.1.0.0";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()
@@ -35,10 +35,19 @@ namespace AccessRandomizer
             {
                 Instance.Log("Initializing...");
                 AccessManager.Hook();
+                
                 if (ModHooks.GetMod("RandoSettingsManager") is Mod)
                     RSM_Interop.Hook();
-                CondensedSpoilerLogger.AddCategory("Hollow Knight Chains", () => AccessManager.Settings.Enabled, ["Hollow_Knight_Chain"]);
+                
+                CondensedSpoilerLogger.AddCategory("Miscellaneous Access", () => AccessManager.Settings.Enabled, 
+                    [
+                        "Mantis_Respect", "Graveyard_Key", "Waterways_Key", "Pleasure_Key", "Coffin_Key",
+                        "Hollow_Knight_Chain"
+                    ]
+                );
                 Instance.Log("Initialized.");
+
+
             }
         }
         public void OnLoadGlobal(GlobalSettings s) => GS = s;

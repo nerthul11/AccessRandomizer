@@ -11,7 +11,7 @@ namespace AccessRandomizer.IC
             UIDef = new MsgUIDef()
             {
                 name = new BoxedString("Mantis' Respect"),
-                shopDesc = new BoxedString("Well fought."),
+                shopDesc = new BoxedString("Bow before the Knight."),
                 sprite = new AccessSprite("Respect")
             };
         }

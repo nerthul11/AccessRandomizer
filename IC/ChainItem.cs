@@ -1,5 +1,6 @@
 using AccessRandomizer.Manager;
 using ItemChanger;
+using ItemChanger.Internal;
 using ItemChanger.UIDefs;
 
 namespace AccessRandomizer.IC
@@ -16,7 +17,8 @@ namespace AccessRandomizer.IC
                 sprite = new AccessSprite("Chain")
             };
         }
-        
+
+        public override bool Redundant() => AccessManager.SaveSettings.ChainsBroken >= 5;
         public override void GiveImmediate(GiveInfo info) 
         {
             AccessManager.SaveSettings.ChainsBroken += 1;

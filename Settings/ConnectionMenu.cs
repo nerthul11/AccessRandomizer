@@ -46,6 +46,7 @@ namespace AccessRandomizer.Settings
             topLevelPanel.Add(topLevelElementFactory.ElementLookup["Enabled"]);
             topLevelPanel.Add(topLevelElementFactory.ElementLookup["MantisRespect"]);
             topLevelPanel.Add(topLevelElementFactory.ElementLookup["HollowKnightChains"]);
+            topLevelPanel.Add(topLevelElementFactory.ElementLookup["UniqueKeys"]);
             topLevelPanel.ResetNavigation();
             topLevelPanel.SymSetNeighbor(Neighbor.Down, ghPage.backButton);
             pageRootButton = new SmallButton(connectionPage, "Access Randomizer");

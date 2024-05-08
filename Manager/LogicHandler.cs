@@ -47,6 +47,22 @@ namespace AccessRandomizer.Manager
                 if (lmb.LogicLookup.TryGetValue("Defeated_Any_Hollow_Knight", out _))
                     lmb.DoLogicEdit(new("Defeated_Any_Hollow_Knight", "ORIG + CHAINS>3"));
             }
+
+            if (AccessManager.Settings.UniqueKeys && gs.PoolSettings.Keys)
+            {
+                lmb.GetOrAddTerm("GRAVEYARDKEY", TermType.SignedByte);
+                lmb.GetOrAddTerm("WATERWAYSKEY", TermType.SignedByte);
+                lmb.GetOrAddTerm("PLEASUREKEY", TermType.SignedByte);
+                lmb.GetOrAddTerm("COFFINKEY", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Graveyard_Key", "SIMPLE++ >> GRAVEYARDKEY++"));
+                lmb.AddItem(new StringItemTemplate("Waterways_Key", "SIMPLE++ >> WATERWAYSKEY++"));
+                lmb.AddItem(new StringItemTemplate("Pleasure_Key", "SIMPLE++ >> PLEASUREKEY++"));
+                lmb.AddItem(new StringItemTemplate("Coffin_Key", "SIMPLE++ >> COFFINKEY++"));
+                lmb.DoMacroEdit(new("JIJIUNLOCK", "GRAVEYARDKEY"));
+                lmb.DoMacroEdit(new("WATERWAYSUNLOCK", "WATERWAYSKEY"));
+                lmb.DoMacroEdit(new("PLEASUREHOUSEUNLOCK", "PLEASUREKEY"));
+                lmb.DoMacroEdit(new("GODTUNERUNLOCK", "COFFINKEY"));
+            }
         }
     }
 }
