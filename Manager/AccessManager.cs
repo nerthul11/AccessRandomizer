@@ -7,7 +7,6 @@ namespace AccessRandomizer.Manager
     internal static class AccessManager
     {
         public static AccessSettings Settings => AccessRandomizer.Instance.GS.Settings;
-        public static LocalSettings SaveSettings => AccessRandomizer.Instance.LS;
         public static void Hook()
         {
             ItemHandler.Hook();

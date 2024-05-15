@@ -5,7 +5,6 @@ using ItemChanger.Tags;
 using KorzUtils.Helper;
 using Satchel;
 using System.Linq;
-using HutongGames.PlayMaker.Actions;
 
 namespace AccessRandomizer.IC
 {
@@ -23,6 +22,7 @@ namespace AccessRandomizer.IC
         {
             InteropTag tag = new();
             tag.Properties["ModSource"] = "AccessRandomizer";
+            tag.Properties["PoolGroup"] = "Keys";
             tag.Properties["PinSprite"] = new AccessSprite("Respect");
             tag.Properties["VanillaItem"] = "Mantis_Respect";
             tag.Properties["MapLocations"] = new (string, float, float)[] {("Fungus2_15", 0.0f, -0.5f)};

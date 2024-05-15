@@ -1,4 +1,4 @@
-using AccessRandomizer.Manager;
+using AccessRandomizer.Modules;
 using HutongGames.PlayMaker;
 
 namespace AccessRandomizer.Fsm
@@ -17,7 +17,7 @@ namespace AccessRandomizer.Fsm
         }
         public override void OnEnter()
         {
-            if (AccessManager.SaveSettings.GetVariable<bool>(keyName))
+            if (AccessModule.Instance.GetVariable<bool>(keyName))
             {
                 Fsm.Event(trueEvent);
             }

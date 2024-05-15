@@ -26,7 +26,16 @@
         "Key": "GraveyardKey"
       }
     },
-    "tags": null,
+    "tags": [
+      {
+        "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+        "Message": "RandoSupplementalMetadata",
+        "Properties": {
+          "ModSource": "AccessRandomizer",
+          "PoolGroup": "Keys"
+        }
+      }
+    ],
     "obtainState": "Unobtained"
 },
 {
@@ -56,7 +65,16 @@
         "Key": "WaterwaysKey"
       }
     },
-    "tags": null,
+    "tags": [
+      {
+        "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+        "Message": "RandoSupplementalMetadata",
+        "Properties": {
+          "ModSource": "AccessRandomizer",
+          "PoolGroup": "Keys"
+        }
+      }
+    ],
     "obtainState": "Unobtained"
 },
 {
@@ -86,7 +104,16 @@
         "Key": "PleasureKey"
       }
     },
-    "tags": null,
+    "tags": [
+      {
+        "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+        "Message": "RandoSupplementalMetadata",
+        "Properties": {
+          "ModSource": "AccessRandomizer",
+          "PoolGroup": "Keys"
+        }
+      }
+    ],
     "obtainState": "Unobtained"
 },
 {
@@ -116,7 +143,16 @@
         "Key": "CoffinKey"
       }
     },
-    "tags": null,
+    "tags": [
+      {
+        "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+        "Message": "RandoSupplementalMetadata",
+        "Properties": {
+          "ModSource": "AccessRandomizer",
+          "PoolGroup": "Keys"
+        }
+      }
+    ],
     "obtainState": "Unobtained"
 }
 ]

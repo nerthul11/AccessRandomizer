@@ -1,7 +1,5 @@
-using System;
 using AccessRandomizer.Fsm;
-using AccessRandomizer.Manager;
-using AccessRandomizer.Settings;
+using AccessRandomizer.Modules;
 using ItemChanger;
 using Modding;
 using Satchel;
@@ -19,10 +17,11 @@ namespace AccessRandomizer.IC
         public string fsmFalseEvent;
         public string dialogueName;
         public string previewWord;
-        public override bool Redundant() => AccessManager.SaveSettings.GetVariable<bool>(keyName);
-        public override void GiveImmediate(GiveInfo info) 
+        public override bool Redundant() => AccessModule.Instance.GetVariable<bool>(keyName);
+        public override void GiveImmediate(GiveInfo info)
         {
-            AccessManager.SaveSettings.SetVariable(keyName, true);
+            AccessModule.Instance.SetVariable(keyName, true);
+            AccessModule.Instance.CompletedChallenges();
         }
 
         protected override void OnUnload()
@@ -47,9 +46,8 @@ namespace AccessRandomizer.IC
         private void AlwaysOneKey(On.PlayerData.orig_SetBool orig, PlayerData self, string boolName, bool value)
         {
             orig(self, boolName, value);
-            PlayerData.instance.simpleKeys = 1;
-            PlayerData.instance.hasWaterwaysKey = true;
-            PlayerData.instance.hasSpaKey = true;
+            if (PlayerData.instance.simpleKeys != 1)
+                PlayerData.instance.simpleKeys = 1;
         }
 
         private void KeyTrackerName(ref string value)
@@ -60,31 +58,31 @@ namespace AccessRandomizer.IC
         private void KeyTrackerDesc(ref string value)
         {
             value = "A tracker for keys that open a few Hallownest spots.";
-            LocalSettings state = AccessManager.SaveSettings;
-            bool anyKey = state.CoffinKey || state.GraveyardKey || state.PleasureKey || state.WaterwaysKey;
+            AccessModule module = AccessModule.Instance;
+            bool anyKey = module.CoffinKey || module.GraveyardKey || module.PleasureKey || module.WaterwaysKey;
             if (anyKey)
                 value += "<br>The following keys have been obtained:";
             else
                 value += "<br>No keys have been obtained yet.";
-            if (state.CoffinKey)
+            if (module.CoffinKey)
             {
                 value += "<br>-Coffin Key.";
                 if (PlayerData.instance.godseekerUnlocked)
                     value += " (used)";
             }
-            if (state.GraveyardKey)
+            if (module.GraveyardKey)
             {
                 value += "<br>-Graveyard Key.";
                 if (PlayerData.instance.jijiDoorUnlocked)
                     value += " (used)";
             }
-            if (state.PleasureKey)
+            if (module.PleasureKey)
             {
                 value += "<br>-Pleasure Key.";
                 if (PlayerData.instance.bathHouseOpened)
                     value += " (used)";
             }
-            if (state.WaterwaysKey)
+            if (module.WaterwaysKey)
             {
                 value += "<br>-Waterways Key.";
                 if (PlayerData.instance.openedWaterwaysManhole)
@@ -108,21 +106,17 @@ namespace AccessRandomizer.IC
 
         private void InsertKeyPreview(ref string value)
         {
-            AccessRandomizer.Instance.Log(value);
             value = value.Replace("a Simple Key", $"the {name.Replace('_', ' ')}");
             value = value.Replace("simple", previewWord);
         }
 
         private void NoKeyPreview(ref string value)
         {
-            AccessRandomizer.Instance.Log(value);
             value = value.Replace("simple", previewWord);
         }
         
         private void DoorOverride(PlayMakerFSM fsm)
         {
-            PlayerData.instance.hasWaterwaysKey = true;
-            PlayerData.instance.hasSpaKey = true;
             fsm.AddFirstAction(fsmState, new KeyBooleanFsmCheck(keyName, fsmTrueEvent, fsmFalseEvent));
             if (keyName == "Pleasure_Key")
                 fsm.AddCustomAction("Open", () => PlayerData.instance.simpleKeys = 1);

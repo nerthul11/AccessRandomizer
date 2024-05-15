@@ -2,7 +2,7 @@ using MonoMod.ModInterop;
 using System;
 using System.Collections.Generic;
 
-namespace AccessRandomizer.Settings;
+namespace AccessRandomizer.Interop;
 internal static class CondensedSpoilerLogger
 {
     [ModImportName("CondensedSpoilerLogger")]

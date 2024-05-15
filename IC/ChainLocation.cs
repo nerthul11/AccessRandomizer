@@ -1,4 +1,4 @@
-using AccessRandomizer.Manager;
+using AccessRandomizer.Modules;
 using ItemChanger;
 using ItemChanger.Locations;
 using ItemChanger.Util;
@@ -25,6 +25,7 @@ namespace AccessRandomizer.IC
         {
             InteropTag tag = new();
             tag.Properties["ModSource"] = "AccessRandomizer";
+            tag.Properties["PoolGroup"] = "Keys";
             tag.Properties["PinSprite"] = new AccessSprite("Chain");
             tag.Properties["VanillaItem"] = "Hollow_Knight_Chain";
             tag.Properties["MapLocations"] = new (string, float, float)[] {("Crossroads_02", x, y)};
@@ -49,11 +50,13 @@ namespace AccessRandomizer.IC
         {
             if (Placement.AllObtained())
                 fsm.FsmVariables.GetFsmInt("Chains").Value -= 1;
+            if (fsm.FsmVariables.GetFsmInt("Chains").Value == 0)
+                PlayerData.instance.unchainedHollowKnight = true;
         }
 
         private void ExitableGate(PlayMakerFSM fsm)
         {
-            if (AccessManager.SaveSettings.ChainsBroken < 4)
+            if (AccessModule.Instance.ChainsBroken < 4)
                 fsm.RemoveTransition("Idle", "ENTER");
         }
 
@@ -74,7 +77,7 @@ namespace AccessRandomizer.IC
             });
 
             // Hit counter should not change if item's not obtained
-            if (AccessManager.SaveSettings.ChainsBroken < chainID)
+            if (AccessModule.Instance.ChainsBroken < chainID)
                 fsm.RemoveAction("Check Hits", 0);
             
             fsm.ChangeTransition("Glow Pt", "FINISHED", "GiveItem");

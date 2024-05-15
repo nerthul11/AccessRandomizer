@@ -21,3 +21,10 @@ This will remove the Simple Key item and replace them with four specific keys fo
 This setting will also permanently add a "Key Tracker" item in your inventory (replacing the Simple Key) that will keep track of which keys have you obtained and which doors were opened.
 
 This setting deletes the concept of Simple Key, and the resulting keys will be duplicated or not depending on the Unique Keys setting. The usage of this setting will override the Key Ring item from Extra Rando (no point in using both, so if you want to have them all in a single location, disable this).
+
+## Integrations
+
+If FStats is enabled, a new page for the obtention of items will be added.
+    - Mantis Respect.
+    - Hollow Knight Chains: An entry will be added for each chain item that is obtained.
+    - Unique Keys: An entry will be added for each key that is obtained.

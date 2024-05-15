@@ -1,14 +1,15 @@
-﻿using AccessRandomizer.Manager;
+﻿using AccessRandomizer.Interop;
+using AccessRandomizer.Manager;
 using AccessRandomizer.Settings;
 using Modding;
 using System;
 
 namespace AccessRandomizer
 {
-    public class AccessRandomizer : Mod, ILocalSettings<LocalSettings>, IGlobalSettings<GlobalSettings> 
+    public class AccessRandomizer : Mod, IGlobalSettings<GlobalSettings> 
     {
         new public string GetName() => "AccessRandomizer";
-        public override string GetVersion() => "1.1.0.0";
+        public override string GetVersion() => "1.2.0.0";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()
@@ -27,7 +28,6 @@ namespace AccessRandomizer
             }
         }
         public GlobalSettings GS { get; internal set; } = new();
-        public LocalSettings LS { get; internal set; } = new();
         public override void Initialize()
         {
             // Ignore completely if Randomizer 4 is inactive
@@ -38,6 +38,9 @@ namespace AccessRandomizer
                 
                 if (ModHooks.GetMod("RandoSettingsManager") is Mod)
                     RSM_Interop.Hook();
+                
+                if (ModHooks.GetMod("FStatsMod") is Mod)
+                    FStats_Interop.Hook();
                 
                 CondensedSpoilerLogger.AddCategory("Miscellaneous Access", () => AccessManager.Settings.Enabled, 
                     [
@@ -52,7 +55,5 @@ namespace AccessRandomizer
         }
         public void OnLoadGlobal(GlobalSettings s) => GS = s;
         public GlobalSettings OnSaveGlobal() => GS;
-        public void OnLoadLocal(LocalSettings s) => LS = s;
-        public LocalSettings OnSaveLocal() => LS;
     }   
 }

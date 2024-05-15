@@ -1,4 +1,5 @@
 using AccessRandomizer.IC;
+using AccessRandomizer.Modules;
 using ItemChanger;
 using Newtonsoft.Json;
 using RandomizerMod.RC;
@@ -138,6 +139,19 @@ namespace AccessRandomizer.Manager {
                     builder.AddItemByName($"{PlaceholderItem.Prefix}Pleasure_Key");
                     builder.AddItemByName($"{PlaceholderItem.Prefix}Coffin_Key");
                 }
+                foreach (string item in new List<string> {"Graveyard_Key", "Waterways_Key", "Pleasure_Key", "Coffin_Key"})
+                {
+                    builder.EditItemRequest(item, info =>
+                    {
+                        info.getItemDef = () => new()
+                        {
+                            MajorItem = true,
+                            Name = item,
+                            Pool = "Key",
+                            PriceCap = 500
+                        };
+                    });
+                };
             }
         }
     }

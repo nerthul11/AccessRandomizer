@@ -1,6 +1,6 @@
-using AccessRandomizer.Manager;
+using AccessRandomizer.Modules;
 using ItemChanger;
-using ItemChanger.Internal;
+using ItemChanger.Tags;
 using ItemChanger.UIDefs;
 
 namespace AccessRandomizer.IC
@@ -12,16 +12,33 @@ namespace AccessRandomizer.IC
             name = "Hollow_Knight_Chain";
             UIDef = new MsgUIDef()
             {
-                name = new BoxedString("Hollow Knight Binding Chain"),
+                name = new BoxedString("Hollow Knight Chain"),
                 shopDesc = new BoxedString("Hear the noise of broken chains."),
-                sprite = new AccessSprite("Chain")
+                sprite = new AccessSprite("Chain"),
+                
             };
+            tags = [RespectTag()];
         }
 
-        public override bool Redundant() => AccessManager.SaveSettings.ChainsBroken >= 5;
+        private InteropTag RespectTag()
+        {
+            InteropTag tag = new();
+            tag.Properties["ModSource"] = "AccessRandomizer";
+            tag.Properties["PoolGroup"] = "Keys";
+            tag.Properties["PinSprite"] = new AccessSprite("Respect");
+            tag.Message = "RandoSupplementalMetadata";
+            return tag;
+        }
+
+        public override bool Redundant() => AccessModule.Instance.ChainsBroken >= 5;
         public override void GiveImmediate(GiveInfo info) 
         {
-            AccessManager.SaveSettings.ChainsBroken += 1;
+            AccessModule module = AccessModule.Instance;
+            module.ChainsBroken += 1;
+            int current = module.ChainsBroken;
+            if (UIDef is MsgUIDef ui && !Redundant())
+                ui.name = new BoxedString($"{ui.name.Value} (#{current})");
+            module.CompletedChallenges();
         }
     }
 }

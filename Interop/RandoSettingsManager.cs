@@ -2,8 +2,9 @@ using RandoSettingsManager;
 using RandoSettingsManager.SettingsManagement;
 using RandoSettingsManager.SettingsManagement.Versioning;
 using AccessRandomizer.Manager;
+using AccessRandomizer.Settings;
 
-namespace AccessRandomizer.Settings
+namespace AccessRandomizer.Interop
 {
     internal static class RSM_Interop
     {
