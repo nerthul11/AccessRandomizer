@@ -25,6 +25,6 @@ This setting deletes the concept of Simple Key, and the resulting keys will be d
 ## Integrations
 
 If FStats is enabled, a new page for the obtention of items will be added.
-    - Mantis Respect.
-    - Hollow Knight Chains: An entry will be added for each chain item that is obtained.
-    - Unique Keys: An entry will be added for each key that is obtained.
+- Mantis Respect.
+- Hollow Knight Chains: An entry will be added for each chain item that is obtained.
+- Unique Keys: An entry will be added for each key that is obtained.
