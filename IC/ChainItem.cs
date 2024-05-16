@@ -17,15 +17,15 @@ namespace AccessRandomizer.IC
                 sprite = new AccessSprite("Chain"),
                 
             };
-            tags = [RespectTag()];
+            tags = [ChainTag()];
         }
 
-        private InteropTag RespectTag()
+        private InteropTag ChainTag()
         {
             InteropTag tag = new();
             tag.Properties["ModSource"] = "AccessRandomizer";
             tag.Properties["PoolGroup"] = "Keys";
-            tag.Properties["PinSprite"] = new AccessSprite("Respect");
+            tag.Properties["PinSprite"] = new AccessSprite("Chain");
             tag.Message = "RandoSupplementalMetadata";
             return tag;
         }

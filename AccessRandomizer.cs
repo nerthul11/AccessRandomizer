@@ -9,7 +9,7 @@ namespace AccessRandomizer
     public class AccessRandomizer : Mod, IGlobalSettings<GlobalSettings> 
     {
         new public string GetName() => "AccessRandomizer";
-        public override string GetVersion() => "1.2.0.0";
+        public override string GetVersion() => "1.2.0.1";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()

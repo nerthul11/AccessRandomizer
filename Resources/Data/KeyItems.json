@@ -32,7 +32,11 @@
         "Message": "RandoSupplementalMetadata",
         "Properties": {
           "ModSource": "AccessRandomizer",
-          "PoolGroup": "Keys"
+          "PoolGroup": "Keys",
+          "PinSprite": {
+            "$type": "AccessRandomizer.IC.AccessSprite, AccessRandomizer",
+            "Key": "GraveyardKey"
+          }
         }
       }
     ],
@@ -71,7 +75,11 @@
         "Message": "RandoSupplementalMetadata",
         "Properties": {
           "ModSource": "AccessRandomizer",
-          "PoolGroup": "Keys"
+          "PoolGroup": "Keys",
+          "PinSprite": {
+            "$type": "AccessRandomizer.IC.AccessSprite, AccessRandomizer",
+            "Key": "WaterwaysKey"
+          }
         }
       }
     ],
@@ -110,7 +118,11 @@
         "Message": "RandoSupplementalMetadata",
         "Properties": {
           "ModSource": "AccessRandomizer",
-          "PoolGroup": "Keys"
+          "PoolGroup": "Keys",
+          "PinSprite": {
+            "$type": "AccessRandomizer.IC.AccessSprite, AccessRandomizer",
+            "Key": "PleasureKey"
+          }
         }
       }
     ],
@@ -149,7 +161,11 @@
         "Message": "RandoSupplementalMetadata",
         "Properties": {
           "ModSource": "AccessRandomizer",
-          "PoolGroup": "Keys"
+          "PoolGroup": "Keys",
+          "PinSprite": {
+            "$type": "AccessRandomizer.IC.AccessSprite, AccessRandomizer",
+            "Key": "CoffinKey"
+          }
         }
       }
     ],
