@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Modding;
 using RandomizerCore.Logic;
@@ -14,6 +15,21 @@ namespace AccessRandomizer.Manager
         public static void Hook()
         {
             RCData.RuntimeLogicOverride.Subscribe(11f, ApplyLogic);
+            if (ModHooks.GetMod("MoreDoors") is Mod)
+                RCData.RuntimeLogicOverride.Subscribe(128f, MoreDoorsInterop);
+        }
+
+        private static void MoreDoorsInterop(GenerationSettings gs, LogicManagerBuilder lmb)
+        {
+            if (!AccessManager.Settings.Enabled)
+                return;
+
+            if (AccessManager.Settings.MantisRespect)
+            {
+                bool isActive = lmb.LogicLookup.TryGetValue("MoreDoors-Core_Key-Mantis_Vault_Guardian", out _);
+                if (isActive)
+                    lmb.DoSubst(new("MoreDoors-Core_Key-Mantis_Vault_Guardian", "Defeated_Mantis_Lords", "RESPECT"));
+            }
         }
 
         private static void ApplyLogic(GenerationSettings gs, LogicManagerBuilder lmb)

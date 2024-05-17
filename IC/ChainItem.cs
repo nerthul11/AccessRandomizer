@@ -24,7 +24,7 @@ namespace AccessRandomizer.IC
         {
             InteropTag tag = new();
             tag.Properties["ModSource"] = "AccessRandomizer";
-            tag.Properties["PoolGroup"] = "Keys";
+            tag.Properties["PoolGroup"] = "Dreamers";
             tag.Properties["PinSprite"] = new AccessSprite("Chain");
             tag.Message = "RandoSupplementalMetadata";
             return tag;

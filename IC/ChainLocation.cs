@@ -25,7 +25,7 @@ namespace AccessRandomizer.IC
         {
             InteropTag tag = new();
             tag.Properties["ModSource"] = "AccessRandomizer";
-            tag.Properties["PoolGroup"] = "Keys";
+            tag.Properties["PoolGroup"] = "Dreamers";
             tag.Properties["PinSprite"] = new AccessSprite("Chain");
             tag.Properties["VanillaItem"] = "Hollow_Knight_Chain";
             tag.Properties["MapLocations"] = new (string, float, float)[] {("Crossroads_02", x, y)};

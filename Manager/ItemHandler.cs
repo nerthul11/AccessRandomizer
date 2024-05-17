@@ -1,5 +1,4 @@
 using AccessRandomizer.IC;
-using AccessRandomizer.Modules;
 using ItemChanger;
 using Newtonsoft.Json;
 using RandomizerMod.RC;
@@ -55,6 +54,16 @@ namespace AccessRandomizer.Manager {
                     };
                 });
                 builder.AddLocationByName("Mantis_Respect");
+                builder.EditLocationRequest("Mantis_Respect", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Mantis_Respect",
+                        SceneName = SceneNames.Fungus2_15,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
             }
 
             if (AccessManager.Settings.HollowKnightChains)
@@ -68,13 +77,23 @@ namespace AccessRandomizer.Manager {
                     {
                         MajorItem = true,
                         Name = "Hollow_Knight_Chain",
-                        Pool = "Key",
+                        Pool = "Dreamers",
                         PriceCap = 2000
                     };
                 });
                 foreach (int i in Enumerable.Range(1, 4))
                 {
                     builder.AddLocationByName($"Hollow_Knight_Chain-{i}");
+                    builder.EditLocationRequest($"Hollow_Knight_Chain-{i}", info =>
+                    {
+                        info.getLocationDef = () => new()
+                        {
+                            Name = $"Hollow_Knight_Chain-{i}",
+                            SceneName = SceneNames.Room_Final_Boss_Core,
+                            FlexibleCount = false,
+                            AdditionalProgressionPenalty = false
+                        };
+                    });
                 }
             }
 
