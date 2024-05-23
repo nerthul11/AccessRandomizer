@@ -55,7 +55,7 @@ namespace AccessRandomizer.Interop
         {
             List<string> rows = AccessMarks.OrderBy(x => x.Timestamp).Select(x => $"{x.Mark}: {x.Timestamp.PlaytimeHHMMSS()}").ToList();
             AccessSettings settings = AccessManager.Settings;
-            int rowTotal = (settings.MantisRespect ? 1 : 0) + (settings.HollowKnightChains ? 4 : 0) + (settings.UniqueKeys ? 4 : 0);
+            int rowTotal = 1 + (settings.HollowKnightChains ? 4 : 0) + (settings.UniqueKeys ? 4 : 0);
             if (AccessMarks.Count == 0)
                 yield break;
             

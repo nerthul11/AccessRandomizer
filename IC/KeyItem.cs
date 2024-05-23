@@ -24,13 +24,6 @@ namespace AccessRandomizer.IC
             AccessModule.Instance.CompletedChallenges();
         }
 
-        protected override void OnUnload()
-        {
-            Events.RemoveFsmEdit(doorScene, new(objectName, fsmName), DoorOverride);
-            Events.RemoveLanguageEdit(new LanguageKey(name == "Coffin_Key" ? "CP3" : "Prompts", $"{dialogueName}_KEY"), InsertKeyPreview);
-            Events.RemoveLanguageEdit(new LanguageKey(name == "Coffin_Key" ? "CP3" : "Prompts", $"{dialogueName}_NOKEY"), NoKeyPreview);
-        }
-
         protected override void OnLoad()
         {
             Events.AddFsmEdit(doorScene, new(objectName, fsmName), DoorOverride);
@@ -40,10 +33,22 @@ namespace AccessRandomizer.IC
             Events.AddLanguageEdit(new LanguageKey(name == "Coffin_Key" ? "CP3" : "Prompts", $"{dialogueName}_NOKEY"), NoKeyPreview);
             Events.AddLanguageEdit(new LanguageKey("UI", "INV_NAME_SIMPLEKEY"), KeyTrackerName);
             Events.AddLanguageEdit(new LanguageKey("UI", "INV_DESC_SIMPLEKEY"), KeyTrackerDesc);
-            On.PlayerData.SetBool += AlwaysOneKey;
+            On.PlayerData.SetBool += Refresh;
         }
 
-        private void AlwaysOneKey(On.PlayerData.orig_SetBool orig, PlayerData self, string boolName, bool value)
+        protected override void OnUnload()
+        {
+            Events.RemoveFsmEdit(doorScene, new(objectName, fsmName), DoorOverride);
+            if (name == "Coffin_Key")
+                ModHooks.LanguageGetHook -= EditCoffin;
+            Events.RemoveLanguageEdit(new LanguageKey(name == "Coffin_Key" ? "CP3" : "Prompts", $"{dialogueName}_KEY"), InsertKeyPreview);
+            Events.RemoveLanguageEdit(new LanguageKey(name == "Coffin_Key" ? "CP3" : "Prompts", $"{dialogueName}_NOKEY"), NoKeyPreview);
+            Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_NAME_SIMPLEKEY"), KeyTrackerName);
+            Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_DESC_SIMPLEKEY"), KeyTrackerDesc);
+            On.PlayerData.SetBool -= Refresh;
+        }
+        
+        private void Refresh(On.PlayerData.orig_SetBool orig, PlayerData self, string boolName, bool value)
         {
             orig(self, boolName, value);
             if (PlayerData.instance.simpleKeys != 1)

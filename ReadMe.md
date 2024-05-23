@@ -20,7 +20,7 @@ This will remove the Simple Key item and replace them with four specific keys fo
 
 This setting will also permanently add a "Key Tracker" item in your inventory (replacing the Simple Key) that will keep track of which keys have you obtained and which doors were opened.
 
-This setting deletes the concept of Simple Key, and the resulting keys will be duplicated or not depending on the Unique Keys setting. The usage of this setting will override the Key Ring item from Extra Rando (no point in using both, so if you want to have them all in a single location, disable this).
+This setting deletes the concept of Simple Key, and the resulting keys will be duplicated or not depending on the Unique Keys setting. The usage of this setting will override the Key Ring item from Extra Rando (no point in using both, so if you want to have them all in a single location, disable this). If there was a Simple Key among the starting items, a random unique key will be granted instead.
 
 ## Integrations
 
