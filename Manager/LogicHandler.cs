@@ -79,6 +79,14 @@ namespace AccessRandomizer.Manager
                 lmb.DoMacroEdit(new("PLEASUREHOUSEUNLOCK", "PLEASUREKEY"));
                 lmb.DoMacroEdit(new("GODTUNERUNLOCK", "COFFINKEY"));
             }
+
+            if (AccessManager.Settings.MapperKey)
+            {
+                lmb.GetOrAddTerm("MAPPERKEY", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Mapper_Key", "MAPPERKEY++"));
+                lmb.AddLogicDef(new("Mapper_Key", "Crossroads_33"));
+                lmb.DoLogicEdit(new("Town[door_mapper]", "Town[door_mapper] | Town + MAPPERKEY"));
+            }
         }
     }
 }

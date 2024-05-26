@@ -9,7 +9,7 @@ namespace AccessRandomizer
     public class AccessRandomizer : Mod, IGlobalSettings<GlobalSettings> 
     {
         new public string GetName() => "AccessRandomizer";
-        public override string GetVersion() => "1.2.0.3";
+        public override string GetVersion() => "1.2.1.0";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()
@@ -44,8 +44,8 @@ namespace AccessRandomizer
                 
                 CondensedSpoilerLogger.AddCategory("Miscellaneous Access", () => AccessManager.Settings.Enabled, 
                     [
-                        "Mantis_Respect", "Graveyard_Key", "Waterways_Key", "Pleasure_Key", "Coffin_Key",
-                        "Hollow_Knight_Chain"
+                        "Mapper_Key", "Mantis_Respect", "Graveyard_Key", "Waterways_Key", "Pleasure_Key", 
+                        "Coffin_Key", "Hollow_Knight_Chain"
                     ]
                 );
                 Instance.Log("Initialized.");

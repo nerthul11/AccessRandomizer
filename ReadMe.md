@@ -22,9 +22,14 @@ This setting will also permanently add a "Key Tracker" item in your inventory (r
 
 This setting deletes the concept of Simple Key, and the resulting keys will be duplicated or not depending on the Unique Keys setting. The usage of this setting will override the Key Ring item from Extra Rando (no point in using both, so if you want to have them all in a single location, disable this). If there was a Simple Key among the starting items, a random unique key will be granted instead.
 
+## Mapper Key
+
+By default, rando saves have Iselda always be available. Turns out, Corfiner may or not have lost the shop key. This will add a location somewhere close to Crossroads Cornifer and an item that will trigger accesibility to the shop's door in Dirtmouth.
+
 ## Integrations
 
 If FStats is enabled, a new page for the obtention of items will be added.
-- Mantis Respect.
+- Mantis Respect: The entry will be included regardless of randomization settings for it.
 - Hollow Knight Chains: An entry will be added for each chain item that is obtained.
 - Unique Keys: An entry will be added for each key that is obtained.
+- Mapper Key: If randomized, an entry will be added for whenever Iselda's shop is unlocked.

@@ -1,6 +1,5 @@
 ﻿using AccessRandomizer.Manager;
 using AccessRandomizer.Modules;
-using AccessRandomizer.Settings;
 using FStats;
 using FStats.StatControllers;
 using FStats.Util;
@@ -54,8 +53,8 @@ namespace AccessRandomizer.Interop
         public override IEnumerable<DisplayInfo> GetDisplayInfos()
         {
             List<string> rows = AccessMarks.OrderBy(x => x.Timestamp).Select(x => $"{x.Mark}: {x.Timestamp.PlaytimeHHMMSS()}").ToList();
-            AccessSettings settings = AccessManager.Settings;
-            int rowTotal = 1 + (settings.HollowKnightChains ? 4 : 0) + (settings.UniqueKeys ? 4 : 0);
+            AccessModule.SaveSettings settings = AccessModule.Instance.Settings;
+            int rowTotal = 1 + (settings.HollowKnightChains ? 4 : 0) + (settings.UniqueKeys ? 4 : 0) + (settings.MapperKey ? 1 : 0);
             if (AccessMarks.Count == 0)
                 yield break;
             

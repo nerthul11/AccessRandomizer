@@ -26,13 +26,18 @@ namespace AccessRandomizer.Manager {
 
             foreach (KeyItem item in itemList)
                 Finder.DefineCustomItem(item);
+            
             Finder.DefineCustomItem(new RespectItem());
             Finder.DefineCustomLocation(new RespectLocation());
+
             Finder.DefineCustomItem(new ChainItem());
             Finder.DefineCustomLocation(new ChainLocation(1, 0.4f, -0.4f));
             Finder.DefineCustomLocation(new ChainLocation(2, 0.4f, -0.1f));
             Finder.DefineCustomLocation(new ChainLocation(3, 0.4f, 0.2f));
             Finder.DefineCustomLocation(new ChainLocation(4, 0.4f, 0.5f));
+
+            Finder.DefineCustomItem(new MapperKeyItem());
+            Finder.DefineCustomLocation(new MapperKeyLocation());
         }
 
         public static void AddObjects(RequestBuilder builder)
@@ -171,6 +176,32 @@ namespace AccessRandomizer.Manager {
                         };
                     });
                 };
+            }
+
+            if (AccessManager.Settings.MapperKey)
+            {
+                builder.AddItemByName("Mapper_Key");
+                builder.EditItemRequest("Mapper_Key", info => 
+                {
+                    info.getItemDef = () => new()
+                    {
+                        MajorItem = false,
+                        Name = "Mapper_Key",
+                        Pool = "Key",
+                        PriceCap = 500
+                    };
+                });
+                builder.AddLocationByName("Mapper_Key");
+                builder.EditLocationRequest("Mapper_Key", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Mapper_Key",
+                        SceneName = SceneNames.Crossroads_33,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
             }
         }
     }
