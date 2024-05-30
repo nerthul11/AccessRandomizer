@@ -7,10 +7,10 @@ namespace AccessRandomizer.IC
 {
     public class MapperKeyItem : AbstractItem
     {
-        public override bool Redundant() => PlayerData.instance.openedMapperShop;
+        public override bool Redundant() => AccessModule.Instance.UnlockedIselda;
         public override void GiveImmediate(GiveInfo info)
         {
-            AccessModule.Instance.SetVariable("UnlockedIselda", true);
+            AccessModule.Instance.UnlockedIselda = true;
             AccessModule.Instance.CompletedChallenges();
         }
 

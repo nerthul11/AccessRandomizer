@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AccessRandomizer.Manager;
 using ItemChanger;
+using UnityEngine.SceneManagement;
 
 namespace AccessRandomizer.Modules
 {
@@ -25,20 +26,20 @@ namespace AccessRandomizer.Modules
         public override void Initialize() 
         {
             On.PlayerData.SetBool += Refresh;
-            On.GameManager.BeginSceneTransition += TriggerIselda;
+            On.GameManager.BeginSceneTransition += ForceBools;
         }
 
         public override void Unload()
         {
             On.PlayerData.SetBool -= Refresh;
-            On.GameManager.BeginSceneTransition -= TriggerIselda;
+            On.GameManager.BeginSceneTransition -= ForceBools;
         }
 
-        private void TriggerIselda(On.GameManager.orig_BeginSceneTransition orig, GameManager self, GameManager.SceneLoadInfo info)
+        private void ForceBools(On.GameManager.orig_BeginSceneTransition orig, GameManager self, GameManager.SceneLoadInfo info)
         {
-            if (info.SceneName == SceneNames.Town && Settings.MapperKey && RandomizerMod.RandomizerMod.IsRandoSave)
-                PlayerData.instance.openedMapperShop = UnlockedIselda;
             orig(self, info);
+            if (info.SceneName == SceneNames.Town && Settings.MapperKey && RandomizerMod.RandomizerMod.IsRandoSave)
+                PlayerData.instance.openedMapperShop = UnlockedIselda || info.EntryGateName == "door_mapper";
         }
         public delegate void AccessObtained(List<string> marks);
         public event AccessObtained OnAccessObtained;

@@ -13,7 +13,8 @@ namespace AccessRandomizer.Manager {
         internal static void Hook()
         {
             DefineObjects();
-            RequestBuilder.OnUpdate.Subscribe(1100f, AddObjects);
+            RequestBuilder.OnUpdate.Subscribe(0f, AddObjects);
+            RequestBuilder.OnUpdate.Subscribe(1200f, ReplaceKeys);
         }
 
         public static void DefineObjects()
@@ -102,6 +103,40 @@ namespace AccessRandomizer.Manager {
                 }
             }
 
+            if (AccessManager.Settings.MapperKey)
+            {
+                builder.AddItemByName("Mapper_Key");
+                builder.EditItemRequest("Mapper_Key", info => 
+                {
+                    info.getItemDef = () => new()
+                    {
+                        MajorItem = false,
+                        Name = "Mapper_Key",
+                        Pool = "Key",
+                        PriceCap = 500
+                    };
+                });
+                builder.AddLocationByName("Mapper_Key");
+                builder.EditLocationRequest("Mapper_Key", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Mapper_Key",
+                        SceneName = SceneNames.Crossroads_33,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
+                if (builder.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                    builder.AddItemByName($"{PlaceholderItem.Prefix}Mapper_Key");
+            }
+        }
+
+        private static void ReplaceKeys(RequestBuilder builder)
+        {
+            if (!AccessManager.Settings.Enabled)
+                return;
+
             if (AccessManager.Settings.UniqueKeys && builder.gs.PoolSettings.Keys)
             {
                 // Override Extra Rando's Key Ring
@@ -176,32 +211,6 @@ namespace AccessRandomizer.Manager {
                         };
                     });
                 };
-            }
-
-            if (AccessManager.Settings.MapperKey)
-            {
-                builder.AddItemByName("Mapper_Key");
-                builder.EditItemRequest("Mapper_Key", info => 
-                {
-                    info.getItemDef = () => new()
-                    {
-                        MajorItem = false,
-                        Name = "Mapper_Key",
-                        Pool = "Key",
-                        PriceCap = 500
-                    };
-                });
-                builder.AddLocationByName("Mapper_Key");
-                builder.EditLocationRequest("Mapper_Key", info =>
-                {
-                    info.getLocationDef = () => new()
-                    {
-                        Name = "Mapper_Key",
-                        SceneName = SceneNames.Crossroads_33,
-                        FlexibleCount = false,
-                        AdditionalProgressionPenalty = false
-                    };
-                });
             }
         }
     }
