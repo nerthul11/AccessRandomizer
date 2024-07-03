@@ -122,7 +122,7 @@ namespace AccessRandomizer.IC
         
         private void DoorOverride(PlayMakerFSM fsm)
         {
-            fsm.AddFirstAction(fsmState, new KeyBooleanFsmCheck(keyName, fsmTrueEvent, fsmFalseEvent));
+            fsm.AddFirstAction(fsmState, new AccessBooleanFsmCheck(keyName, fsmTrueEvent, fsmFalseEvent));
             if (keyName == "Pleasure_Key")
                 fsm.AddCustomAction("Open", () => PlayerData.instance.simpleKeys = 1);
         }

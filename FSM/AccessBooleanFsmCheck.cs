@@ -3,13 +3,13 @@ using HutongGames.PlayMaker;
 
 namespace AccessRandomizer.Fsm
 {
-    internal class KeyBooleanFsmCheck : FsmStateAction
+    internal class AccessBooleanFsmCheck : FsmStateAction
     {
         private string keyName;
         private string trueEvent;
         private string falseEvent;
 
-        public KeyBooleanFsmCheck(string _keyName, string _trueEvent, string _falseEvent) 
+        public AccessBooleanFsmCheck(string _keyName, string _trueEvent, string _falseEvent) 
         {
             keyName = _keyName;
             trueEvent = _trueEvent;

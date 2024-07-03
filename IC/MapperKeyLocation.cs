@@ -12,10 +12,10 @@ namespace AccessRandomizer.IC
             sceneName = SceneNames.Crossroads_33;
             x = 14.6f;
             y = 6.4f;
-            tags = [MapperTag()];
+            tags = [MapperLocationTag()];
         }
         
-        private static Tag MapperTag()
+        private static Tag MapperLocationTag()
         {
             InteropTag tag = new();
             tag.Properties["ModSource"] = "AccessRandomizer";

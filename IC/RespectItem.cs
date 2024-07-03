@@ -28,9 +28,11 @@ namespace AccessRandomizer.IC
             return tag;
         }
         
+        public override bool Redundant() => PlayerData.instance.defeatedMantisLords;
         public override void GiveImmediate(GiveInfo info)
         {
             // Item: Set the defeatedMantisLords flag as true to gain respect.
+            AccessModule.Instance.RespectObtained = true;
             PlayerData.instance.defeatedMantisLords = true;
             AccessModule.Instance.CompletedChallenges();
         }

@@ -23,9 +23,9 @@ namespace AccessRandomizer.IC
                 shopDesc = new BoxedString("Now where did I leave this one? -Cornifer"),
                 sprite = new AccessSprite("MapperKey")
             };
-            tags = [MapperTag()];
+            tags = [MapperItemTag()];
         }
-        private static Tag MapperTag()
+        private static Tag MapperItemTag()
         {
             InteropTag tag = new();
             tag.Properties["ModSource"] = "AccessRandomizer";

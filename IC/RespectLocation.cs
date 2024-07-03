@@ -5,6 +5,7 @@ using ItemChanger.Tags;
 using KorzUtils.Helper;
 using Satchel;
 using System.Linq;
+using AccessRandomizer.Fsm;
 
 namespace AccessRandomizer.IC
 {
@@ -84,6 +85,10 @@ namespace AccessRandomizer.IC
 
         private void DisrespectfulLords(PlayMakerFSM fsm)
         {
+            // Add a complain state that locks you in the cage if respect is unobtained
+            fsm.AddState("Complain");
+            fsm.AddAction("Complain", new CustomAudio("MantisLord"));
+
             // Grant an item after the battle.
             fsm.AddState("GiveItem");
             fsm.AddCustomAction("GiveItem", () => {
@@ -93,16 +98,13 @@ namespace AccessRandomizer.IC
                     MessageType = MessageType.Corner,
                 });
             });
+            fsm.AddAction("GiveItem", new AccessBooleanFsmCheck("RespectObtained", "TRUE", "FALSE"));
+            fsm.AddTransition("GiveItem", "TRUE", "Bow");
+            fsm.AddTransition("GiveItem", "FINISHED", "Complain");
 
             // Defeating Mantis Lords no longer activates defeatedMantisLords bool, as it represents respect.
             fsm.RemoveAction("Return 2", 3);
             fsm.ChangeTransition("Return 2", "FINISHED", "GiveItem");
-
-            // If they respect you, then they shall bow and open the gate. Otherwise, they WILL troll you.
-            if (PlayerData.instance.defeatedMantisLords || Placement.GetUIName() == "Mantis' Respect")
-                fsm.AddTransition("GiveItem", "FINISHED", "Bow");
-            else
-                fsm.AddAction("GiveItem", new Fsm.CustomAudio("MantisLord"));
         }
     }
 }

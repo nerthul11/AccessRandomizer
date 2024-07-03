@@ -15,7 +15,7 @@ namespace AccessRandomizer.Settings
         private readonly SmallButton pageRootButton;
 
         // Menu page and elements
-        private readonly MenuPage ghPage;
+        private readonly MenuPage accessPage;
         private MenuElementFactory<AccessSettings> topLevelElementFactory;
 
         public static void Hook()
@@ -39,19 +39,15 @@ namespace AccessRandomizer.Settings
         private ConnectionMenu(MenuPage connectionPage)
         {
             // Define connection page
-            ghPage = new MenuPage("ghPage", connectionPage);
-            topLevelElementFactory = new(ghPage, AccessManager.Settings);
-            topLevelElementFactory.ElementLookup["Enabled"].SelfChanged += EnableSwitch;
-            VerticalItemPanel topLevelPanel = new(ghPage, new Vector2(0, 400), 60, true);        
-            topLevelPanel.Add(topLevelElementFactory.ElementLookup["Enabled"]);
-            topLevelPanel.Add(topLevelElementFactory.ElementLookup["MantisRespect"]);
-            topLevelPanel.Add(topLevelElementFactory.ElementLookup["HollowKnightChains"]);
-            topLevelPanel.Add(topLevelElementFactory.ElementLookup["UniqueKeys"]);
-            topLevelPanel.Add(topLevelElementFactory.ElementLookup["MapperKey"]);
+            accessPage = new MenuPage("accessPage", connectionPage);
+            topLevelElementFactory = new(accessPage, AccessManager.Settings);
+            VerticalItemPanel topLevelPanel = new(accessPage, new Vector2(0, 400), 60, true, topLevelElementFactory.Elements); 
+            topLevelElementFactory.ElementLookup[nameof(AccessSettings.Enabled)].SelfChanged += EnableSwitch;
             topLevelPanel.ResetNavigation();
-            topLevelPanel.SymSetNeighbor(Neighbor.Down, ghPage.backButton);
+            topLevelPanel.SymSetNeighbor(Neighbor.Down, accessPage.backButton);
+            topLevelPanel.SymSetNeighbor(Neighbor.Up, accessPage.backButton);
             pageRootButton = new SmallButton(connectionPage, "Access Randomizer");
-            pageRootButton.AddHideAndShowEvent(connectionPage, ghPage);
+            pageRootButton.AddHideAndShowEvent(connectionPage, accessPage);
         }
         // Define parameter changes
         private void EnableSwitch(IValueElement obj)

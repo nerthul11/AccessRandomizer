@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using AccessRandomizer.Manager;
 using ItemChanger;
-using UnityEngine.SceneManagement;
+using ItemChanger.Modules;
 
 namespace AccessRandomizer.Modules
 {
-    public class AccessModule : ItemChanger.Modules.Module
+    public class AccessModule : Module
     {
         public SaveSettings Settings { get; set; } = new();
         public class SaveSettings 
@@ -15,29 +15,44 @@ namespace AccessRandomizer.Modules
             public bool HollowKnightChains { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.HollowKnightChains;
             public bool UniqueKeys { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.UniqueKeys;
             public bool MapperKey { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.MapperKey;
+            public bool GladeAccess { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.GladeAccess;
         }   
+        public bool RespectObtained { get; set; } = false;
         public int ChainsBroken { get; set; } = 0;   
-        public bool GraveyardKey { get; set;} = false;
-        public bool WaterwaysKey { get; set;} = false;
-        public bool PleasureKey { get; set;} = false;
-        public bool CoffinKey { get; set;} = false;
-        public bool UnlockedIselda { get; set;} = false;
+        public bool GraveyardKey { get; set; } = false;
+        public bool WaterwaysKey { get; set; } = false;
+        public bool PleasureKey { get; set; } = false;
+        public bool CoffinKey { get; set; } = false;
+        public bool UnlockedIselda { get; set; } = false;
+        public bool UnlockedGlade { get; set; } = false;
         public static AccessModule Instance => ItemChangerMod.Modules.GetOrAdd<AccessModule>();
         public override void Initialize() 
         {
             On.PlayerData.SetBool += Refresh;
             On.GameManager.BeginSceneTransition += ForceBools;
+            if (Settings.MapperKey)
+            {
+                ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<AutoUnlockIselda>());
+                PlayerData.instance.openedMapperShop = UnlockedIselda;
+            }
         }
 
         public override void Unload()
         {
             On.PlayerData.SetBool -= Refresh;
             On.GameManager.BeginSceneTransition -= ForceBools;
+            if (Settings.MapperKey)
+            {
+                ItemChangerMod.Modules.GetOrAdd<AutoUnlockIselda>();
+                PlayerData.instance.openedMapperShop = UnlockedIselda;
+            }
         }
 
         private void ForceBools(On.GameManager.orig_BeginSceneTransition orig, GameManager self, GameManager.SceneLoadInfo info)
         {
             orig(self, info);
+
+            // Unlock the shop door if accessed through its gate via Room Rando.
             if (info.SceneName == SceneNames.Town && Settings.MapperKey && RandomizerMod.RandomizerMod.IsRandoSave)
                 PlayerData.instance.openedMapperShop = UnlockedIselda || info.EntryGateName == "door_mapper";
         }
@@ -48,6 +63,8 @@ namespace AccessRandomizer.Modules
         {
             orig(self, boolName, value);
             if (!Settings.MantisRespect && boolName == "defeatedMantisLords")
+                CompletedChallenges();
+            if (!Settings.GladeAccess && boolName == "gladeDoorOpened")
                 CompletedChallenges();
         }
         public void CompletedChallenges()
@@ -78,6 +95,9 @@ namespace AccessRandomizer.Modules
             
             if (UnlockedIselda && Settings.MapperKey)
                 completed.Add("Mapper Key");
+            
+            if (PlayerData.instance.gladeDoorOpened)
+                completed.Add("Glade Access");
 
             OnAccessObtained?.Invoke(completed);
         }

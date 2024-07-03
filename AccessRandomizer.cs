@@ -6,10 +6,10 @@ using System;
 
 namespace AccessRandomizer
 {
-    public class AccessRandomizer : Mod, IGlobalSettings<GlobalSettings> 
+    public class AccessRandomizer : Mod, IGlobalSettings<AccessSettings> 
     {
         new public string GetName() => "AccessRandomizer";
-        public override string GetVersion() => "1.2.1.1";
+        public override string GetVersion() => "1.2.2.0";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()
@@ -27,7 +27,7 @@ namespace AccessRandomizer
                 return _instance;
             }
         }
-        public GlobalSettings GS { get; internal set; } = new();
+        public AccessSettings GS { get; internal set; } = new();
         public override void Initialize()
         {
             // Ignore completely if Randomizer 4 is inactive
@@ -45,7 +45,7 @@ namespace AccessRandomizer
                 CondensedSpoilerLogger.AddCategory("Miscellaneous Access", () => AccessManager.Settings.Enabled, 
                     [
                         "Mapper_Key", "Mantis_Respect", "Graveyard_Key", "Waterways_Key", "Pleasure_Key", 
-                        "Coffin_Key", "Hollow_Knight_Chain"
+                        "Coffin_Key", "Glade_Key", "Hollow_Knight_Chain", 
                     ]
                 );
                 Instance.Log("Initialized.");
@@ -53,7 +53,7 @@ namespace AccessRandomizer
 
             }
         }
-        public void OnLoadGlobal(GlobalSettings s) => GS = s;
-        public GlobalSettings OnSaveGlobal() => GS;
+        public void OnLoadGlobal(AccessSettings s) => GS = s;
+        public AccessSettings OnSaveGlobal() => GS;
     }   
 }

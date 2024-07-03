@@ -1,9 +1,12 @@
-using System;
-
 namespace AccessRandomizer.Settings
 {
-    public class GlobalSettings
+    public class AccessSettings
     {
-        public AccessSettings Settings { get; set; } = new();
+        public bool Enabled { get; set; }
+        public bool MantisRespect { get; set;}
+        public bool HollowKnightChains { get; set;}
+        public bool UniqueKeys { get; set; }
+        public bool MapperKey { get; set; }
+        public bool GladeAccess { get; set; }
     }
 }

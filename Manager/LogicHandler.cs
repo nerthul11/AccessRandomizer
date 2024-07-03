@@ -86,6 +86,13 @@ namespace AccessRandomizer.Manager
                 lmb.AddLogicDef(new("Mapper_Key", "Crossroads_33"));
                 lmb.DoLogicEdit(new("Town[door_mapper]", "Town[door_mapper] | Town + MAPPERKEY"));
             }
+
+            if (AccessManager.Settings.GladeAccess)
+            {
+                lmb.GetOrAddTerm("GLADEKEY", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Glade_Key", "GLADEKEY++"));
+                lmb.DoLogicEdit(new("Opened_Glade_Door", "RestingGrounds_05 + GLADEKEY"));
+            }
         }
     }
 }
