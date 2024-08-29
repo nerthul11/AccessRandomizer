@@ -26,6 +26,14 @@ This setting deletes the concept of Simple Key, and the resulting keys will be d
 
 By default, rando saves have Iselda always be available. Turns out, Corfiner may or not have lost the shop key. This will add a location somewhere close to Crossroads Cornifer and an item that will trigger accesibility to the shop's door in Dirtmouth.
 
+## Glade Key
+
+If this setting is on, the Seer will no longer unlock the Spirit's Glade when you reach 200 Essence. Instead, a new key is added that unlocks that particular transition.
+
+## Split Tram / Elevator
+
+Hallownest has two big elevators in City of Tears that allow you to traverse through different areas, and two Trams that serve a similar purpose. What if accessing them was slightly more cursed and split it like Dash, Claw or whatever can be split? This setting allows exactly that.
+
 ## Integrations
 
 If FStats is enabled, a new page for the obtention of items will be added.
@@ -33,3 +41,5 @@ If FStats is enabled, a new page for the obtention of items will be added.
 - Hollow Knight Chains: An entry will be added for each chain item that is obtained.
 - Unique Keys: An entry will be added for each key that is obtained.
 - Mapper Key: If randomized, an entry will be added for whenever Iselda's shop is unlocked.
+- Glade Access: This entry is included whenever you open the Spirit's Glade door, be it with essence or with the key.
+- Split Tram/Elevator: Obtaining each of these, if randomized, will also be added as entries.
