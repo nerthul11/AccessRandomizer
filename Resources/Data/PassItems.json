@@ -1,0 +1,130 @@
+[
+    {
+        "$type": "AccessRandomizer.IC.SplitPassItem, AccessRandomizer",
+        "name": "Upper_Tram_Pass",
+        "passType": "Tram",
+        "passSide": "Upper",
+        "UIDef": {
+          "$type": "ItemChanger.UIDefs.MsgUIDef, ItemChanger",
+          "name": {
+            "$type": "ItemChanger.BoxedString, ItemChanger",
+            "Value": "Upper Tram Pass"
+          },
+          "shopDesc": {
+            "$type": "ItemChanger.BoxedString, ItemChanger",
+            "Value": "It's the Tram Pass... But is it, though?"
+          },
+          "sprite": {
+            "$type": "ItemChanger.ItemChangerSprite, ItemChanger",
+            "Key": "ShopIcons.TramPass"
+          }
+        },
+        "tags": [
+          {
+            "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+            "Message": "RandoSupplementalMetadata",
+            "Properties": {
+              "ModSource": "AccessRandomizer",
+              "PoolGroup": "Keys"
+            }
+          }
+        ],
+        "obtainState": "Unobtained"
+    },
+    {
+        "$type": "AccessRandomizer.IC.SplitPassItem, AccessRandomizer",
+        "name": "Lower_Tram_Pass",
+        "passType": "Tram",
+        "passSide": "Lower",
+        "UIDef": {
+          "$type": "ItemChanger.UIDefs.MsgUIDef, ItemChanger",
+          "name": {
+            "$type": "ItemChanger.BoxedString, ItemChanger",
+            "Value": "Lower Tram Pass"
+          },
+          "shopDesc": {
+            "$type": "ItemChanger.BoxedString, ItemChanger",
+            "Value": "It's the Tram Pass... But is it, though?"
+          },
+          "sprite": {
+            "$type": "ItemChanger.ItemChangerSprite, ItemChanger",
+            "Key": "ShopIcons.TramPass"
+          }
+        },
+        "tags": [
+          {
+            "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+            "Message": "RandoSupplementalMetadata",
+            "Properties": {
+              "ModSource": "AccessRandomizer",
+              "PoolGroup": "Keys"
+            }
+          }
+        ],
+        "obtainState": "Unobtained"
+    },
+    {
+        "$type": "AccessRandomizer.IC.SplitPassItem, AccessRandomizer",
+        "name": "Left_Elevator_Pass",
+        "passType": "Elevator",
+        "passSide": "Left",
+        "UIDef": {
+          "$type": "ItemChanger.UIDefs.MsgUIDef, ItemChanger",
+          "name": {
+            "$type": "ItemChanger.BoxedString, ItemChanger",
+            "Value": "Left Elevator Pass"
+          },
+          "shopDesc": {
+            "$type": "ItemChanger.BoxedString, ItemChanger",
+            "Value": "Wait, so now you need to find not one, but two of these weird things?"
+          },
+          "sprite": {
+            "$type": "ItemChanger.ItemChangerSprite, ItemChanger",
+            "Key": "ShopIcons.ElevatorPass"
+          }
+        },
+        "tags": [
+          {
+            "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+            "Message": "RandoSupplementalMetadata",
+            "Properties": {
+              "ModSource": "AccessRandomizer",
+              "PoolGroup": "Keys"
+            }
+          }
+        ],
+        "obtainState": "Unobtained"
+    },
+    {
+        "$type": "AccessRandomizer.IC.SplitPassItem, AccessRandomizer",
+        "name": "Right_Elevator_Pass",
+        "passType": "Elevator",
+        "passSide": "Right",
+        "UIDef": {
+          "$type": "ItemChanger.UIDefs.MsgUIDef, ItemChanger",
+          "name": {
+            "$type": "ItemChanger.BoxedString, ItemChanger",
+            "Value": "Right Elevator Pass"
+          },
+          "shopDesc": {
+            "$type": "ItemChanger.BoxedString, ItemChanger",
+            "Value": "Wait, so now you need to find not one, but two of these weird things?"
+          },
+          "sprite": {
+            "$type": "ItemChanger.ItemChangerSprite, ItemChanger",
+            "Key": "ShopIcons.ElevatorPass"
+          }
+        },
+        "tags": [
+          {
+            "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+            "Message": "RandoSupplementalMetadata",
+            "Properties": {
+              "ModSource": "AccessRandomizer",
+              "PoolGroup": "Keys"
+            }
+          }
+        ],
+        "obtainState": "Unobtained"
+    }
+]

@@ -93,6 +93,30 @@ namespace AccessRandomizer.Manager
                 lmb.AddItem(new StringItemTemplate("Glade_Key", "GLADEKEY++"));
                 lmb.DoLogicEdit(new("Opened_Glade_Door", "RestingGrounds_05 + GLADEKEY"));
             }
+
+            if (AccessManager.Settings.SplitTram && gs.PoolSettings.Keys)
+            {
+                lmb.GetOrAddTerm("UPPERTRAM", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Upper_Tram_Pass", "UPPERTRAM++"));
+                lmb.GetOrAddTerm("LOWERTRAM", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Lower_Tram_Pass", "LOWERTRAM++"));
+                lmb.AddLogicDef(new RawLogicDef("Split_Tram_Pass", "*Tram_Pass"));
+
+                lmb.DoSubst(new RawSubstDef("Upper_Tram", "TRAM", "UPPERTRAM"));
+                lmb.DoSubst(new RawSubstDef("Lower_Tram", "TRAM", "LOWERTRAM"));
+            }
+
+            if (AccessManager.Settings.SplitElevator && gs.NoveltySettings.RandomizeElevatorPass)
+            {
+                lmb.GetOrAddTerm("Left_Elevator_Pass", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Left_Elevator_Pass", "Left_Elevator_Pass++"));
+                lmb.GetOrAddTerm("Right_Elevator_Pass", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Right_Elevator_Pass", "Right_Elevator_Pass++"));
+                lmb.AddLogicDef(new RawLogicDef("Split_Elevator_Pass", "(Ruins2_10b[left1] | Ruins2_10b[right1] | Ruins2_10b[right2] | Right_Elevator) + Can_Replenish_Geo"));
+
+                lmb.DoSubst(new RawSubstDef("Left_Elevator", "Elevator_Pass", "Left_Elevator_Pass"));
+                lmb.DoSubst(new RawSubstDef("Right_Elevator", "Elevator_Pass", "Right_Elevator_Pass"));
+            }
         }
     }
 }

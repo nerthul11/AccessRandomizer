@@ -8,5 +8,7 @@ namespace AccessRandomizer.Settings
         public bool UniqueKeys { get; set; }
         public bool MapperKey { get; set; }
         public bool GladeAccess { get; set; }
+        public bool SplitTram { get; set; }
+        public bool SplitElevator { get; set; }
     }
 }

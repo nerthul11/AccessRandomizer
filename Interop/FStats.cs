@@ -54,14 +54,16 @@ namespace AccessRandomizer.Interop
         {
             List<string> rows = AccessMarks.OrderBy(x => x.Timestamp).Select(x => $"{x.Mark}: {x.Timestamp.PlaytimeHHMMSS()}").ToList();
             AccessModule.SaveSettings settings = AccessModule.Instance.Settings;
-            int rowTotal = 2 + (settings.HollowKnightChains ? 4 : 0) + (settings.UniqueKeys ? 4 : 0) + (settings.MapperKey ? 1 : 0);
-            if (AccessMarks.Count == 0)
-                yield break;
-            
+            int rowTotal = 2;
+            rowTotal += settings.HollowKnightChains ? 4 : 0;
+            rowTotal += settings.UniqueKeys ? 4 : 0;
+            rowTotal += settings.MapperKey ? 1 : 0;
+            rowTotal += settings.SplitElevator ? 2 : 0;
+            rowTotal += settings.SplitTram ? 2 : 0;            
             yield return new()
             {
                 Title = "Access Randomizer Timeline",
-                MainStat = $"{AccessMarks.Count}/{rowTotal}",
+                MainStat = $"{AccessMarks.Count} / {rowTotal}",
                 StatColumns = Columnize(rows),
                 Priority = BuiltinScreenPriorityValues.ExtensionStats
             };

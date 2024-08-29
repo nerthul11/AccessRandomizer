@@ -17,6 +17,8 @@ namespace AccessRandomizer.Manager {
         {
             DefineObjects();
             RequestBuilder.OnUpdate.Subscribe(0f, AddObjects);
+            RequestBuilder.OnUpdate.Subscribe(40f, SplitTram);
+            RequestBuilder.OnUpdate.Subscribe(40f, SplitElevator);
             RequestBuilder.OnUpdate.Subscribe(200f, AddGladeKey);
             RequestBuilder.OnUpdate.Subscribe(1200f, ReplaceKeys);
         }
@@ -25,12 +27,12 @@ namespace AccessRandomizer.Manager {
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             JsonSerializer jsonSerializer = new() {TypeNameHandling = TypeNameHandling.Auto};
-            using Stream itemStream = assembly.GetManifestResourceStream("AccessRandomizer.Resources.Data.KeyItems.json");
-            StreamReader itemReader = new(itemStream);
-            List<KeyItem> itemList = jsonSerializer.Deserialize<List<KeyItem>>(new JsonTextReader(itemReader));
+            using Stream keyStream = assembly.GetManifestResourceStream("AccessRandomizer.Resources.Data.KeyItems.json");
+            StreamReader keyReader = new(keyStream);
+            List<KeyItem> keyList = jsonSerializer.Deserialize<List<KeyItem>>(new JsonTextReader(keyReader));
 
-            foreach (KeyItem item in itemList)
-                Finder.DefineCustomItem(item);
+            foreach (KeyItem key in keyList)
+                Finder.DefineCustomItem(key);
             
             Finder.DefineCustomItem(new RespectItem());
             Finder.DefineCustomLocation(new RespectLocation());
@@ -45,6 +47,15 @@ namespace AccessRandomizer.Manager {
             Finder.DefineCustomLocation(new MapperKeyLocation());
 
             Finder.DefineCustomItem(new GladeItem());
+
+            using Stream passStream = assembly.GetManifestResourceStream("AccessRandomizer.Resources.Data.PassItems.json");
+            StreamReader passReader = new(passStream);
+            List<SplitPassItem> passList = jsonSerializer.Deserialize<List<SplitPassItem>>(new JsonTextReader(passReader));
+
+            foreach (SplitPassItem pass in passList)
+                Finder.DefineCustomItem(pass);
+            Finder.DefineCustomLocation(new SplitTramLocation());
+            Finder.DefineCustomLocation(new SplitElevatorLocation());
         }
 
         public static void AddObjects(RequestBuilder rb)
@@ -274,13 +285,150 @@ namespace AccessRandomizer.Manager {
                     {
                         info.getItemDef = () => new()
                         {
-                            MajorItem = true,
+                            MajorItem = false,
                             Name = item,
                             Pool = "Key",
                             PriceCap = 500
                         };
                     });
                 };
+            }
+        }
+
+        private static void SplitTram(RequestBuilder rb)
+        {
+            if (!AccessManager.Settings.Enabled)
+                return;
+
+            if (AccessManager.Settings.SplitTram && rb.gs.PoolSettings.Keys)
+            {
+                // Remove Tram Pass
+                rb.RemoveItemByName(ItemNames.Tram_Pass);
+                rb.RemoveItemByName($"{PlaceholderItem.Prefix}{ItemNames.Tram_Pass}");
+
+                // Replace from start
+                if (rb.IsAtStart(ItemNames.Tram_Pass))
+                {
+                    rb.RemoveFromStart(ItemNames.Tram_Pass);
+                    int sideID = rb.rng.Next(0, 1);
+                    if (sideID == 0)
+                    {
+                        rb.AddToStart("Upper_Tram_Pass");
+                        rb.AddItemByName("Lower_Tram_Pass");
+                    }
+                    if (sideID == 1)
+                    {
+                        rb.AddToStart("Lower_Tram_Pass");
+                        rb.AddItemByName("Upper_Tram_Pass");
+                    }
+                }
+                else
+                {
+                    rb.AddItemByName("Upper_Tram_Pass");
+                    rb.AddItemByName("Lower_Tram_Pass");
+                }
+
+                // Dupe pass
+                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                {
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Upper_Tram_Pass");
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Lower_Tram_Pass");
+                }
+                foreach (string item in new List<string> {"Upper_Tram_Pass", "Lower_Tram_Pass"})
+                {
+                    rb.EditItemRequest(item, info =>
+                    {
+                        info.getItemDef = () => new()
+                        {
+                            MajorItem = false,
+                            Name = item,
+                            Pool = "Key",
+                            PriceCap = 500
+                        };
+                    });
+                };
+
+                rb.AddLocationByName("Split_Tram_Pass");
+                rb.EditLocationRequest("Split_Tram_Pass", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Split_Tram_Pass",
+                        SceneName = SceneNames.Ruins2_10b,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
+            }
+        }
+
+        private static void SplitElevator(RequestBuilder rb)
+        {
+            if (!AccessManager.Settings.Enabled)
+                return;
+
+            if (AccessManager.Settings.SplitElevator && rb.gs.NoveltySettings.RandomizeElevatorPass)
+            {
+                // Remove Elevator Pass
+                rb.RemoveItemByName(ItemNames.Elevator_Pass);
+                rb.RemoveItemByName($"{PlaceholderItem.Prefix}{ItemNames.Elevator_Pass}");
+
+                // Replace from start
+                if (rb.IsAtStart(ItemNames.Elevator_Pass))
+                {
+                    rb.RemoveFromStart(ItemNames.Elevator_Pass);
+                    int sideID = rb.rng.Next(0, 1);
+                    if (sideID == 0)
+                    {
+                        rb.AddToStart("Left_Elevator_Pass");
+                        rb.AddItemByName("Right_Elevator_Pass");
+                    }
+                    if (sideID == 1)
+                    {
+                        rb.AddToStart("Right_Elevator_Pass");
+                        rb.AddItemByName("Left_Elevator_Pass");
+                    }
+                }
+                else
+                {
+                    rb.AddItemByName("Left_Elevator_Pass");
+                    rb.AddItemByName("Right_Elevator_Pass");
+                }
+
+                // Dupe pass
+                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                {
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Left_Elevator_Pass");
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Right_Elevator_Pass");
+                }
+                foreach (string item in new List<string> {"Left_Elevator_Pass", "Right_Elevator_Pass"})
+                {
+                    rb.EditItemRequest(item, info =>
+                    {
+                        info.getItemDef = () => new()
+                        {
+                            MajorItem = false,
+                            Name = item,
+                            Pool = "Key",
+                            PriceCap = 500
+                        };
+                    });
+                };
+                rb.AddLocationByName("Split_Elevator_Pass");
+                rb.EditLocationRequest("Split_Elevator_Pass", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Split_Elevator_Pass",
+                        SceneName = SceneNames.Ruins2_10b,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                    info.onRandoLocationCreation += (factory, rl) =>
+                    {
+                        rl.AddCost(new LogicGeoCost(factory.lm, 150));
+                    };
+                });
             }
         }
     }

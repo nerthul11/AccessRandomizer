@@ -30,7 +30,7 @@ namespace AccessRandomizer.IC
             return tag;
         }
 
-        public override bool Redundant() => AccessModule.Instance.ChainsBroken >= 5;
+        public override bool Redundant() => AccessModule.Instance.ChainsBroken >= 4;
         public override void GiveImmediate(GiveInfo info) 
         {
             AccessModule module = AccessModule.Instance;

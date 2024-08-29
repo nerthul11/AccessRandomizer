@@ -88,6 +88,7 @@ namespace AccessRandomizer.IC
             // Add a complain state that locks you in the cage if respect is unobtained
             fsm.AddState("Complain");
             fsm.AddAction("Complain", new CustomAudio("MantisLord"));
+            fsm.AddAction("Complain", new CustomAudio("Zote"));
 
             // Grant an item after the battle.
             fsm.AddState("GiveItem");

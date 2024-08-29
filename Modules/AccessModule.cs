@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using AccessRandomizer.Manager;
 using ItemChanger;
 using ItemChanger.Modules;
@@ -16,6 +17,8 @@ namespace AccessRandomizer.Modules
             public bool UniqueKeys { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.UniqueKeys;
             public bool MapperKey { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.MapperKey;
             public bool GladeAccess { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.GladeAccess;
+            public bool SplitTram { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitTram;
+            public bool SplitElevator { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitElevator;
         }   
         public bool RespectObtained { get; set; } = false;
         public int ChainsBroken { get; set; } = 0;   
@@ -24,7 +27,10 @@ namespace AccessRandomizer.Modules
         public bool PleasureKey { get; set; } = false;
         public bool CoffinKey { get; set; } = false;
         public bool UnlockedIselda { get; set; } = false;
-        public bool UnlockedGlade { get; set; } = false;
+        public bool UpperTram { get; set; } = false;
+        public bool LowerTram { get; set; } = false;
+        public bool LeftElevator { get; set; } = false;
+        public bool RightElevator { get; set; } = false;
         public static AccessModule Instance => ItemChangerMod.Modules.GetOrAdd<AccessModule>();
         public override void Initialize() 
         {
@@ -35,17 +41,58 @@ namespace AccessRandomizer.Modules
                 ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<AutoUnlockIselda>());
                 PlayerData.instance.openedMapperShop = UnlockedIselda;
             }
+            if (Settings.SplitElevator)
+            {
+                ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<ElevatorPass>());
+                if (ItemChangerMod.Modules?.Get<InventoryTracker>() is InventoryTracker it)
+                    it.OnGenerateFocusDesc += ElevatorDesc;
+            }
+            if (Settings.SplitTram)
+            {
+                Events.AddLanguageEdit(new LanguageKey("UI", "INV_NAME_TRAM_PASS"), TramName);
+                Events.AddLanguageEdit(new LanguageKey("UI", "INV_DESC_TRAM_PASS"), TramDesc);
+            }
+        }
+
+        private void TramName(ref string value)
+        {
+            if (UpperTram && LowerTram)
+                return;
+            
+            if (UpperTram)
+                value = "Upper Tram Pass";
+            if (LowerTram)
+                value += "Lower Tram Pass";
+        }
+
+        private void TramDesc(ref string value)
+        {
+            if (UpperTram && LowerTram)
+                return;
+            
+            value = "You've got a ticket to ride. But it only works for the ";
+            if (UpperTram)
+                value += "Upper Tram.";
+            if (LowerTram)
+                value += "Lower Tram.";
+        }
+
+        private void ElevatorDesc(StringBuilder builder)
+        {
+            if (LeftElevator && RightElevator)
+                builder.AppendLine("You can ride large elevators.");
+            else if (LeftElevator)
+                builder.AppendLine("You can ride the left large elevator.");
+            else if (RightElevator)
+                builder.AppendLine("You can ride the right large elevator.");
+            else
+                builder.AppendLine("You cannot ride large elevators.");
         }
 
         public override void Unload()
         {
             On.PlayerData.SetBool -= Refresh;
             On.GameManager.BeginSceneTransition -= ForceBools;
-            if (Settings.MapperKey)
-            {
-                ItemChangerMod.Modules.GetOrAdd<AutoUnlockIselda>();
-                PlayerData.instance.openedMapperShop = UnlockedIselda;
-            }
         }
 
         private void ForceBools(On.GameManager.orig_BeginSceneTransition orig, GameManager self, GameManager.SceneLoadInfo info)
@@ -55,6 +102,16 @@ namespace AccessRandomizer.Modules
             // Unlock the shop door if accessed through its gate via Room Rando.
             if (info.SceneName == SceneNames.Town && Settings.MapperKey && RandomizerMod.RandomizerMod.IsRandoSave)
                 PlayerData.instance.openedMapperShop = UnlockedIselda || info.EntryGateName == "door_mapper";
+
+            // Lock/Unlock elevators based on the Split pass items.
+            if (info.SceneName == SceneNames.Crossroads_49 && Settings.SplitElevator)
+                PlayerData.instance.cityLift1 = LeftElevator;
+            if (info.SceneName == SceneNames.Crossroads_49b && Settings.SplitElevator)
+                PlayerData.instance.cityLift1 = LeftElevator;
+            if (info.SceneName == SceneNames.Ruins2_10 && Settings.SplitElevator)
+                PlayerData.instance.cityLift2 = RightElevator;
+            if (info.SceneName == SceneNames.Ruins2_10b && Settings.SplitElevator)
+                PlayerData.instance.cityLift2 = RightElevator;
         }
         public delegate void AccessObtained(List<string> marks);
         public event AccessObtained OnAccessObtained;
@@ -99,22 +156,25 @@ namespace AccessRandomizer.Modules
             if (PlayerData.instance.gladeDoorOpened)
                 completed.Add("Glade Access");
 
+            if (UpperTram)
+                completed.Add("Upper Tram Pass");
+            if (LowerTram)
+                completed.Add("Lower Tram Pass");
+            if (LeftElevator)
+                completed.Add("Left Elevator Pass");
+            if (RightElevator)
+                completed.Add("Right Elevator Pass");
+
             OnAccessObtained?.Invoke(completed);
         }
 
         public T GetVariable<T>(string propertyName) {
-            var property = typeof(AccessModule).GetProperty(propertyName);
-            if (property == null) {
-                throw new ArgumentException($"Property '{propertyName}' not found in AccessModule class.");
-            }
+            var property = typeof(AccessModule).GetProperty(propertyName) ?? throw new ArgumentException($"Property '{propertyName}' not found in AccessModule class.");
             return (T)property.GetValue(this);
         }
 
         public void SetVariable<T>(string propertyName, T value) {
-            var property = typeof(AccessModule).GetProperty(propertyName);
-            if (property == null) {
-                throw new ArgumentException($"Property '{propertyName}' not found in AccessModule class.");
-            }
+            var property = typeof(AccessModule).GetProperty(propertyName) ?? throw new ArgumentException($"Property '{propertyName}' not found in AccessModule class.");
             property.SetValue(this, value);
         }
     }
