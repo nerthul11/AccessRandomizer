@@ -354,7 +354,7 @@ namespace AccessRandomizer.Manager {
                     info.getLocationDef = () => new()
                     {
                         Name = "Split_Tram_Pass",
-                        SceneName = SceneNames.Ruins2_10b,
+                        SceneName = SceneNames.Deepnest_26b,
                         FlexibleCount = false,
                         AdditionalProgressionPenalty = false
                     };

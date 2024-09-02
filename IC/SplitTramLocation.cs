@@ -32,6 +32,7 @@ namespace AccessRandomizer.IC
 
         protected override void OnLoad()
         {
+            base.OnLoad();
             Events.AddFsmEdit(SceneNames.Abyss_03, new("Tram Call Box", "Conversation Control"), LowerTramCallEdit);
             Events.AddFsmEdit(SceneNames.Abyss_03_b, new("Tram Call Box", "Conversation Control"), LowerTramCallEdit);
             Events.AddFsmEdit(SceneNames.Abyss_03_c, new("Tram Call Box", "Conversation Control"), LowerTramCallEdit);
@@ -46,6 +47,7 @@ namespace AccessRandomizer.IC
 
         protected override void OnUnload()
         {
+            base.OnUnload();
             Events.RemoveFsmEdit(SceneNames.Abyss_03, new("Tram Call Box", "Conversation Control"), LowerTramCallEdit);
             Events.RemoveFsmEdit(SceneNames.Abyss_03_b, new("Tram Call Box", "Conversation Control"), LowerTramCallEdit);
             Events.RemoveFsmEdit(SceneNames.Abyss_03_c, new("Tram Call Box", "Conversation Control"), LowerTramCallEdit);
