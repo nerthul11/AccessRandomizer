@@ -117,6 +117,28 @@ namespace AccessRandomizer.Manager
                 lmb.DoSubst(new RawSubstDef("Left_Elevator", "Elevator_Pass", "Left_Elevator_Pass"));
                 lmb.DoSubst(new RawSubstDef("Right_Elevator", "Elevator_Pass", "Right_Elevator_Pass"));
             }
+
+            if (AccessManager.Settings.TrapBench)
+            {
+                lmb.GetOrAddTerm("Trap_Bench", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Trap_Bench", "Trap_Bench++"));
+                lmb.AddLogicDef(new RawLogicDef("Trap_Bench", "Deepnest_Spider_Town[left1]"));
+
+                // Objects inside Beast Den require either secret entrance access or the trap item
+                string subst = "Deepnest_Spider_Town[left1] + (Trap_Bench | WINGS + (RIGHTCLAW + (LEFTDASH | LEFTSUPERDASH | FIREBALLSKIPS + (RIGHTFIREBALL | SCREAM) + $CASTSPELL[1]) | LEFTCLAW + RIGHTSUPERDASH) + Plank-Den_Secret_Entrance?TRUE)";
+                
+                lmb.DoSubst(new RawSubstDef("Herrah", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Bench-Beast's_Den", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Rancid_Egg-Beast's_Den", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Hallownest_Seal-Beast's_Den", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Grub-Beast's_Den", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Geo_Rock-Beast's_Den_Above_Trilobite", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Geo_Rock-Beast's_Den_After_Herrah", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Geo_Rock-Beast's_Den_Below_Herrah", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Geo_Rock-Beast's_Den_Below_Egg", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Geo_Rock-Beast's_Den_Bottom", "Deepnest_Spider_Town[left1]", subst));
+                lmb.DoSubst(new RawSubstDef("Soul_Totem-Beast's_Den", "Deepnest_Spider_Town[left1]", subst));
+            }
         }
     }
 }

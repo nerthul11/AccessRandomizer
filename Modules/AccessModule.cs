@@ -19,6 +19,7 @@ namespace AccessRandomizer.Modules
             public bool GladeAccess { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.GladeAccess;
             public bool SplitTram { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitTram;
             public bool SplitElevator { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitElevator;
+            public bool TrapBench { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.TrapBench;
         }   
         public bool RespectObtained { get; set; } = false;
         public int ChainsBroken { get; set; } = 0;   
@@ -31,6 +32,7 @@ namespace AccessRandomizer.Modules
         public bool LowerTram { get; set; } = false;
         public bool LeftElevator { get; set; } = false;
         public bool RightElevator { get; set; } = false;
+        public bool TrapBench { get; set; } = false;
         public static AccessModule Instance => ItemChangerMod.Modules.GetOrAdd<AccessModule>();
         public override void Initialize() 
         {
@@ -51,6 +53,11 @@ namespace AccessRandomizer.Modules
             {
                 Events.AddLanguageEdit(new LanguageKey("UI", "INV_NAME_TRAM_PASS"), TramName);
                 Events.AddLanguageEdit(new LanguageKey("UI", "INV_DESC_TRAM_PASS"), TramDesc);
+            }
+            if (Settings.TrapBench)
+            {
+                ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<ReusableBeastsDenEntrance>());
+                PlayerData.instance.spiderCapture = !TrapBench;
             }
         }
 
@@ -112,6 +119,10 @@ namespace AccessRandomizer.Modules
                 PlayerData.instance.cityLift2 = RightElevator;
             if (info.SceneName == SceneNames.Ruins2_10b && Settings.SplitElevator)
                 PlayerData.instance.cityLift2 = RightElevator;
+            
+            // Activate/Deactivate Beast Den bench based on Trap Bench item.
+            if (info.SceneName == SceneNames.Deepnest_Spider_Town && Settings.TrapBench)
+                PlayerData.instance.spiderCapture = !TrapBench;
         }
         public delegate void AccessObtained(List<string> marks);
         public event AccessObtained OnAccessObtained;
@@ -164,6 +175,9 @@ namespace AccessRandomizer.Modules
                 completed.Add("Left Elevator Pass");
             if (RightElevator)
                 completed.Add("Right Elevator Pass");
+            
+            if (TrapBench)
+                completed.Add("Beast Den Access");
 
             OnAccessObtained?.Invoke(completed);
         }

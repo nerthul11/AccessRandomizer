@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using RandomizerMod.IC;
 using RandomizerMod.RC;
 using RandomizerMod.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -56,6 +57,9 @@ namespace AccessRandomizer.Manager {
                 Finder.DefineCustomItem(pass);
             Finder.DefineCustomLocation(new SplitTramLocation());
             Finder.DefineCustomLocation(new SplitElevatorLocation());
+
+            Finder.DefineCustomItem(new TrapBenchItem());
+            Finder.DefineCustomLocation(new TrapBenchLocation());
         }
 
         public static void AddObjects(RequestBuilder rb)
@@ -148,6 +152,34 @@ namespace AccessRandomizer.Manager {
                 });
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
                     rb.AddItemByName($"{PlaceholderItem.Prefix}Mapper_Key");
+            }
+
+            if (AccessManager.Settings.TrapBench)
+            {
+                rb.AddItemByName("Trap_Bench");
+                rb.EditItemRequest("Trap_Bench", info => 
+                {
+                    info.getItemDef = () => new()
+                    {
+                        MajorItem = false,
+                        Name = "Trap_Bench",
+                        Pool = "Key",
+                        PriceCap = 500
+                    };
+                });
+                rb.AddLocationByName("Trap_Bench");
+                rb.EditLocationRequest("Trap_Bench", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Trap_Bench",
+                        SceneName = SceneNames.Deepnest_Spider_Town,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
+                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Trap_Bench");
             }
         }
 

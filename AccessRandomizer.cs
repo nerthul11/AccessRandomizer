@@ -9,7 +9,7 @@ namespace AccessRandomizer
     public class AccessRandomizer : Mod, IGlobalSettings<AccessSettings> 
     {
         new public string GetName() => "AccessRandomizer";
-        public override string GetVersion() => "1.2.3.1";
+        public override string GetVersion() => "1.2.4.0";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()
@@ -47,7 +47,7 @@ namespace AccessRandomizer
                         "Mapper_Key", "Mantis_Respect", "Graveyard_Key", "Waterways_Key", "Pleasure_Key", 
                         "Coffin_Key", "Glade_Key", "Hollow_Knight_Chain", 
                         "Left_Elevator_Pass", "Right_Elevator_Pass",
-                        "Upper_Tram_Pass", "Lower_Tram_Pass",
+                        "Upper_Tram_Pass", "Lower_Tram_Pass", "Trap_Bench"
                     ]
                 );
                 Instance.Log("Initialized.");

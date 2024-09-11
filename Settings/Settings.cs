@@ -10,5 +10,6 @@ namespace AccessRandomizer.Settings
         public bool GladeAccess { get; set; }
         public bool SplitTram { get; set; }
         public bool SplitElevator { get; set; }
+        public bool TrapBench { get; set; }
     }
 }
