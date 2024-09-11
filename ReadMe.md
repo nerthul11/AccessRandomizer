@@ -34,6 +34,10 @@ If this setting is on, the Seer will no longer unlock the Spirit's Glade when yo
 
 Hallownest has two big elevators in City of Tears that allow you to traverse through different areas, and two Trams that serve a similar purpose. What if accessing them was slightly more cursed and split it like Dash, Claw or whatever can be split? This setting allows exactly that.
 
+## Trap Bench
+
+You ever thought "why would I ever use the Beast Den backdoor if I can just sit in the bench"? Well, think again, because this setting might force you to... Unless you find the Trap Bench item first, that is.
+
 ## Integrations
 
 If FStats is enabled, a new page for the obtention of items will be added.
