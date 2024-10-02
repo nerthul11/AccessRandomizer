@@ -61,6 +61,14 @@ namespace AccessRandomizer.Modules
             }
         }
 
+        public override void Unload()
+        {
+            On.PlayerData.SetBool -= Refresh;
+            On.GameManager.BeginSceneTransition -= ForceBools;
+            Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_NAME_TRAM_PASS"), TramName);
+            Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_DESC_TRAM_PASS"), TramDesc);
+        }
+
         private void TramName(ref string value)
         {
             if (UpperTram && LowerTram)
@@ -94,12 +102,6 @@ namespace AccessRandomizer.Modules
                 builder.AppendLine("You can ride the right large elevator.");
             else
                 builder.AppendLine("You cannot ride large elevators.");
-        }
-
-        public override void Unload()
-        {
-            On.PlayerData.SetBool -= Refresh;
-            On.GameManager.BeginSceneTransition -= ForceBools;
         }
 
         private void ForceBools(On.GameManager.orig_BeginSceneTransition orig, GameManager self, GameManager.SceneLoadInfo info)

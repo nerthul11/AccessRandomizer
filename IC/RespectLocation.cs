@@ -2,10 +2,10 @@ using ItemChanger;
 using ItemChanger.Locations;
 using ItemChanger.Util;
 using ItemChanger.Tags;
-using KorzUtils.Helper;
 using Satchel;
 using System.Linq;
 using AccessRandomizer.Fsm;
+using UnityEngine;
 
 namespace AccessRandomizer.IC
 {
@@ -69,7 +69,12 @@ namespace AccessRandomizer.IC
                 fsm.ChangeTransition("Can Talk Bool?", "TRUE", "Idle 2");
                 // Keep the location disabled but spawn shiny item
                 if (Placement.Items.All(x => x.WasEverObtained()))
-                    ItemHelper.SpawnShiny(new(30.2f, 7.4f), Placement);
+                {
+                    Container c = Container.GetContainer(Container.Shiny);
+                    GameObject shiny = c.GetNewContainer(new(c.Name, Placement, flingType));
+                    shiny.transform.position = new(30.2f, 7.4f);
+                    shiny.SetActive(true);
+                }
             }
             else
                 // Force enable if it isn't

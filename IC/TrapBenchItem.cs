@@ -11,6 +11,7 @@ namespace AccessRandomizer.IC
         public override void GiveImmediate(GiveInfo info)
         {
             AccessModule.Instance.TrapBench = true;
+            PlayerData.instance.spiderCapture = false;
             AccessModule.Instance.CompletedChallenges();
         }
 
