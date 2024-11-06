@@ -16,7 +16,7 @@ namespace AccessRandomizer.IC
                 shopDesc = new BoxedString("Bow before the Knight."),
                 sprite = new AccessSprite("Respect")
             };
-            tags = [RespectTag()];
+            tags = [RespectTag(), CurseTag()];
         }
         private static Tag RespectTag()
         {
@@ -25,6 +25,15 @@ namespace AccessRandomizer.IC
             tag.Properties["PoolGroup"] = "Keys";
             tag.Properties["PinSprite"] = new AccessSprite("Respect");
             tag.Message = "RandoSupplementalMetadata";
+            return tag;
+        }
+
+        private InteropTag CurseTag()
+        {
+            InteropTag tag = new();
+            tag.Properties["CanMimic"] = new BoxedBool(true);
+            tag.Properties["MimicNames"] = new string[] {"Mant1s Respect", "Mantis Respekt", "Mantis' 'Respect'", "Mantis' Respect?'"};
+            tag.Message = "CurseData";
             return tag;
         }
         

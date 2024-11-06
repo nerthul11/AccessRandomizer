@@ -38,6 +38,25 @@
               "Key": "GraveyardKey"
             }
           }
+        },
+        {
+          "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+          "Properties": {
+            "CanMimic": {
+              "$type": "ItemChanger.BoxedBool, ItemChanger",
+              "Value": true
+            },
+            "MimicNames": {
+              "$type": "System.String[], mscorlib",
+              "$values": [
+                "Graweyard Key",
+                "Graveyard Keey",
+                "Graveyarrd Key"
+              ]
+            }
+          },
+          "Message": "CurseData",
+          "Loaded": true
         }
       ],
       "obtainState": "Unobtained"
@@ -81,6 +100,25 @@
               "Key": "WaterwaysKey"
             }
           }
+        },
+        {
+          "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+          "Properties": {
+            "CanMimic": {
+              "$type": "ItemChanger.BoxedBool, ItemChanger",
+              "Value": true
+            },
+            "MimicNames": {
+              "$type": "System.String[], mscorlib",
+              "$values": [
+                "Water Key",
+                "Watervays Key",
+                "Walterways Key"
+              ]
+            }
+          },
+          "Message": "CurseData",
+          "Loaded": true
         }
       ],
       "obtainState": "Unobtained"
@@ -124,6 +162,26 @@
               "Key": "PleasureKey"
             }
           }
+        },
+        {
+          "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+          "Properties": {
+            "CanMimic": {
+              "$type": "ItemChanger.BoxedBool, ItemChanger",
+              "Value": true
+            },
+            "MimicNames": {
+              "$type": "System.String[], mscorlib",
+              "$values": [
+                "Pleashure Key",
+                "Preasule Key",
+                "P1easure Key",
+                "NSFW 18+ Real Key"
+              ]
+            }
+          },
+          "Message": "CurseData",
+          "Loaded": true
         }
       ],
       "obtainState": "Unobtained"
@@ -167,6 +225,25 @@
               "Key": "CoffinKey"
             }
           }
+        },
+        {
+          "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+          "Properties": {
+            "CanMimic": {
+              "$type": "ItemChanger.BoxedBool, ItemChanger",
+              "Value": true
+            },
+            "MimicNames": {
+              "$type": "System.String[], mscorlib",
+              "$values": [
+                "Cofin Key",
+                "Coff1n Key",
+                "Koffing Key"
+              ]
+            }
+          },
+          "Message": "CurseData",
+          "Loaded": true
         }
       ],
       "obtainState": "Unobtained"

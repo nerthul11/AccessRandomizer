@@ -27,6 +27,25 @@
               "ModSource": "AccessRandomizer",
               "PoolGroup": "Keys"
             }
+          },
+          {
+            "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+            "Properties": {
+              "CanMimic": {
+                "$type": "ItemChanger.BoxedBool, ItemChanger",
+                "Value": true
+              },
+              "MimicNames": {
+                "$type": "System.String[], mscorlib",
+                "$values": [
+                  "Uper Tram Pass",
+                  "Upper Tram Pas",
+                  "Uppper Tram Pass"
+                ]
+              }
+            },
+            "Message": "CurseData",
+            "Loaded": true
           }
         ],
         "obtainState": "Unobtained"
@@ -59,6 +78,25 @@
               "ModSource": "AccessRandomizer",
               "PoolGroup": "Keys"
             }
+          },
+          {
+            "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+            "Properties": {
+              "CanMimic": {
+                "$type": "ItemChanger.BoxedBool, ItemChanger",
+                "Value": true
+              },
+              "MimicNames": {
+                "$type": "System.String[], mscorlib",
+                "$values": [
+                  "Lover Tram Pass",
+                  "Lower Tramp Pass",
+                  "Lower Trap Mass"
+                ]
+              }
+            },
+            "Message": "CurseData",
+            "Loaded": true
           }
         ],
         "obtainState": "Unobtained"
@@ -91,6 +129,25 @@
               "ModSource": "AccessRandomizer",
               "PoolGroup": "Keys"
             }
+          },
+          {
+            "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+            "Properties": {
+              "CanMimic": {
+                "$type": "ItemChanger.BoxedBool, ItemChanger",
+                "Value": true
+              },
+              "MimicNames": {
+                "$type": "System.String[], mscorlib",
+                "$values": [
+                  "Left Hellevator Pass",
+                  "Left Evelator Pass",
+                  "Left E1evator Pass"
+                ]
+              }
+            },
+            "Message": "CurseData",
+            "Loaded": true
           }
         ],
         "obtainState": "Unobtained"
@@ -123,6 +180,25 @@
               "ModSource": "AccessRandomizer",
               "PoolGroup": "Keys"
             }
+          },
+          {
+            "$type": "ItemChanger.Tags.InteropTag, ItemChanger",
+            "Properties": {
+              "CanMimic": {
+                "$type": "ItemChanger.BoxedBool, ItemChanger",
+                "Value": true
+              },
+              "MimicNames": {
+                "$type": "System.String[], mscorlib",
+                "$values": [
+                  "Rigth Elevator Pass",
+                  "Right Evelator Pass",
+                  "Right E1evator Pass"
+                ]
+              }
+            },
+            "Message": "CurseData",
+            "Loaded": true
           }
         ],
         "obtainState": "Unobtained"

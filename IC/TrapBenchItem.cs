@@ -24,7 +24,7 @@ namespace AccessRandomizer.IC
                 shopDesc = new BoxedString("Rest here... We're goooooooood frieeeeeeeeends... ... ..."),
                 sprite = new ItemChangerSprite("ShopIcons.BenchPin")
             };
-            tags = [TrapBenchItemTag()];
+            tags = [TrapBenchItemTag(), CurseTag()];
         }
         private static Tag TrapBenchItemTag()
         {
@@ -32,6 +32,14 @@ namespace AccessRandomizer.IC
             tag.Properties["ModSource"] = "AccessRandomizer";
             tag.Properties["PoolGroup"] = "Keys";
             tag.Message = "RandoSupplementalMetadata";
+            return tag;
+        }
+        private InteropTag CurseTag()
+        {
+            InteropTag tag = new();
+            tag.Properties["CanMimic"] = new BoxedBool(true);
+            tag.Properties["MimicNames"] = new string[] {"Rap Bench", "Trap Becnh", "Tahm Kench"};
+            tag.Message = "CurseData";
             return tag;
         }
     }

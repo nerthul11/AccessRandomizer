@@ -1,3 +1,4 @@
+using System;
 using AccessRandomizer.Modules;
 using ItemChanger;
 using ItemChanger.Tags;
@@ -17,7 +18,7 @@ namespace AccessRandomizer.IC
                 sprite = new AccessSprite("Chain"),
                 
             };
-            tags = [ChainTag()];
+            tags = [ChainTag(), CurseTag()];
         }
 
         private InteropTag ChainTag()
@@ -27,6 +28,15 @@ namespace AccessRandomizer.IC
             tag.Properties["PoolGroup"] = "Dreamers";
             tag.Properties["PinSprite"] = new AccessSprite("Chain");
             tag.Message = "RandoSupplementalMetadata";
+            return tag;
+        }
+
+        private InteropTag CurseTag()
+        {
+            InteropTag tag = new();
+            tag.Properties["CanMimic"] = new BoxedBool(true);
+            tag.Properties["MimicNames"] = new string[] {"Holow Knight Chain", "Hol1ow Knight Chain", "Hollow Knigth Chain", "Hollow Knight Chin"};
+            tag.Message = "CurseData";
             return tag;
         }
 

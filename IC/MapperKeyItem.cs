@@ -23,7 +23,7 @@ namespace AccessRandomizer.IC
                 shopDesc = new BoxedString("Now where did I leave this one? -Cornifer"),
                 sprite = new AccessSprite("MapperKey")
             };
-            tags = [MapperItemTag()];
+            tags = [MapperItemTag(), CurseTag()];
         }
         private static Tag MapperItemTag()
         {
@@ -32,6 +32,14 @@ namespace AccessRandomizer.IC
             tag.Properties["PoolGroup"] = "Keys";
             tag.Properties["PinSprite"] = new AccessSprite("MapperKey");
             tag.Message = "RandoSupplementalMetadata";
+            return tag;
+        }
+        private InteropTag CurseTag()
+        {
+            InteropTag tag = new();
+            tag.Properties["CanMimic"] = new BoxedBool(true);
+            tag.Properties["MimicNames"] = new string[] {"Maper Key", "M4pper Key", "Mapper Ke"};
+            tag.Message = "CurseData";
             return tag;
         }
     }
