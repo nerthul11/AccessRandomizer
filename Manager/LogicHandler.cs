@@ -138,6 +138,22 @@ namespace AccessRandomizer.Manager
                 lmb.DoSubst(new RawSubstDef("Geo_Rock-Beast's_Den_Below_Egg", "Deepnest_Spider_Town[left1]", subst));
                 lmb.DoSubst(new RawSubstDef("Geo_Rock-Beast's_Den_Bottom", "Deepnest_Spider_Town[left1]", subst));
                 lmb.DoSubst(new RawSubstDef("Soul_Totem-Beast's_Den", "Deepnest_Spider_Town[left1]", subst));
+
+                if (lmb.LogicLookup.TryGetValue("Defeated_Any_Corpse_Creeper", out _))
+                {
+                    lmb.DoSubst(new RawSubstDef("Defeated_Any_Corpse_Creeper", "Deepnest_Spider_Town[left1]", subst));
+                    lmb.DoSubst(new RawSubstDef("Defeated_Any_Deepling", "Deepnest_Spider_Town[left1]", subst));
+                    lmb.DoSubst(new RawSubstDef("Defeated_Any_Deephunter", "Deepnest_Spider_Town[left1]", subst));
+                    lmb.DoSubst(new RawSubstDef("Defeated_Any_Stalking_Devout", "Deepnest_Spider_Town[left1]", subst));
+                }
+            }
+
+            if (AccessManager.Settings.RelicKey)
+            {
+                lmb.GetOrAddTerm("RELICKEY", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Relic_Key", "RELICKEY++"));
+                lmb.AddLogicDef(new RawLogicDef("Relic_Key", "Waterways_01[top1] | Waterways_01[right1] | Waterways_01 + (ANYCLAW | WINGS | ENEMYPOGOS)"));
+                lmb.DoLogicEdit(new("Can_Visit_Lemm", "(Ruins1_05b[top1] | Ruins1_05b + Lever-City_Lemm?TRUE) + RELICKEY"));
             }
         }
     }

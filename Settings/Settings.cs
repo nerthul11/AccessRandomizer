@@ -11,5 +11,6 @@ namespace AccessRandomizer.Settings
         public bool SplitTram { get; set; }
         public bool SplitElevator { get; set; }
         public bool TrapBench { get; set; }
+        public bool RelicKey { get; set; }
     }
 }

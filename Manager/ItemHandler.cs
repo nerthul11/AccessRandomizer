@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using RandomizerMod.IC;
 using RandomizerMod.RC;
 using RandomizerMod.Settings;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -60,6 +59,9 @@ namespace AccessRandomizer.Manager {
 
             Finder.DefineCustomItem(new TrapBenchItem());
             Finder.DefineCustomLocation(new TrapBenchLocation());
+
+            Finder.DefineCustomItem(new RelicKeyItem());
+            Finder.DefineCustomLocation(new RelicKeyLocation());
         }
 
         public static void AddObjects(RequestBuilder rb)
@@ -180,6 +182,34 @@ namespace AccessRandomizer.Manager {
                 });
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
                     rb.AddItemByName($"{PlaceholderItem.Prefix}Trap_Bench");
+            }
+
+            if (AccessManager.Settings.RelicKey)
+            {
+                rb.AddItemByName("Relic_Key");
+                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Relic_Key");
+                rb.EditItemRequest("Relic_Key", info => 
+                {
+                    info.getItemDef = () => new()
+                    {
+                        MajorItem = false,
+                        Name = "Relic_Key",
+                        Pool = "Key",
+                        PriceCap = 500
+                    };
+                });
+                rb.AddLocationByName("Relic_Key");
+                rb.EditLocationRequest("Relic_Key", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Relic_Key",
+                        SceneName = SceneNames.Fungus2_15,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
             }
         }
 

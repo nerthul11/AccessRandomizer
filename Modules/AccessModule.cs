@@ -20,6 +20,7 @@ namespace AccessRandomizer.Modules
             public bool SplitTram { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitTram;
             public bool SplitElevator { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitElevator;
             public bool TrapBench { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.TrapBench;
+            public bool RelicKey { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.RelicKey;
         }   
         public bool RespectObtained { get; set; } = false;
         public int ChainsBroken { get; set; } = 0;   
@@ -33,6 +34,7 @@ namespace AccessRandomizer.Modules
         public bool LeftElevator { get; set; } = false;
         public bool RightElevator { get; set; } = false;
         public bool TrapBench { get; set; } = false;
+        public bool RelicKey { get; set; } = false;
         public static AccessModule Instance => ItemChangerMod.Modules.GetOrAdd<AccessModule>();
         public override void Initialize() 
         {
@@ -181,6 +183,9 @@ namespace AccessRandomizer.Modules
             if (TrapBench)
                 completed.Add("Beast Den Access");
 
+            if (RelicKey)
+                completed.Add("Relic Key");
+            
             OnAccessObtained?.Invoke(completed);
         }
 
