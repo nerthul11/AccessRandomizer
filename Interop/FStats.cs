@@ -60,6 +60,7 @@ namespace AccessRandomizer.Interop
             rowTotal += settings.MapperKey ? 1 : 0;
             rowTotal += settings.SplitElevator ? 2 : 0;
             rowTotal += settings.SplitTram ? 2 : 0;
+            rowTotal += settings.TrapBench ? 1 : 0;
             rowTotal += settings.RelicKey ? 1: 0;
             yield return new()
             {

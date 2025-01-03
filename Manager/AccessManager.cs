@@ -21,11 +21,17 @@ namespace AccessRandomizer.Manager
 
         private static void InitiateModule(RandoController controller)
         {
+            if (!Settings.Enabled)
+                return;
+    
             ItemChangerMod.Modules.GetOrAdd<AccessModule>();
         }
 
         private static void AddFileSettings(LogArguments args, System.IO.TextWriter tw)
         {
+            if (!Settings.Enabled)
+                return;
+
             // Log settings into the settings file
             tw.WriteLine("Access Randomizer Settings:");
             using JsonTextWriter jtw = new(tw) { CloseOutput = false };

@@ -12,15 +12,15 @@ namespace AccessRandomizer.Modules
         public SaveSettings Settings { get; set; } = new();
         public class SaveSettings 
         {
-            public bool MantisRespect { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.MantisRespect;
-            public bool HollowKnightChains { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.HollowKnightChains;
-            public bool UniqueKeys { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.UniqueKeys;
-            public bool MapperKey { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.MapperKey;
-            public bool GladeAccess { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.GladeAccess;
-            public bool SplitTram { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitTram;
-            public bool SplitElevator { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitElevator;
-            public bool TrapBench { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.TrapBench;
-            public bool RelicKey { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.RelicKey;
+            public bool MantisRespect { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.MantisRespect && RandomizerMod.RandomizerMod.IsRandoSave;
+            public bool HollowKnightChains { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.HollowKnightChains && RandomizerMod.RandomizerMod.IsRandoSave;
+            public bool UniqueKeys { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.UniqueKeys && RandomizerMod.RandomizerMod.IsRandoSave;
+            public bool MapperKey { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.MapperKey && RandomizerMod.RandomizerMod.IsRandoSave;
+            public bool GladeAccess { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.GladeAccess && RandomizerMod.RandomizerMod.IsRandoSave;
+            public bool SplitTram { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitTram && RandomizerMod.RandomizerMod.IsRandoSave;
+            public bool SplitElevator { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitElevator && RandomizerMod.RandomizerMod.IsRandoSave;
+            public bool TrapBench { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.TrapBench && RandomizerMod.RandomizerMod.IsRandoSave;
+            public bool RelicKey { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.RelicKey && RandomizerMod.RandomizerMod.IsRandoSave;
         }   
         public bool RespectObtained { get; set; } = false;
         public int ChainsBroken { get; set; } = 0;   
@@ -111,7 +111,7 @@ namespace AccessRandomizer.Modules
             orig(self, info);
 
             // Unlock the shop door if accessed through its gate via Room Rando.
-            if (info.SceneName == SceneNames.Town && Settings.MapperKey && RandomizerMod.RandomizerMod.IsRandoSave)
+            if (info.SceneName == SceneNames.Town && Settings.MapperKey)
                 PlayerData.instance.openedMapperShop = UnlockedIselda || info.EntryGateName == "door_mapper";
 
             // Lock/Unlock elevators based on the Split pass items.
