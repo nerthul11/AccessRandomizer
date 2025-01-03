@@ -38,6 +38,10 @@ Hallownest has two big elevators in City of Tears that allow you to traverse thr
 
 You ever thought "why would I ever use the Beast Den backdoor if I can just sit in the bench"? Well, think again, because this setting might force you to... Unless you find the Trap Bench item first, that is.
 
+## Relic Key
+
+Tired of going straight into Lemm's Shop only to find out he walked out to chill at the fountain? Now you can do the exact same thing, but find out he completely locked the shop behind a key. Good news is, you won't have to track down if you have to go to the fountain. Also adds a new location somewhere below the shop - potentially down the drain.
+
 ## Integrations
 
 If FStats is enabled, a new page for the obtention of items will be added.
