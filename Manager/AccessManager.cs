@@ -4,6 +4,7 @@ using ItemChanger;
 using Newtonsoft.Json;
 using RandomizerMod.Logging;
 using RandomizerMod.RC;
+using ItemChanger.Modules;
 
 namespace AccessRandomizer.Manager
 {
@@ -25,6 +26,13 @@ namespace AccessRandomizer.Manager
                 return;
     
             ItemChangerMod.Modules.GetOrAdd<AccessModule>();
+
+            if (Settings.MapperKey)
+                ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<AutoUnlockIselda>());
+            if (Settings.SplitElevator)
+                ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<ElevatorPass>());
+            if (Settings.TrapBench)
+                ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<ReusableBeastsDenEntrance>());
         }
 
         private static void AddFileSettings(LogArguments args, System.IO.TextWriter tw)

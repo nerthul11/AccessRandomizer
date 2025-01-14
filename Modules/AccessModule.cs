@@ -42,12 +42,10 @@ namespace AccessRandomizer.Modules
             On.GameManager.BeginSceneTransition += ForceBools;
             if (Settings.MapperKey)
             {
-                ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<AutoUnlockIselda>());
                 PlayerData.instance.openedMapperShop = UnlockedIselda;
             }
             if (Settings.SplitElevator)
             {
-                ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<ElevatorPass>());
                 if (ItemChangerMod.Modules?.Get<InventoryTracker>() is InventoryTracker it)
                     it.OnGenerateFocusDesc += ElevatorDesc;
             }
@@ -58,7 +56,6 @@ namespace AccessRandomizer.Modules
             }
             if (Settings.TrapBench)
             {
-                ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<ReusableBeastsDenEntrance>());
                 PlayerData.instance.spiderCapture = !TrapBench;
             }
         }
@@ -69,6 +66,8 @@ namespace AccessRandomizer.Modules
             On.GameManager.BeginSceneTransition -= ForceBools;
             Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_NAME_TRAM_PASS"), TramName);
             Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_DESC_TRAM_PASS"), TramDesc);
+            if (ItemChangerMod.Modules?.Get<InventoryTracker>() is InventoryTracker it)
+                it.OnGenerateFocusDesc -= ElevatorDesc;
         }
 
         private void TramName(ref string value)
