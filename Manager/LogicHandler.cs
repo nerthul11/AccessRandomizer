@@ -38,17 +38,17 @@ namespace AccessRandomizer.Manager
             
             if (AccessManager.Settings.MantisRespect)
             {
-                lmb.AddItem(new BoolItem("Mantis_Respect", lmb.GetOrAddTerm("RESPECT", TermType.SignedByte)));
+                lmb.AddItem(new BoolItem("Mantis_Respect", lmb.GetOrAddTerm("Mantis_Respect", TermType.SignedByte)));
                 lmb.AddLogicDef(new("Mantis_Respect", "Defeated_Mantis_Lords"));
 
                 // Access to Deepnest, storage room, bench and items now requires RESPECT instead of defeating the lords.
-                lmb.DoSubst(new("Fungus2_15[left1]", "Defeated_Mantis_Lords", "RESPECT"));
-                lmb.DoSubst(new("Fungus2_25[right1]", "Defeated_Mantis_Lords", "RESPECT"));
-                lmb.DoSubst(new("Fungus2_31[left1]", "Defeated_Mantis_Lords", "RESPECT"));
-                lmb.DoSubst(new("Bench-Mantis_Village", "Defeated_Mantis_Lords", "RESPECT"));
-                lmb.DoSubst(new("Mark_of_Pride", "Defeated_Mantis_Lords", "RESPECT"));
-                lmb.DoSubst(new("Geo_Chest-Mantis_Lords", "Defeated_Mantis_Lords", "RESPECT"));
-                lmb.DoSubst(new("Hallownest_Seal-Mantis_Lords", "Defeated_Mantis_Lords", "RESPECT"));
+                lmb.DoSubst(new("Fungus2_15[left1]", "Defeated_Mantis_Lords", "Mantis_Respect"));
+                lmb.DoSubst(new("Fungus2_25[right1]", "Defeated_Mantis_Lords", "Mantis_Respect"));
+                lmb.DoSubst(new("Fungus2_31[left1]", "Defeated_Mantis_Lords", "Mantis_Respect"));
+                lmb.DoSubst(new("Bench-Mantis_Village", "Defeated_Mantis_Lords", "Mantis_Respect"));
+                lmb.DoSubst(new("Mark_of_Pride", "Defeated_Mantis_Lords", "Mantis_Respect"));
+                lmb.DoSubst(new("Geo_Chest-Mantis_Lords", "Defeated_Mantis_Lords", "Mantis_Respect"));
+                lmb.DoSubst(new("Hallownest_Seal-Mantis_Lords", "Defeated_Mantis_Lords", "Mantis_Respect"));
             }
 
             if (AccessManager.Settings.HollowKnightChains)
@@ -65,45 +65,66 @@ namespace AccessRandomizer.Manager
 
             if (AccessManager.Settings.UniqueKeys && gs.PoolSettings.Keys)
             {
-                lmb.GetOrAddTerm("GRAVEYARDKEY", TermType.SignedByte);
-                lmb.GetOrAddTerm("WATERWAYSKEY", TermType.SignedByte);
-                lmb.GetOrAddTerm("PLEASUREKEY", TermType.SignedByte);
-                lmb.GetOrAddTerm("COFFINKEY", TermType.SignedByte);
-                lmb.AddItem(new StringItemTemplate("Graveyard_Key", "SIMPLE++ >> GRAVEYARDKEY++"));
-                lmb.AddItem(new StringItemTemplate("Waterways_Key", "SIMPLE++ >> WATERWAYSKEY++"));
-                lmb.AddItem(new StringItemTemplate("Pleasure_Key", "SIMPLE++ >> PLEASUREKEY++"));
-                lmb.AddItem(new StringItemTemplate("Coffin_Key", "SIMPLE++ >> COFFINKEY++"));
-                lmb.DoMacroEdit(new("JIJIUNLOCK", "GRAVEYARDKEY"));
-                lmb.DoMacroEdit(new("WATERWAYSUNLOCK", "WATERWAYSKEY"));
-                lmb.DoMacroEdit(new("PLEASUREHOUSEUNLOCK", "PLEASUREKEY"));
-                lmb.DoMacroEdit(new("GODTUNERUNLOCK", "COFFINKEY"));
+                lmb.GetOrAddTerm("Graveyard_Key", TermType.SignedByte);
+                lmb.GetOrAddTerm("Waterways_Key", TermType.SignedByte);
+                lmb.GetOrAddTerm("Pleasure_Key", TermType.SignedByte);
+                lmb.GetOrAddTerm("Coffin_Key", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Graveyard_Key", "SIMPLE++ >> Graveyard_Key++"));
+                lmb.AddItem(new StringItemTemplate("Waterways_Key", "SIMPLE++ >> Waterways_Key++"));
+                lmb.AddItem(new StringItemTemplate("Pleasure_Key", "SIMPLE++ >> Pleasure_Key++"));
+                lmb.AddItem(new StringItemTemplate("Coffin_Key", "SIMPLE++ >> Coffin_Key++"));
+                lmb.DoMacroEdit(new("JIJIUNLOCK", "Graveyard_Key"));
+                lmb.DoMacroEdit(new("WATERWAYSUNLOCK", "Waterways_Key"));
+                lmb.DoMacroEdit(new("PLEASUREHOUSEUNLOCK", "Pleasure_Key"));
+                lmb.DoMacroEdit(new("GODTUNERUNLOCK", "Coffin_Key"));
             }
 
-            if (AccessManager.Settings.MapperKey)
+            if (AccessManager.Settings.NPCKeys)
             {
-                lmb.GetOrAddTerm("MAPPERKEY", TermType.SignedByte);
-                lmb.AddItem(new StringItemTemplate("Mapper_Key", "MAPPERKEY++"));
+                lmb.GetOrAddTerm("Mapper_Key", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Mapper_Key", "Mapper_Key++"));
                 lmb.AddLogicDef(new("Mapper_Key", "Crossroads_33"));
-                lmb.DoLogicEdit(new("Town[door_mapper]", "Town[door_mapper] | Town + MAPPERKEY"));
+                lmb.DoLogicEdit(new("Town[door_mapper]", "Town[door_mapper] | Town + Mapper_Key"));
+
+                lmb.GetOrAddTerm("Sly_Key", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Sly_Key", "Sly_Key++"));
+                lmb.AddLogicDef(new("Sly_Key", "Crossroads_04[door1] | Crossroads_04[door_Mender_House] | Crossroads_04[door_charmshop] | Crossroads_04[right1] | (Crossroads_04[left1] | Crossroads_04[top1]) + Defeated_Gruz_Mother"));
+                lmb.DoLogicEdit(new("Crossroads_04[door1]", "Crossroads_04[door1] | ORIG + Sly_Key"));
+
+                lmb.GetOrAddTerm("Bretta_Key", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Bretta_Key", "Bretta_Key++"));
+                lmb.AddLogicDef(new("Bretta_Key", "Fungus2_23 + (FULLCLAW + FULLDASH | FULLCLAW + FULLSUPERDASH | LEFTCLAW + WINGS | RIGHTCLAW + ENEMYPOGOS + WINGS | COMPLEXSKIPS + FULLCLAW + $SHADESKIP[2HITS] + SPELLAIRSTALL + $CASTSPELL[1,1,before:ROOMSOUL] + $TAKEDAMAGE[2])"));
+                lmb.DoSubst(new("Town[door_bretta]", "Rescued_Bretta", "Bretta_Key"));
+
+                lmb.GetOrAddTerm("Zote_Key", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Zote_Key", "Zote_Key++"));
+                lmb.AddLogicDef(new("Zote_Key", "Deepnest_33[top1]"));
+                lmb.DoLogicEdit(new("Boss_Essence-Grey_Prince_Zote", "Room_Bretta[right1] + DREAMNAIL + Zote_Key + Defeated_Colosseum_Zote + Defeated_Grey_Prince_Zote"));
+                lmb.DoLogicEdit(new("Defeated_Grey_Prince_Zote", "Room_Bretta[right1] + DREAMNAIL + Zote_Key + Defeated_Colosseum_Zote + COMBAT[Grey_Prince_Zote]"));
+
+                lmb.GetOrAddTerm("Relic_Key", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Relic_Key", "Relic_Key++"));
+                lmb.AddLogicDef(new("Relic_Key", "Waterways_01[top1] | Waterways_01[right1] | Waterways_01 + (ANYCLAW | WINGS | ENEMYPOGOS)"));
+                lmb.DoLogicEdit(new("Can_Visit_Lemm", "(Ruins1_05b[top1] | Ruins1_05b + Lever-City_Lemm?TRUE) + Relic_Key"));
             }
 
             if (AccessManager.Settings.GladeAccess)
             {
-                lmb.GetOrAddTerm("GLADEKEY", TermType.SignedByte);
-                lmb.AddItem(new StringItemTemplate("Glade_Key", "GLADEKEY++"));
-                lmb.DoLogicEdit(new("Opened_Glade_Door", "RestingGrounds_05 + GLADEKEY"));
+                lmb.GetOrAddTerm("Glade_Key", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Glade_Key", "Glade_Key++"));
+                lmb.DoLogicEdit(new("Opened_Glade_Door", "RestingGrounds_05 + Glade_Key"));
             }
 
             if (AccessManager.Settings.SplitTram && gs.PoolSettings.Keys)
             {
-                lmb.GetOrAddTerm("UPPERTRAM", TermType.SignedByte);
-                lmb.AddItem(new StringItemTemplate("Upper_Tram_Pass", "UPPERTRAM++"));
-                lmb.GetOrAddTerm("LOWERTRAM", TermType.SignedByte);
-                lmb.AddItem(new StringItemTemplate("Lower_Tram_Pass", "LOWERTRAM++"));
+                lmb.GetOrAddTerm("Upper_Tram_Pass", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Upper_Tram_Pass", "Upper_Tram_Pass++"));
+                lmb.GetOrAddTerm("Lower_Tram_Pass", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Lower_Tram_Pass", "Lower_Tram_Pass++"));
                 lmb.AddLogicDef(new RawLogicDef("Split_Tram_Pass", "*Tram_Pass"));
 
-                lmb.DoSubst(new RawSubstDef("Upper_Tram", "TRAM", "UPPERTRAM"));
-                lmb.DoSubst(new RawSubstDef("Lower_Tram", "TRAM", "LOWERTRAM"));
+                lmb.DoSubst(new RawSubstDef("Upper_Tram", "TRAM", "Upper_Tram_Pass"));
+                lmb.DoSubst(new RawSubstDef("Lower_Tram", "TRAM", "Lower_Tram_Pass"));
             }
 
             if (AccessManager.Settings.SplitElevator && gs.NoveltySettings.RandomizeElevatorPass)
@@ -146,14 +167,6 @@ namespace AccessRandomizer.Manager
                     lmb.DoSubst(new RawSubstDef("Defeated_Any_Deephunter", "Deepnest_Spider_Town[left1]", subst));
                     lmb.DoSubst(new RawSubstDef("Defeated_Any_Stalking_Devout", "Deepnest_Spider_Town[left1]", subst));
                 }
-            }
-
-            if (AccessManager.Settings.RelicKey)
-            {
-                lmb.GetOrAddTerm("RELICKEY", TermType.SignedByte);
-                lmb.AddItem(new StringItemTemplate("Relic_Key", "RELICKEY++"));
-                lmb.AddLogicDef(new RawLogicDef("Relic_Key", "Waterways_01[top1] | Waterways_01[right1] | Waterways_01 + (ANYCLAW | WINGS | ENEMYPOGOS)"));
-                lmb.DoLogicEdit(new("Can_Visit_Lemm", "(Ruins1_05b[top1] | Ruins1_05b + Lever-City_Lemm?TRUE) + RELICKEY"));
             }
         }
     }

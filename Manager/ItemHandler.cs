@@ -45,6 +45,14 @@ namespace AccessRandomizer.Manager {
 
             Finder.DefineCustomItem(new MapperKeyItem());
             Finder.DefineCustomLocation(new MapperKeyLocation());
+            Finder.DefineCustomItem(new SlyKeyItem());
+            Finder.DefineCustomLocation(new SlyKeyLocation());
+            Finder.DefineCustomItem(new BrettaKeyItem());
+            Finder.DefineCustomLocation(new BrettaKeyLocation());
+            Finder.DefineCustomItem(new ZoteKeyItem());
+            Finder.DefineCustomLocation(new ZoteKeyLocation());
+            Finder.DefineCustomItem(new RelicKeyItem());
+            Finder.DefineCustomLocation(new RelicKeyLocation());
 
             Finder.DefineCustomItem(new GladeItem());
 
@@ -58,10 +66,7 @@ namespace AccessRandomizer.Manager {
             Finder.DefineCustomLocation(new SplitElevatorLocation());
 
             Finder.DefineCustomItem(new TrapBenchItem());
-            Finder.DefineCustomLocation(new TrapBenchLocation());
-
-            Finder.DefineCustomItem(new RelicKeyItem());
-            Finder.DefineCustomLocation(new RelicKeyLocation());
+            Finder.DefineCustomLocation(new TrapBenchLocation());            
         }
 
         public static void AddObjects(RequestBuilder rb)
@@ -128,9 +133,11 @@ namespace AccessRandomizer.Manager {
                 }
             }
 
-            if (AccessManager.Settings.MapperKey)
+            if (AccessManager.Settings.NPCKeys)
             {
                 rb.AddItemByName("Mapper_Key");
+                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Mapper_Key");
                 rb.EditItemRequest("Mapper_Key", info => 
                 {
                     info.getItemDef = () => new()
@@ -152,8 +159,106 @@ namespace AccessRandomizer.Manager {
                         AdditionalProgressionPenalty = false
                     };
                 });
+
+                rb.AddItemByName("Sly_Key");
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
-                    rb.AddItemByName($"{PlaceholderItem.Prefix}Mapper_Key");
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Sly_Key");
+                rb.EditItemRequest("Sly_Key", info => 
+                {
+                    info.getItemDef = () => new()
+                    {
+                        MajorItem = false,
+                        Name = "Sly_Key",
+                        Pool = "Key",
+                        PriceCap = 500
+                    };
+                });
+                rb.AddLocationByName("Sly_Key");
+                rb.EditLocationRequest("Sly_Key", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Sly_Key",
+                        SceneName = SceneNames.Crossroads_04,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
+
+                rb.AddItemByName("Bretta_Key");
+                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Bretta_Key");
+                rb.EditItemRequest("Bretta_Key", info => 
+                {
+                    info.getItemDef = () => new()
+                    {
+                        MajorItem = false,
+                        Name = "Bretta_Key",
+                        Pool = "Key",
+                        PriceCap = 500
+                    };
+                });
+                rb.AddLocationByName("Bretta_Key");
+                rb.EditLocationRequest("Bretta_Key", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Bretta_Key",
+                        SceneName = SceneNames.Fungus2_23,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
+
+                rb.AddItemByName("Zote_Key");
+                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Zote_Key");
+                rb.EditItemRequest("Zote_Key", info => 
+                {
+                    info.getItemDef = () => new()
+                    {
+                        MajorItem = false,
+                        Name = "Zote_Key",
+                        Pool = "Key",
+                        PriceCap = 500
+                    };
+                });
+                rb.AddLocationByName("Zote_Key");
+                rb.EditLocationRequest("Zote_Key", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Zote_Key",
+                        SceneName = SceneNames.Deepnest_33,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
+                
+                rb.AddItemByName("Relic_Key");
+                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Relic_Key");
+                rb.EditItemRequest("Relic_Key", info => 
+                {
+                    info.getItemDef = () => new()
+                    {
+                        MajorItem = false,
+                        Name = "Relic_Key",
+                        Pool = "Key",
+                        PriceCap = 500
+                    };
+                });
+                rb.AddLocationByName("Relic_Key");
+                rb.EditLocationRequest("Relic_Key", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Relic_Key",
+                        SceneName = SceneNames.Waterways_01,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
             }
 
             if (AccessManager.Settings.TrapBench)
@@ -182,34 +287,6 @@ namespace AccessRandomizer.Manager {
                 });
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
                     rb.AddItemByName($"{PlaceholderItem.Prefix}Trap_Bench");
-            }
-
-            if (AccessManager.Settings.RelicKey)
-            {
-                rb.AddItemByName("Relic_Key");
-                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
-                    rb.AddItemByName($"{PlaceholderItem.Prefix}Relic_Key");
-                rb.EditItemRequest("Relic_Key", info => 
-                {
-                    info.getItemDef = () => new()
-                    {
-                        MajorItem = false,
-                        Name = "Relic_Key",
-                        Pool = "Key",
-                        PriceCap = 500
-                    };
-                });
-                rb.AddLocationByName("Relic_Key");
-                rb.EditLocationRequest("Relic_Key", info =>
-                {
-                    info.getLocationDef = () => new()
-                    {
-                        Name = "Relic_Key",
-                        SceneName = SceneNames.Fungus2_15,
-                        FlexibleCount = false,
-                        AdditionalProgressionPenalty = false
-                    };
-                });
             }
         }
 

@@ -4,6 +4,8 @@ using System.Text;
 using AccessRandomizer.Manager;
 using ItemChanger;
 using ItemChanger.Modules;
+using Satchel;
+using UnityEngine;
 
 namespace AccessRandomizer.Modules
 {
@@ -15,12 +17,11 @@ namespace AccessRandomizer.Modules
             public bool MantisRespect { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.MantisRespect && RandomizerMod.RandomizerMod.IsRandoSave;
             public bool HollowKnightChains { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.HollowKnightChains && RandomizerMod.RandomizerMod.IsRandoSave;
             public bool UniqueKeys { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.UniqueKeys && RandomizerMod.RandomizerMod.IsRandoSave;
-            public bool MapperKey { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.MapperKey && RandomizerMod.RandomizerMod.IsRandoSave;
+            public bool NPCKeys { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.NPCKeys && RandomizerMod.RandomizerMod.IsRandoSave;
             public bool GladeAccess { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.GladeAccess && RandomizerMod.RandomizerMod.IsRandoSave;
             public bool SplitTram { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitTram && RandomizerMod.RandomizerMod.IsRandoSave;
             public bool SplitElevator { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.SplitElevator && RandomizerMod.RandomizerMod.IsRandoSave;
             public bool TrapBench { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.TrapBench && RandomizerMod.RandomizerMod.IsRandoSave;
-            public bool RelicKey { get; set; } = AccessManager.Settings.Enabled && AccessManager.Settings.RelicKey && RandomizerMod.RandomizerMod.IsRandoSave;
         }   
         public bool RespectObtained { get; set; } = false;
         public int ChainsBroken { get; set; } = 0;   
@@ -29,6 +30,9 @@ namespace AccessRandomizer.Modules
         public bool PleasureKey { get; set; } = false;
         public bool CoffinKey { get; set; } = false;
         public bool UnlockedIselda { get; set; } = false;
+        public bool UnlockedSly { get; set; } = false;
+        public bool UnlockedBretta { get; set; } = false;
+        public bool UnlockedZote { get; set; } = false;
         public bool UpperTram { get; set; } = false;
         public bool LowerTram { get; set; } = false;
         public bool LeftElevator { get; set; } = false;
@@ -40,9 +44,10 @@ namespace AccessRandomizer.Modules
         {
             On.PlayerData.SetBool += Refresh;
             On.GameManager.BeginSceneTransition += ForceBools;
-            if (Settings.MapperKey)
+            if (Settings.NPCKeys)
             {
                 PlayerData.instance.openedMapperShop = UnlockedIselda;
+                On.GameManager.OnNextLevelReady += SlyDoor;
             }
             if (Settings.SplitElevator)
             {
@@ -64,6 +69,7 @@ namespace AccessRandomizer.Modules
         {
             On.PlayerData.SetBool -= Refresh;
             On.GameManager.BeginSceneTransition -= ForceBools;
+            On.GameManager.OnNextLevelReady -= SlyDoor;
             Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_NAME_TRAM_PASS"), TramName);
             Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_DESC_TRAM_PASS"), TramDesc);
             if (ItemChangerMod.Modules?.Get<InventoryTracker>() is InventoryTracker it)
@@ -109,9 +115,14 @@ namespace AccessRandomizer.Modules
         {
             orig(self, info);
 
-            // Unlock the shop door if accessed through its gate via Room Rando.
-            if (info.SceneName == SceneNames.Town && Settings.MapperKey)
+            // Unlock NPC doors if accessed through its gate via Room Rando.
+            if (info.SceneName == SceneNames.Town && Settings.NPCKeys)
+            {
                 PlayerData.instance.openedMapperShop = UnlockedIselda || info.EntryGateName == "door_mapper";
+                UnlockedBretta |= info.EntryGateName == "door_bretta";
+            }
+            if (info.SceneName == SceneNames.Crossroads_04 && Settings.NPCKeys)
+                UnlockedSly |= info.EntryGateName == "door1";
 
             // Lock/Unlock elevators based on the Split pass items.
             if (info.SceneName == SceneNames.Crossroads_49 && Settings.SplitElevator)
@@ -127,6 +138,21 @@ namespace AccessRandomizer.Modules
             if (info.SceneName == SceneNames.Deepnest_Spider_Town && Settings.TrapBench)
                 PlayerData.instance.spiderCapture = !TrapBench;
         }
+
+        private void SlyDoor(On.GameManager.orig_OnNextLevelReady orig, GameManager self)
+        {
+            orig(self);
+            if (self.sceneName == SceneNames.Crossroads_04)
+            {
+                GameObject door = GameObject.Instantiate(AccessRandomizer.slyDoor, new Vector3(85.05f, 4.0f, -0.1f), Quaternion.identity);
+                door.SetActive(true);
+                GameObject doorClosed = door.FindGameObjectInChildren("Door Closed");
+                doorClosed.SetActive(!UnlockedSly);
+                GameObject doorOpened = door.FindGameObjectInChildren("Door Opened");
+                doorOpened.SetActive(UnlockedSly);
+            }
+        }
+        
         public delegate void AccessObtained(List<string> marks);
         public event AccessObtained OnAccessObtained;
 
@@ -164,8 +190,16 @@ namespace AccessRandomizer.Modules
             if (ChainsBroken >= 4)
                 completed.Add("Fourth Chain");
             
-            if (UnlockedIselda && Settings.MapperKey)
+            if (UnlockedIselda)
                 completed.Add("Mapper Key");
+            if (UnlockedSly)
+                completed.Add("Sly Key");
+            if (UnlockedBretta)
+                completed.Add("Bretta Key");
+            if (UnlockedZote)
+                completed.Add("Zote Key");
+            if (RelicKey)
+                completed.Add("Relic Key");
             
             if (PlayerData.instance.gladeDoorOpened)
                 completed.Add("Glade Access");
@@ -181,9 +215,6 @@ namespace AccessRandomizer.Modules
             
             if (TrapBench)
                 completed.Add("Beast Den Access");
-
-            if (RelicKey)
-                completed.Add("Relic Key");
             
             OnAccessObtained?.Invoke(completed);
         }

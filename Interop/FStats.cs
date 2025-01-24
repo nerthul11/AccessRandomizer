@@ -57,11 +57,10 @@ namespace AccessRandomizer.Interop
             int rowTotal = 2;
             rowTotal += settings.HollowKnightChains ? 4 : 0;
             rowTotal += settings.UniqueKeys ? 4 : 0;
-            rowTotal += settings.MapperKey ? 1 : 0;
+            rowTotal += settings.NPCKeys ? 4 : 0;
             rowTotal += settings.SplitElevator ? 2 : 0;
             rowTotal += settings.SplitTram ? 2 : 0;
             rowTotal += settings.TrapBench ? 1 : 0;
-            rowTotal += settings.RelicKey ? 1: 0;
             yield return new()
             {
                 Title = "Access Randomizer Timeline",

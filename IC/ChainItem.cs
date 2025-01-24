@@ -45,9 +45,11 @@ namespace AccessRandomizer.IC
         {
             AccessModule module = AccessModule.Instance;
             module.ChainsBroken += 1;
-            int current = module.ChainsBroken;
             if (UIDef is MsgUIDef ui && !Redundant())
+            {
+                int current = module.ChainsBroken;
                 ui.name = new BoxedString($"{ui.name.Value} (#{current})");
+            }
             module.CompletedChallenges();
         }
     }

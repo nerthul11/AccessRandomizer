@@ -3,13 +3,16 @@ using AccessRandomizer.Manager;
 using AccessRandomizer.Settings;
 using Modding;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace AccessRandomizer
 {
     public class AccessRandomizer : Mod, IGlobalSettings<AccessSettings> 
     {
         new public string GetName() => "AccessRandomizer";
-        public override string GetVersion() => "1.2.5.2";
+        public static GameObject slyDoor;
+        public override string GetVersion() => "1.3.0.0";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()
@@ -28,8 +31,12 @@ namespace AccessRandomizer
             }
         }
         public AccessSettings GS { get; internal set; } = new();
-        public override void Initialize()
+        public override List<(string, string)> GetPreloadNames() {
+            return [("Crossroads_04", "_Transition Gates/Mender Door")];
+        }
+        public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloads)
         {
+            slyDoor = preloads["Crossroads_04"]["_Transition Gates/Mender Door"];
             // Ignore completely if Randomizer 4 is inactive
             if (ModHooks.GetMod("Randomizer 4") is Mod)
             {
@@ -44,10 +51,12 @@ namespace AccessRandomizer
                 
                 CondensedSpoilerLogger.AddCategory("Miscellaneous Access", () => AccessManager.Settings.Enabled, 
                     [
-                        "Mapper_Key", "Mantis_Respect", "Graveyard_Key", "Waterways_Key", "Pleasure_Key", 
-                        "Coffin_Key", "Glade_Key", "Hollow_Knight_Chain", 
+                        "Mantis_Respect", "Hollow_Knight_Chain",
+                        "Graveyard_Key", "Waterways_Key", "Pleasure_Key", "Coffin_Key", 
+                        "Mapper_Key", "Sly_Key", "Bretta_Key", "Zote_Key", "Relic_Key",
                         "Left_Elevator_Pass", "Right_Elevator_Pass",
-                        "Upper_Tram_Pass", "Lower_Tram_Pass", "Trap_Bench"
+                        "Upper_Tram_Pass", "Lower_Tram_Pass", 
+                        "Glade_Key", "Trap_Bench"
                     ]
                 );
                 Instance.Log("Initialized.");
