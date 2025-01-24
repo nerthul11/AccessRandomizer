@@ -46,10 +46,6 @@ You ever thought "why would I ever use the Beast Den backdoor if I can just sit 
 
 ## Integrations
 
-If FStats is enabled, a new page for the obtention of items will be added.
+If FStats is enabled, a new page for the obtention of each randomized item. Exceptions include:
 - Mantis Respect: The entry will be included regardless of randomization settings for it.
-- Hollow Knight Chains: An entry will be added for each chain item that is obtained.
-- Unique Keys: An entry will be added for each key that is obtained.
-- Mapper Key: If randomized, an entry will be added for whenever Iselda's shop is unlocked.
 - Glade Access: This entry is included whenever you open the Spirit's Glade door, be it with essence or with the key.
-- Split Tram/Elevator: Obtaining each of these, if randomized, will also be added as entries.
