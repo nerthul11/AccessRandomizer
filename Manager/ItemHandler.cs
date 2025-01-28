@@ -133,7 +133,7 @@ namespace AccessRandomizer.Manager {
                 }
             }
 
-            if (AccessManager.Settings.NPCKeys)
+            if (AccessManager.Settings.CustomKeys.MapperKey)
             {
                 rb.AddItemByName("Mapper_Key");
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
@@ -159,7 +159,10 @@ namespace AccessRandomizer.Manager {
                         AdditionalProgressionPenalty = false
                     };
                 });
-
+            }
+            
+            if (AccessManager.Settings.CustomKeys.SlyKey)
+            {
                 rb.AddItemByName("Sly_Key");
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
                     rb.AddItemByName($"{PlaceholderItem.Prefix}Sly_Key");
@@ -184,7 +187,10 @@ namespace AccessRandomizer.Manager {
                         AdditionalProgressionPenalty = false
                     };
                 });
+            }
 
+            if (AccessManager.Settings.CustomKeys.BrettaKey)
+            {
                 rb.AddItemByName("Bretta_Key");
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
                     rb.AddItemByName($"{PlaceholderItem.Prefix}Bretta_Key");
@@ -209,7 +215,10 @@ namespace AccessRandomizer.Manager {
                         AdditionalProgressionPenalty = false
                     };
                 });
+            }
 
+            if (AccessManager.Settings.CustomKeys.ZoteKey)
+            {
                 rb.AddItemByName("Zote_Key");
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
                     rb.AddItemByName($"{PlaceholderItem.Prefix}Zote_Key");
@@ -234,7 +243,10 @@ namespace AccessRandomizer.Manager {
                         AdditionalProgressionPenalty = false
                     };
                 });
-                
+            }
+
+            if (AccessManager.Settings.CustomKeys.RelicKey)
+            {
                 rb.AddItemByName("Relic_Key");
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
                     rb.AddItemByName($"{PlaceholderItem.Prefix}Relic_Key");
@@ -292,7 +304,7 @@ namespace AccessRandomizer.Manager {
 
         private static void AddGladeKey(RequestBuilder rb)
         {
-            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.GladeAccess)
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.CustomKeys.GladeKey)
                 return;
             
             rb.AddItemByName("Glade_Key");

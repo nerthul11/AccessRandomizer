@@ -27,7 +27,7 @@ namespace AccessRandomizer.Manager
             {
                 bool isActive = lmb.LogicLookup.TryGetValue("MoreDoors-Core_Key-Mantis_Vault_Guardian", out _);
                 if (isActive)
-                    lmb.DoSubst(new("MoreDoors-Core_Key-Mantis_Vault_Guardian", "Defeated_Mantis_Lords", "RESPECT"));
+                    lmb.DoSubst(new("MoreDoors-Core_Key-Mantis_Vault_Guardian", "Defeated_Mantis_Lords", "Mantis_Respect"));
             }
         }
 
@@ -79,36 +79,48 @@ namespace AccessRandomizer.Manager
                 lmb.DoMacroEdit(new("GODTUNERUNLOCK", "Coffin_Key"));
             }
 
-            if (AccessManager.Settings.NPCKeys)
+            if (AccessManager.Settings.CustomKeys.MapperKey)
             {
                 lmb.GetOrAddTerm("Mapper_Key", TermType.SignedByte);
                 lmb.AddItem(new StringItemTemplate("Mapper_Key", "Mapper_Key++"));
                 lmb.AddLogicDef(new("Mapper_Key", "Crossroads_33"));
                 lmb.DoLogicEdit(new("Town[door_mapper]", "Town[door_mapper] | Town + Mapper_Key"));
+            }
 
+            if (AccessManager.Settings.CustomKeys.SlyKey)
+            {
                 lmb.GetOrAddTerm("Sly_Key", TermType.SignedByte);
                 lmb.AddItem(new StringItemTemplate("Sly_Key", "Sly_Key++"));
                 lmb.AddLogicDef(new("Sly_Key", "Crossroads_04[door1] | Crossroads_04[door_Mender_House] | Crossroads_04[door_charmshop] | Crossroads_04[right1] | (Crossroads_04[left1] | Crossroads_04[top1]) + Defeated_Gruz_Mother"));
                 lmb.DoLogicEdit(new("Crossroads_04[door1]", "Crossroads_04[door1] | ORIG + Sly_Key"));
+            }
 
+            if (AccessManager.Settings.CustomKeys.BrettaKey)
+            {
                 lmb.GetOrAddTerm("Bretta_Key", TermType.SignedByte);
                 lmb.AddItem(new StringItemTemplate("Bretta_Key", "Bretta_Key++"));
                 lmb.AddLogicDef(new("Bretta_Key", "Fungus2_23 + (FULLCLAW + FULLDASH | FULLCLAW + FULLSUPERDASH | LEFTCLAW + WINGS | RIGHTCLAW + ENEMYPOGOS + WINGS | COMPLEXSKIPS + FULLCLAW + $SHADESKIP[2HITS] + SPELLAIRSTALL + $CASTSPELL[1,1,before:ROOMSOUL] + $TAKEDAMAGE[2])"));
                 lmb.DoSubst(new("Town[door_bretta]", "Rescued_Bretta", "Bretta_Key"));
+            }
 
+            if (AccessManager.Settings.CustomKeys.ZoteKey)
+            {
                 lmb.GetOrAddTerm("Zote_Key", TermType.SignedByte);
                 lmb.AddItem(new StringItemTemplate("Zote_Key", "Zote_Key++"));
                 lmb.AddLogicDef(new("Zote_Key", "Deepnest_33[top1]"));
                 lmb.DoLogicEdit(new("Boss_Essence-Grey_Prince_Zote", "Room_Bretta[right1] + DREAMNAIL + Zote_Key + Defeated_Colosseum_Zote + Defeated_Grey_Prince_Zote"));
                 lmb.DoLogicEdit(new("Defeated_Grey_Prince_Zote", "Room_Bretta[right1] + DREAMNAIL + Zote_Key + Defeated_Colosseum_Zote + COMBAT[Grey_Prince_Zote]"));
+            }
 
+            if (AccessManager.Settings.CustomKeys.RelicKey)
+            {
                 lmb.GetOrAddTerm("Relic_Key", TermType.SignedByte);
                 lmb.AddItem(new StringItemTemplate("Relic_Key", "Relic_Key++"));
                 lmb.AddLogicDef(new("Relic_Key", "Waterways_01[top1] | Waterways_01[right1] | Waterways_01 + (ANYCLAW | WINGS | ENEMYPOGOS)"));
                 lmb.DoLogicEdit(new("Can_Visit_Lemm", "(Ruins1_05b[top1] | Ruins1_05b + Lever-City_Lemm?TRUE) + Relic_Key"));
             }
 
-            if (AccessManager.Settings.GladeAccess)
+            if (AccessManager.Settings.CustomKeys.GladeKey)
             {
                 lmb.GetOrAddTerm("Glade_Key", TermType.SignedByte);
                 lmb.AddItem(new StringItemTemplate("Glade_Key", "Glade_Key++"));

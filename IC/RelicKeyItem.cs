@@ -10,10 +10,10 @@ namespace AccessRandomizer.IC
 {
     public class RelicKeyItem : AbstractItem
     {
-        public override bool Redundant() => AccessModule.Instance.RelicKey;
+        public override bool Redundant() => AccessModule.Instance.UnlockedLemm;
         public override void GiveImmediate(GiveInfo info)
         {
-            AccessModule.Instance.RelicKey = true;
+            AccessModule.Instance.UnlockedLemm = true;
             AccessModule.Instance.CompletedChallenges();
         }
 

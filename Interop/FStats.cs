@@ -57,7 +57,11 @@ namespace AccessRandomizer.Interop
             int rowTotal = 2;
             rowTotal += settings.HollowKnightChains ? 4 : 0;
             rowTotal += settings.UniqueKeys ? 4 : 0;
-            rowTotal += settings.NPCKeys ? 4 : 0;
+            rowTotal += settings.CustomKeys.MapperKey ? 1 : 0;
+            rowTotal += settings.CustomKeys.SlyKey ? 1 : 0;
+            rowTotal += settings.CustomKeys.BrettaKey ? 1 : 0;
+            rowTotal += settings.CustomKeys.ZoteKey ? 1 : 0;
+            rowTotal += settings.CustomKeys.RelicKey ? 1 : 0;
             rowTotal += settings.SplitElevator ? 2 : 0;
             rowTotal += settings.SplitTram ? 2 : 0;
             rowTotal += settings.TrapBench ? 1 : 0;

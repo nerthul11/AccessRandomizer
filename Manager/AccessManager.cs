@@ -27,7 +27,7 @@ namespace AccessRandomizer.Manager
     
             ItemChangerMod.Modules.GetOrAdd<AccessModule>();
 
-            if (Settings.NPCKeys)
+            if (Settings.CustomKeys.MapperKey)
                 ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<AutoUnlockIselda>());
             if (Settings.SplitElevator)
                 ItemChangerMod.Modules.Remove(ItemChangerMod.Modules.GetOrAdd<ElevatorPass>());
