@@ -62,7 +62,7 @@ namespace AccessRandomizer.IC
         private void RefactorDoor(PlayMakerFSM fsm)
         {
             fsm.AddState("Exist");
-            fsm.AddFirstAction("Check", new AccessBooleanFsmCheck("RelicKey", "DESTROY", "LEAVE"));
+            fsm.AddFirstAction("Check", new AccessBooleanFsmCheck("UnlockedLemm", "DESTROY", "LEAVE"));
             fsm.AddTransition("Check", "LEAVE", "Exist");
         }
 
