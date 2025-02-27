@@ -12,7 +12,7 @@ namespace AccessRandomizer
     {
         new public string GetName() => "AccessRandomizer";
         public static GameObject slyDoor;
-        public override string GetVersion() => "1.3.0.2";
+        public override string GetVersion() => "1.3.0.3";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()

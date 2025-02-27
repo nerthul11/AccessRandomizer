@@ -29,11 +29,11 @@ namespace AccessRandomizer.Interop
     {
         public override void Initialize() 
         {
-            AccessModule.Instance.OnAccessObtained += AddMarks;
+            AccessModule.OnAccessObtained += AddMarks;
         }
         public override void Unload() 
         {
-            AccessModule.Instance.OnAccessObtained -= AddMarks;
+            AccessModule.OnAccessObtained -= AddMarks;
         }
 
         private void AddMarks(List<string> marks)

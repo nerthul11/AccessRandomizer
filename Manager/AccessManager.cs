@@ -22,7 +22,7 @@ namespace AccessRandomizer.Manager
 
         private static void InitiateModule(RandoController controller)
         {
-            if (!Settings.Enabled)
+            if (!(Settings.Enabled && RandomizerMod.RandomizerMod.IsRandoSave))
                 return;
     
             ItemChangerMod.Modules.GetOrAdd<AccessModule>();

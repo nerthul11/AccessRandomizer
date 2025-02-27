@@ -159,7 +159,7 @@ namespace AccessRandomizer.Modules
         }
         
         public delegate void AccessObtained(List<string> marks);
-        public event AccessObtained OnAccessObtained;
+        public static event AccessObtained OnAccessObtained;
 
         private void Refresh(On.PlayerData.orig_SetBool orig, PlayerData self, string boolName, bool value)
         {

@@ -125,7 +125,7 @@ namespace AccessRandomizer.Manager {
                         info.getLocationDef = () => new()
                         {
                             Name = $"Hollow_Knight_Chain-{i}",
-                            SceneName = SceneNames.Room_Final_Boss_Core,
+                            SceneName = SceneNames.Room_temple,
                             FlexibleCount = false,
                             AdditionalProgressionPenalty = false
                         };
