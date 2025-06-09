@@ -12,7 +12,7 @@ namespace AccessRandomizer
     {
         new public string GetName() => "AccessRandomizer";
         public static GameObject slyDoor;
-        public override string GetVersion() => "1.3.0.3";
+        public override string GetVersion() => "1.3.0.4";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()
@@ -36,11 +36,11 @@ namespace AccessRandomizer
         }
         public override void Initialize(Dictionary<string, Dictionary<string, GameObject>> preloads)
         {
-            slyDoor = preloads["Crossroads_04"]["_Transition Gates/Mender Door"];
             // Ignore completely if Randomizer 4 is inactive
             if (ModHooks.GetMod("Randomizer 4") is Mod)
             {
                 Instance.Log("Initializing...");
+                slyDoor = preloads["Crossroads_04"]["_Transition Gates/Mender Door"];
                 AccessManager.Hook();
                 
                 if (ModHooks.GetMod("RandoSettingsManager") is Mod)

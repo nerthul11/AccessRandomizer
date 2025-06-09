@@ -37,7 +37,7 @@ This setting manages 6 item/location pairs (well, one of them is only an item):
 - Mapper Key: By default, rando saves have Iselda always be available. Turns out, Corfiner may or not have lost the shop key. This will add a location somewhere close to Crossroads Cornifer and an item that will trigger accesibility to the shop's door in Dirtmouth.
 - Sly Key: Rescuing Sly has always been a no brainer in rando runs, but what if Sly actually dropped the key outside of his Crossroads hut? That'd add a location that, when randomized, might just not be his key.
 - Bretta Key: Rescuing Bretta's cool, but turns out, just talking to her won't be enough to open her room. She'll be back in Dirtmouth, but unfortunately she left her key on the Fungal Wastes - good thing that getting to her room without vertical is easier if randomized.
-- Zote Key: Why does he have a key to Bretta's basement? No one knows, but we do know he lost it on Deepnest. Keep in mind you'll only be worthy enough to enter the basement if you defeat the Mighty Zote, regardless of key ownership.
+- Zote Key: Why does he have a key to Bretta's basement? No one knows, but we do know he lost it on Deepnest.
 - Relic Key: Tired of going straight into Lemm's Shop only to find out he walked out to chill at the fountain? Now you can do the exact same thing, but find out he completely locked the shop behind a key. Good news is, you won't have to track down if you have to go to the fountain when having dreamers. Also adds a new location somewhere below the shop - potentially down the drain.
 - Glade Key: If this setting is on, the Seer will no longer unlock the Spirit's Glade when you reach 200 Essence. Instead, a new key is added that unlocks that particular transition.
 

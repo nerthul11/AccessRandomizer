@@ -45,10 +45,6 @@ namespace AccessRandomizer.IC
         {
             AccessBooleanFsmCheck check = new("UnlockedZote", "", "DEACTIVATE");
             fsm.RemoveAction("Check", 0);
-            fsm.AddCustomAction("Check", () =>  {
-                if(!PlayerData.instance.zoteDefeated) 
-                    fsm.SendEvent("DEACTIVATE");
-            });
             fsm.AddAction("Check", check);
         }
     }

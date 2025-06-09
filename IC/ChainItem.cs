@@ -27,6 +27,7 @@ namespace AccessRandomizer.IC
             tag.Properties["ModSource"] = "AccessRandomizer";
             tag.Properties["PoolGroup"] = "Dreamers";
             tag.Properties["PinSprite"] = new AccessSprite("Chain");
+            tag.Properties["TreasureHuntGroup"] = "TrueEnding";
             tag.Message = "RandoSupplementalMetadata";
             return tag;
         }
@@ -45,7 +46,7 @@ namespace AccessRandomizer.IC
         {
             AccessModule module = AccessModule.Instance;
             module.ChainsBroken += 1;
-            if (UIDef is MsgUIDef ui && !Redundant())
+            if (UIDef is MsgUIDef ui && module.ChainsBroken <= 4)
             {
                 int current = module.ChainsBroken;
                 ui.name = new BoxedString($"{ui.name.Value} (#{current})");
