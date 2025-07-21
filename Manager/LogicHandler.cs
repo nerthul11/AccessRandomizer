@@ -16,6 +16,8 @@ namespace AccessRandomizer.Manager
             RCData.RuntimeLogicOverride.Subscribe(11f, ApplyLogic);
             if (ModHooks.GetMod("MoreDoors") is Mod)
                 RCData.RuntimeLogicOverride.Subscribe(128f, MoreDoorsInterop);
+            if (ModHooks.GetMod("VendorRando") is Mod)
+                RCData.RuntimeLogicOverride.Subscribe(64, LemmInterop);
         }
 
         private static void MoreDoorsInterop(GenerationSettings gs, LogicManagerBuilder lmb)
@@ -30,12 +32,25 @@ namespace AccessRandomizer.Manager
                     lmb.DoSubst(new("MoreDoors-Mantis_Vault_Guardian", "Defeated_Mantis_Lords", "Mantis_Respect"));
             }
         }
+        
+        private static void LemmInterop(GenerationSettings gs, LogicManagerBuilder lmb)
+        {
+            if (!AccessManager.Settings.Enabled)
+                return;
+
+            if (AccessManager.Settings.CustomKeys.RelicKey)
+            {
+                bool isActive = lmb.LogicLookup.TryGetValue("Vr_Lemm", out _);
+                if (isActive)
+                    lmb.DoLogicEdit(new("Vr_Lemm", "(Ruins1_05b[top1] | Ruins1_05b + Lever-City_Lemm?TRUE) + Relic_Key"));
+            }
+        }
 
         private static void ApplyLogic(GenerationSettings gs, LogicManagerBuilder lmb)
         {
             if (!AccessManager.Settings.Enabled)
                 return;
-            
+
             if (AccessManager.Settings.MantisRespect)
             {
                 lmb.AddItem(new BoolItem("Mantis_Respect", lmb.GetOrAddTerm("Mantis_Respect", TermType.SignedByte)));
@@ -57,7 +72,7 @@ namespace AccessRandomizer.Manager
                 lmb.AddItem(new StringItemTemplate("Hollow_Knight_Chain", "CHAINS++"));
                 foreach (int i in Enumerable.Range(1, 4))
                 {
-                    lmb.AddLogicDef(new($"Hollow_Knight_Chain-{i}", $"Opened_Black_Egg_Temple + CHAINS>{i-1}"));
+                    lmb.AddLogicDef(new($"Hollow_Knight_Chain-{i}", $"Opened_Black_Egg_Temple + CHAINS>{i - 1}"));
                 }
                 if (lmb.LogicLookup.TryGetValue("Defeated_Any_Hollow_Knight", out _))
                     lmb.DoLogicEdit(new("Defeated_Any_Hollow_Knight", "ORIG + CHAINS>3"));
@@ -159,7 +174,7 @@ namespace AccessRandomizer.Manager
 
                 // Objects inside Beast Den require either secret entrance access or the trap item
                 string subst = "Deepnest_Spider_Town[left1] + (Trap_Bench | WINGS + (RIGHTCLAW + (LEFTDASH | LEFTSUPERDASH | FIREBALLSKIPS + (RIGHTFIREBALL | SCREAM) + $CASTSPELL[1]) | LEFTCLAW + RIGHTSUPERDASH) + Plank-Den_Secret_Entrance?TRUE)";
-                
+
                 lmb.DoSubst(new RawSubstDef("Herrah", "Deepnest_Spider_Town[left1]", subst));
                 lmb.DoSubst(new RawSubstDef("Bench-Beast's_Den", "Deepnest_Spider_Town[left1]", subst));
                 lmb.DoSubst(new RawSubstDef("Rancid_Egg-Beast's_Den", "Deepnest_Spider_Town[left1]", subst));
