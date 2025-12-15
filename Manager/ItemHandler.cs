@@ -66,7 +66,17 @@ namespace AccessRandomizer.Manager {
             Finder.DefineCustomLocation(new SplitElevatorLocation());
 
             Finder.DefineCustomItem(new TrapBenchItem());
-            Finder.DefineCustomLocation(new TrapBenchLocation());            
+            Finder.DefineCustomLocation(new TrapBenchLocation());
+
+            using Stream gateStream = assembly.GetManifestResourceStream("AccessRandomizer.Resources.Data.ShadeGates.json");
+            StreamReader gateReader = new(gateStream);
+            List<GateObject> gates = jsonSerializer.Deserialize<List<GateObject>>(new JsonTextReader(gateReader));
+
+            foreach (GateObject g in gates)
+            {
+                Finder.DefineCustomItem(new GateItem(g.gate));
+                Finder.DefineCustomLocation(new GateLocation(g.gate, g.sceneName, g.x, g.y));
+            }
         }
 
         public static void AddObjects(RequestBuilder rb)
@@ -299,6 +309,42 @@ namespace AccessRandomizer.Manager {
                 });
                 if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
                     rb.AddItemByName($"{PlaceholderItem.Prefix}Trap_Bench");
+            }
+
+            if (AccessManager.Settings.ShadeGates)
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                JsonSerializer jsonSerializer = new() {TypeNameHandling = TypeNameHandling.Auto};
+                using Stream stream = assembly.GetManifestResourceStream("AccessRandomizer.Resources.Data.ShadeGates.json");
+                StreamReader reader = new(stream);
+                List<GateObject> gates = jsonSerializer.Deserialize<List<GateObject>>(new JsonTextReader(reader));
+                foreach (GateObject g in gates)
+                {
+                    rb.AddItemByName($"Shade_Gate-{g.gate}");
+                    rb.EditItemRequest($"Shade_Gate-{g.gate}", info => 
+                    {
+                        info.getItemDef = () => new()
+                        {
+                            MajorItem = false,
+                            Name = $"Shade_Gate-{g.gate}",
+                            Pool = "Key",
+                            PriceCap = 500
+                        };
+                    });
+                    rb.AddLocationByName($"Shade_Gate-{g.gate}");
+                    rb.EditLocationRequest($"Shade_Gate-{g.gate}", info =>
+                    {
+                        info.getLocationDef = () => new()
+                        {
+                            Name = $"Shade_Gate-{g.gate}",
+                            SceneName = g.sceneName,
+                            FlexibleCount = false,
+                            AdditionalProgressionPenalty = false
+                        };
+                    });
+                    if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                        rb.AddItemByName($"{PlaceholderItem.Prefix}Shade_Gate-{g.gate}");
+                }
             }
         }
 

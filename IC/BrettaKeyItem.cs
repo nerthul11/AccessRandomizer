@@ -20,7 +20,7 @@ namespace AccessRandomizer.IC
             UIDef = new MsgUIDef()
             {
                 name = new BoxedString("Bretta Key"),
-                shopDesc = new BoxedString("Now where did I leave this one? -Cornifer"),
+                shopDesc = new BoxedString("I hope you rescue me out of chivalry even though you can enter my home. -Bretta"),
                 sprite = new AccessSprite("BrettaKey")
             };
             tags = [ItemTag(), CurseTag()];

@@ -1,0 +1,93 @@
+[
+    {
+        "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
+        "gate": "Birthplace",
+        "sceneName": "Abyss_15",
+        "x": 0.0,
+        "y": 0.0,
+        "logic": "Abyss_15[top1] + (RIGHTSHADOWDASH | Shade_Gate-Birthplace + LEFTSHADOWDASH)",
+        "logicOverrides": {},
+        "logicSubstitutions": {
+            "Void_Heart": {"RIGHTSHADOWDASH": "Shade_Gate-Birthplace"}
+        }
+    },
+    {
+        "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
+        "gate": "Fog_Canyon",
+        "sceneName": "Fungus3_25",
+        "x": 0.0,
+        "y": 0.0,
+        "logic": "Fungus3_25[left1] + (RIGHTSHADOWDASH | Shade_Gate-Fog_Canyon + LEFTSHADOWDASH) | Fungus3_25[right1] + (LEFTSHADOWDASH | Shade_Gate-Fog_Canyon + RIGHTSHADOWDASH)",
+        "logicOverrides": {},
+        "logicSubstitutions": {
+            "Fungus3_25[left1]": {"LEFTSHADOWDASH": "Shade_Gate-Fog_Canyon"},
+            "Fungus3_25[right1]": {"RIGHTSHADOWDASH": "Shade_Gate-Fog_Canyon"}
+        }
+    },
+    {
+        "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
+        "gate": "Markoth",
+        "sceneName": "Deepnest_East_18",
+        "x": 0.0,
+        "y": 0.0,
+        "logic": "Deepnest_East_18[right2] + (LEFTSHADOWDASH | Shade_Gate-Markoth + RIGHTSHADOWDASH) | Deepnest_East_18 + (RIGHTCLAW | WINGS | BACKGROUNDPOGOS | ENEMYPOGOS | $SHADESKIP) + RIGHTSHADOWDASH",
+        "logicOverrides": {},
+        "logicSubstitutions": {
+            "Deepnest_East_18[right2]": {"RIGHTSHADOWDASH": "Shade_Gate-Markoth"},
+            "Deepnest_East_18": {"LEFTSHADOWDASH": "Shade_Gate-Markoth"}
+        }
+    },
+    {
+        "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
+        "gate": "Overgrown_Mound",
+        "sceneName": "Fungus3_44",
+        "x": 0.0,
+        "y": 0.0,
+        "logic": "Fungus3_44 + (LEFTSHADOWDASH | Shade_Gate-Overgrown_Mound + RIGHTSHADOWDASH)",
+        "logicOverrides": {},
+        "logicSubstitutions": {
+            "Fungus3_44[bot1]": {"LEFTSHADOWDASH": "Shade_Gate-Overgrown_Mound"}
+        }
+    },
+    {
+        "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
+        "gate": "Sharp_Shadow",
+        "sceneName": "Fungus3_44",
+        "x": 0.0,
+        "y": 0.0,
+        "logic": "Deepnest_44[top1] + (RIGHTSHADOWDASH | Shade_Gate-Sharp_Shadow + LEFTSHADOWDASH)",
+        "logicOverrides": {},
+        "logicSubstitutions": {
+            "Sharp_Shadow": {"RIGHTSHADOWDASH": "Shade_Gate-Sharp_Shadow"}
+        }
+    },
+    {
+        "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
+        "gate": "Traitor_Lord",
+        "sceneName": "Fungus3_23",
+        "x": 0.0,
+        "y": 0.0,
+        "logic": "Fungus3_23[left1] + Defeated_Traitor_Lord + RIGHTSHADOWDASH | Fungus3_23[right1] + (LEFTSHADOWDASH | Shade_Gate-Traitor_Lord + RIGHTSHADOWDASH)",
+        "logicOverrides": {},
+        "logicSubstitutions": {
+            "Fungus3_23[left1]": {"LEFTSHADOWDASH": "Shade_Gate-Traitor_Lord"},
+            "Fungus3_23[right1]": {"RIGHTSHADOWDASH": "Shade_Gate-Traitor_Lord"}
+        }
+    },
+    {
+        "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
+        "gate": "Void_Tendrils",
+        "sceneName": "Abyss_10",
+        "x": 0.0,
+        "y": 0.0,
+        "logic": "Abyss_10[left2] + (RIGHTSHADOWDASH | Shade_Gate-Void_Tendrils + LEFTSHADOWDASH) | Abyss_10[left1] + LEFTSHADOWDASH + (RIGHTCLAW | (WINGS | LEFTCLAW) + (RIGHTSHADOWDASH | VOIDHEART) | WINGS + $SHADESKIP[2HITS] | $SHRIEKPOGO[2])",
+        "logicOverrides": {
+            "Arcane_Egg-Shade_Cloak": "Abyss_10[left2] + Shade_Gate-Void_Tendrils | Abyss_10[left1] + (RIGHTSHADOWDASH | VOIDHEART + (SWIM | RIGHTDASH | RIGHTSUPERDASH | FULLCLAW | WINGS) | (RIGHTCLAW | WINGS + $SHADESKIP[2HITS] | $SHRIEKPOGO[2]) + (LEFTSHADOWDASH | VOIDHEART + (LEFTDASH | LEFTSUPERDASH)))",
+            "Shade_Cloak": "(Abyss_10[left2] + Shade_Gate-Void_Tendrils | Abyss_10[left1] + (RIGHTCLAW | WINGS + $SHADESKIP[2HITS] | $SHRIEKPOGO[2])) + (WINGS | RIGHTSUPERDASH | RIGHTDASH + (LEFTCLAW | PRECISEMOVEMENT | BACKGROUNDPOGOS)) | (Abyss_10[left2] + Shade_Gate-Void_Tendrils | Abyss_10[left1]) + (RIGHTSHADOWDASH | VOIDHEART + (RIGHTDASH | RIGHTSUPERDASH | SWIM | WINGS | FULLCLAW)) + (WINGS | LEFTCLAW + RIGHTSUPERDASH | LEFTCLAW + RIGHTDASH | BACKGROUNDPOGOS + RIGHTDASH)"
+        },
+        "logicSubstitutions": {
+            "Abyss_10[left1]": {"RIGHTSHADOWDASH": "Shade_Gate-Void_Tendrils"},
+            "Abyss_10[left2]": {"LEFTSHADOWDASH": "Shade_Gate-Void_Tendrils"}
+        }
+    }
+]

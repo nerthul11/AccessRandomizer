@@ -9,6 +9,7 @@ namespace AccessRandomizer.Settings
         public bool SplitTram { get; set; }
         public bool SplitElevator { get; set; }
         public bool TrapBench { get; set; }
+        public bool ShadeGates { get; set; }
         public CustomKeySettings CustomKeys { get; set; } = new();
     }
 

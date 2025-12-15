@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using AccessRandomizer.IC;
 using AccessRandomizer.Manager;
 using AccessRandomizer.Settings;
 using ItemChanger;
@@ -23,6 +24,7 @@ namespace AccessRandomizer.Modules
             public bool SplitTram { get; set; } = AccessManager.Settings.SplitTram;
             public bool SplitElevator { get; set; } = AccessManager.Settings.SplitElevator;
             public bool TrapBench { get; set; } = AccessManager.Settings.TrapBench;
+            public bool ShadeGates { get; set; } = AccessManager.Settings.ShadeGates;
         }   
         public bool RespectObtained { get; set; } = false;
         public int ChainsBroken { get; set; } = 0;   
@@ -40,6 +42,7 @@ namespace AccessRandomizer.Modules
         public bool LeftElevator { get; set; } = false;
         public bool RightElevator { get; set; } = false;
         public bool TrapBench { get; set; } = false;
+        public ShadeGates ShadeGates { get; set; } = new();
         
         public static AccessModule Instance => ItemChangerMod.Modules.GetOrAdd<AccessModule>();
         public override void Initialize() 

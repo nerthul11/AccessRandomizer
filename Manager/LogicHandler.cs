@@ -1,5 +1,10 @@
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using AccessRandomizer.IC;
 using Modding;
+using Newtonsoft.Json;
 using RandomizerCore.Logic;
 using RandomizerCore.LogicItems;
 using RandomizerCore.StringItems;
@@ -122,7 +127,7 @@ namespace AccessRandomizer.Manager
             {
                 lmb.GetOrAddTerm("Zote_Key", TermType.SignedByte);
                 lmb.AddItem(new StringItemTemplate("Zote_Key", "Zote_Key++"));
-                lmb.AddLogicDef(new("Zote_Key", "Rescued_Deepnest_Zote"));
+                lmb.AddLogicDef(new("Zote_Key", "Deepnest_33[top1] | (Deepnest_33[top2] | Deepnest_33[bot1]) + Collapser-Deepnest_Zote?FALSE"));
                 lmb.DoLogicEdit(new("Boss_Essence-Grey_Prince_Zote", "Room_Bretta[right1] + DREAMNAIL + Zote_Key + Defeated_Grey_Prince_Zote"));
                 lmb.DoLogicEdit(new("Defeated_Grey_Prince_Zote", "Room_Bretta[right1] + DREAMNAIL + Zote_Key + COMBAT[Grey_Prince_Zote]"));
             }
@@ -193,6 +198,39 @@ namespace AccessRandomizer.Manager
                     lmb.DoSubst(new RawSubstDef("Defeated_Any_Deepling", "Deepnest_Spider_Town[left1]", subst));
                     lmb.DoSubst(new RawSubstDef("Defeated_Any_Deephunter", "Deepnest_Spider_Town[left1]", subst));
                     lmb.DoSubst(new RawSubstDef("Defeated_Any_Stalking_Devout", "Deepnest_Spider_Town[left1]", subst));
+                }
+            }
+
+            if (AccessManager.Settings.ShadeGates)
+            {
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                JsonSerializer jsonSerializer = new() {TypeNameHandling = TypeNameHandling.Auto};
+                using Stream gateStream = assembly.GetManifestResourceStream("AccessRandomizer.Resources.Data.ShadeGates.json");
+                StreamReader gateReader = new(gateStream);
+                List<GateObject> gates = jsonSerializer.Deserialize<List<GateObject>>(new JsonTextReader(gateReader));
+
+                foreach (GateObject g in gates)
+                {
+                    lmb.GetOrAddTerm($"Shade_Gate-{g.gate}");
+                    lmb.AddItem(new StringItemTemplate($"Shade_Gate-{g.gate}", $"Shade_Gate-{g.gate}++"));
+                    lmb.AddLogicDef(new(g.gate, g.logic));
+
+                    foreach(var logicOverride in g.logicOverrides)
+                    {
+                        bool exists = lmb.LogicLookup.TryGetValue(logicOverride.Key, out _);
+                        if (exists)
+                            lmb.DoLogicEdit(new(logicOverride.Key, logicOverride.Value));
+                    }
+
+                    foreach (var substitutionDef in g.logicSubstitutions)
+                    { 
+                        foreach (var substitution in substitutionDef.Value)
+                        {
+                            bool exists = lmb.LogicLookup.TryGetValue(substitutionDef.Key, out _);
+                            if (exists)
+                                lmb.DoSubst(new(substitutionDef.Key, substitution.Key, substitution.Value));  
+                        }
+                    }
                 }
             }
         }
