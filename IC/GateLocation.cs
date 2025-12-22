@@ -1,11 +1,9 @@
-using System;
 using AccessRandomizer.Modules;
 using ItemChanger;
 using ItemChanger.Locations;
 using ItemChanger.Tags;
 using ItemChanger.Util;
 using Satchel;
-using UnityEngine;
 
 namespace AccessRandomizer.IC
 {
@@ -68,7 +66,6 @@ namespace AccessRandomizer.IC
             string gateName = fsm.gameObject.transform.parent.name;
             if (objectName == gateName)
             {
-                AccessRandomizer.Instance.Log("Editing Push FSM");
                 fsm.AddState("Gate Open?");
                 fsm.AddCustomAction("Gate Open?", () =>
                 {
@@ -88,12 +85,8 @@ namespace AccessRandomizer.IC
         private void Animation(PlayMakerFSM fsm)
         {            
             string gateName = fsm.gameObject.transform.parent.name;
-            AccessRandomizer.Instance.Log(gateName);
-            AccessRandomizer.Instance.Log(objectName);
-            AccessRandomizer.Instance.Log(objectName == gateName);
             if (objectName == gateName)
             {
-                AccessRandomizer.Instance.Log("Editing Animation FSM");
                 fsm.AddState("Gate Open?");
                 fsm.AddCustomAction("Gate Open?", () =>
                 {
