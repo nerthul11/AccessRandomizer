@@ -6,6 +6,7 @@ public class GateObject
 {
     public string gate;
     public string sceneName;
+    public string objectName;
     public float x;
     public float y;
     public float backupX;

@@ -12,7 +12,7 @@ namespace AccessRandomizer.IC
         public GateItem(string gate)
         {
             name = $"Shade_Gate-{gate}";
-            gate = gate.Replace("_", "");
+            this.gate = gate.Replace("_", "");
             UIDef = new MsgUIDef()
             {
                 name = new BoxedString($"Shade Gate - {gate.Replace('_', ' ')}"),
@@ -44,12 +44,13 @@ namespace AccessRandomizer.IC
 
     public class ShadeGates
     {
-        public bool Birthplace { get; set; }
+        public bool BirthplaceDeadEnd { get; set; }
         public bool FogCanyon { get; set; }
         public bool Markoth { get; set; }
         public bool OvergrownMound { get; set; }
         public bool SharpShadow { get; set; }
         public bool TraitorLord { get; set; }
+        public bool VoidHeart { get; set; }
         public bool VoidTendrils { get; set; }
 
         public T GetVariable<T>(string propertyName) {

@@ -1,19 +1,19 @@
 [
     {
         "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
-        "gate": "Birthplace",
+        "gate": "Birthplace_Dead_End",
+        "objectName": "shadow_gate (1)",
         "sceneName": "Abyss_15",
         "x": 0.0,
         "y": 0.0,
-        "logic": "Abyss_15[top1] + (RIGHTSHADOWDASH | Shade_Gate-Birthplace + LEFTSHADOWDASH)",
+        "logic": "Abyss_15[top1] + (RIGHTSHADOWDASH | Shade_Gate-Birthplace_Dead_End + LEFTSHADOWDASH)",
         "logicOverrides": {},
-        "logicSubstitutions": {
-            "Void_Heart": {"RIGHTSHADOWDASH": "Shade_Gate-Birthplace"}
-        }
+        "logicSubstitutions": {}
     },
     {
         "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
         "gate": "Fog_Canyon",
+        "objectName": "shadow_gate",
         "sceneName": "Fungus3_25",
         "x": 0.0,
         "y": 0.0,
@@ -27,6 +27,7 @@
     {
         "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
         "gate": "Markoth",
+        "objectName": "shadow_gate",
         "sceneName": "Deepnest_East_18",
         "x": 0.0,
         "y": 0.0,
@@ -40,6 +41,7 @@
     {
         "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
         "gate": "Overgrown_Mound",
+        "objectName": "shadow_gate",
         "sceneName": "Fungus3_44",
         "x": 0.0,
         "y": 0.0,
@@ -52,7 +54,8 @@
     {
         "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
         "gate": "Sharp_Shadow",
-        "sceneName": "Fungus3_44",
+        "objectName": "shadow_gate",
+        "sceneName": "Deepnest_44",
         "x": 0.0,
         "y": 0.0,
         "logic": "Deepnest_44[top1] + (RIGHTSHADOWDASH | Shade_Gate-Sharp_Shadow + LEFTSHADOWDASH)",
@@ -64,6 +67,7 @@
     {
         "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
         "gate": "Traitor_Lord",
+        "objectName": "shadow_gate",
         "sceneName": "Fungus3_23",
         "x": 0.0,
         "y": 0.0,
@@ -76,7 +80,21 @@
     },
     {
         "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
+        "gate": "Void_Heart",
+        "objectName": "shadow_gate (2)",
+        "sceneName": "Abyss_15",
+        "x": 0.0,
+        "y": 0.0,
+        "logic": "Abyss_15[top1] + (RIGHTSHADOWDASH | Shade_Gate-Void_Heart + LEFTSHADOWDASH)",
+        "logicOverrides": {},
+        "logicSubstitutions": {
+            "Void_Heart": {"RIGHTSHADOWDASH": "Shade_Gate-Void_Heart"}
+        }
+    },
+    {
+        "$type": "AccessRandomizer.IC.GateObject, AccessRandomizer",
         "gate": "Void_Tendrils",
+        "objectName": "shadow_gate",
         "sceneName": "Abyss_10",
         "x": 0.0,
         "y": 0.0,

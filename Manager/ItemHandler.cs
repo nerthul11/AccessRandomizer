@@ -75,7 +75,7 @@ namespace AccessRandomizer.Manager {
             foreach (GateObject g in gates)
             {
                 Finder.DefineCustomItem(new GateItem(g.gate));
-                Finder.DefineCustomLocation(new GateLocation(g.gate, g.sceneName, g.x, g.y));
+                Finder.DefineCustomLocation(new GateLocation(g.gate, g.sceneName, g.objectName, g.x, g.y));
             }
         }
 

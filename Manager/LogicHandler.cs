@@ -213,7 +213,7 @@ namespace AccessRandomizer.Manager
                 {
                     lmb.GetOrAddTerm($"Shade_Gate-{g.gate}");
                     lmb.AddItem(new StringItemTemplate($"Shade_Gate-{g.gate}", $"Shade_Gate-{g.gate}++"));
-                    lmb.AddLogicDef(new(g.gate, g.logic));
+                    lmb.AddLogicDef(new($"Shade_Gate-{g.gate}", g.logic));
 
                     foreach(var logicOverride in g.logicOverrides)
                     {
