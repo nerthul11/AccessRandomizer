@@ -11,24 +11,31 @@ namespace AccessRandomizer.IC
     {
         public string gate;
         public string objectName;
-        public GateLocation(string gate, string scene, string objectName, float x, float y)
+        public GateLocation(string gate, string scene, string objectName, float x, float y, string mapScene=null, float mapX=0.0f, float mapY=0.0f)
         {
             name = $"Shade_Gate-{gate}";
             this.gate = gate.Replace("_", "");
             this.objectName = objectName;
             sceneName = scene;
             flingType = FlingType.DirectDeposit;
-            tags = [LocationTag(gate, scene, x, y)];
+            tags = [LocationTag(gate, scene, x, y, mapScene, mapX, mapY)];
         }
         
-        private static Tag LocationTag(string gate, string scene, float x, float y)
+        private static Tag LocationTag(string gate, string scene, float x, float y, string mapScene, float mapX, float mapY)
         {
             InteropTag tag = new();
             tag.Properties["ModSource"] = "AccessRandomizer";
             tag.Properties["PoolGroup"] = "Key";
             tag.Properties["PinSprite"] = new AccessSprite("Gate");
             tag.Properties["VanillaItem"] = $"Shade_Gate-{gate}";
-            tag.Properties["WorldMapLocations"] = new (string, float, float)[] {(scene, x, y)};
+            if (mapScene != "Undefined")
+            {
+                tag.Properties["MapLocations"] = new (string, float, float)[] {(mapScene, mapX, mapY)};
+            }
+            else
+            {
+                tag.Properties["WorldMapLocations"] = new (string, float, float)[] {(scene, x, y)};
+            }
             tag.Message = "RandoSupplementalMetadata";
             return tag;
         }
@@ -69,6 +76,16 @@ namespace AccessRandomizer.IC
                 fsm.AddState("Gate Open?");
                 fsm.AddCustomAction("Gate Open?", () =>
                 {
+                    AccessRandomizer.Instance.Log($"({fsm.gameObject.transform.position.x}, {fsm.gameObject.transform.position.y})");
+                    bool giveItem = HeroController.instance.GetState("shadowDashing");
+                    if (giveItem && !Placement.AllObtained())
+                    {
+                        ItemUtility.GiveSequentially(Placement.Items, Placement, new GiveInfo()
+                        {
+                            FlingType = FlingType.DirectDeposit,
+                            MessageType = MessageType.Corner,
+                        });
+                    }
                     bool check = AccessModule.Instance.ShadeGates.GetVariable<bool>(gate) == true;
                     if (check)
                         fsm.SendEvent("PASS");

@@ -9,8 +9,9 @@ public class GateObject
     public string objectName;
     public float x;
     public float y;
-    public float backupX;
-    public float backupY;
+    public string mapScene;
+    public float mapX;
+    public float mapY;
     public string logic;
     public Dictionary<string, string> logicOverrides;
     public Dictionary<string, Dictionary<string, string>> logicSubstitutions;
