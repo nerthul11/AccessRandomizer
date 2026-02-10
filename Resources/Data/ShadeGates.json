@@ -61,7 +61,7 @@
         "sceneName": "Deepnest_44",
         "x": 61.4,
         "y": 23.8,
-        "logic": "Deepnest_44[top1] + (RIGHTSHADOWDASH | Shade_Gate-Sharp_Shadow + LEFTSHADOWDASH)",
+        "logic": "Deepnest_44[top1] + (RIGHTSHADOWDASH | (Shade_Gate-Sharp_Shadow | Plank-Sharp_Shadow?FALSE + (RIGHTCLAW + RIGHTDASH + DAMAGEBOOSTS + $TAKEDAMAGE | WINGS)) + LEFTSHADOWDASH)",
         "logicOverrides": {},
         "logicSubstitutions": {
             "Sharp_Shadow": {"RIGHTSHADOWDASH": "Shade_Gate-Sharp_Shadow"}
@@ -94,7 +94,7 @@
         "logic": "Abyss_15[top1] + (RIGHTSHADOWDASH | Shade_Gate-Void_Heart + LEFTSHADOWDASH)",
         "logicOverrides": {},
         "logicSubstitutions": {
-            "Void_Heart": {"RIGHTSHADOWDASH": "Shade_Gate-Void_Heart"}
+            "Void_Heart": {"RIGHTSHADOWDASH": "Shade_Gate-Void_Heart + (RIGHTDASH | SPELLAIRSTALL + $CASTSPELL + SPIKETUNNELS)"}
         }
     },
     {

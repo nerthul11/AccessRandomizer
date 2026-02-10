@@ -8,8 +8,8 @@
     <Product>AccessRandomizer</Product>
     <Description>A Randomizer add-on for a few miscellaneous access checks.</Description>
     <Copyright>Copyright © </Copyright>
-    <AssemblyVersion>1.4.0.1</AssemblyVersion>
-    <FileVersion>1.4.0.1</FileVersion>
+    <AssemblyVersion>1.4.0.2</AssemblyVersion>
+    <FileVersion>1.4.0.2</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
