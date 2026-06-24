@@ -1,3 +1,4 @@
+using AccessRandomizer.Manager;
 using AccessRandomizer.Modules;
 using ItemChanger;
 using ItemChanger.Locations;
@@ -57,7 +58,7 @@ namespace AccessRandomizer.IC
         private void ToggleCollider(On.ShadowGateColliderControl.orig_FixedUpdate orig, ShadowGateColliderControl self)
         {
             string gateName = self.gameObject.transform.parent.name;
-            if (sceneName == GameManager.instance.sceneName && objectName == gateName)
+            if (sceneName == GameManager.instance.sceneName && objectName == gateName && AccessManager.Settings.Enabled && AccessManager.Settings.ShadeGates)
             {
                 bool hasItem = AccessModule.Instance.ShadeGates.GetVariable<bool>(gate);
                 self.disableCollider.enabled = !hasItem;
@@ -70,13 +71,15 @@ namespace AccessRandomizer.IC
 
         private void Push(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.ShadeGates)
+                return;
+
             string gateName = fsm.gameObject.transform.parent.name;
             if (objectName == gateName)
             {
                 fsm.AddState("Gate Open?");
                 fsm.AddCustomAction("Gate Open?", () =>
                 {
-                    AccessRandomizer.Instance.Log($"({fsm.gameObject.transform.position.x}, {fsm.gameObject.transform.position.y})");
                     bool giveItem = HeroController.instance.GetState("shadowDashing");
                     if (giveItem && !Placement.AllObtained())
                     {
@@ -101,6 +104,9 @@ namespace AccessRandomizer.IC
 
         private void Animation(PlayMakerFSM fsm)
         {            
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.ShadeGates)
+                return;
+
             string gateName = fsm.gameObject.transform.parent.name;
             if (objectName == gateName)
             {

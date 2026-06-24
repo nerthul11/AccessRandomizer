@@ -1,5 +1,6 @@
 using System;
 using AccessRandomizer.Fsm;
+using AccessRandomizer.Manager;
 using HutongGames.PlayMaker.Actions;
 using ItemChanger;
 using ItemChanger.Locations;
@@ -62,24 +63,36 @@ namespace AccessRandomizer.IC
 
         private void LowerTramCallEdit(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.SplitTram)
+                return;
+
             fsm.RemoveAction("Got Pass?", 0);
             fsm.AddAction("Got Pass?", new AccessBooleanFsmCheck("LowerTram", "YES", "NO"));
         }
 
         private void LowerTramEdit(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.SplitTram)
+                return;
+
             fsm.RemoveAction("Check Pass", 1);
             fsm.AddAction("Check Pass", new AccessBooleanFsmCheck("LowerTram", "PASS", "NO PASS"));
         }
 
         private void UpperTramCallEdit(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.SplitTram)
+                return;
+
             fsm.RemoveAction("Got Pass?", 0);
             fsm.AddAction("Got Pass?", new AccessBooleanFsmCheck("UpperTram", "YES", "NO"));
         }
 
         private void UpperTramEdit(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.SplitTram)
+                return;
+
             fsm.RemoveAction("Check Pass", 1);
             fsm.AddAction("Check Pass", new AccessBooleanFsmCheck("UpperTram", "PASS", "NO PASS"));
         }

@@ -1,4 +1,5 @@
 using AccessRandomizer.Fsm;
+using AccessRandomizer.Manager;
 using ItemChanger;
 using ItemChanger.Locations;
 using ItemChanger.Tags;
@@ -43,6 +44,9 @@ namespace AccessRandomizer.IC
 
         private void BasementToggle(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.CustomKeys.ZoteKey)
+                return;
+
             AccessBooleanFsmCheck check = new("UnlockedZote", "", "DEACTIVATE");
             fsm.RemoveAction("Check", 0);
             fsm.AddAction("Check", check);

@@ -4,6 +4,7 @@ using ItemChanger.Locations;
 using ItemChanger.Util;
 using ItemChanger.Tags;
 using Satchel;
+using AccessRandomizer.Manager;
 
 namespace AccessRandomizer.IC
 {
@@ -56,12 +57,18 @@ namespace AccessRandomizer.IC
 
         private void ExitableGate(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.HollowKnightChains)
+                return;
+
             if (AccessModule.Instance.ChainsBroken < 4)
                 fsm.RemoveTransition("Idle", "ENTER");
         }
 
         private void UnbreakableChainCheck(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.HollowKnightChains)
+                return;
+
             if (Placement.AllObtained())
                 fsm.ChangeTransition("Init", "FINISHED", "Disable");
             else

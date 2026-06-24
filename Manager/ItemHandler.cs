@@ -53,7 +53,8 @@ namespace AccessRandomizer.Manager {
             Finder.DefineCustomLocation(new ZoteKeyLocation());
             Finder.DefineCustomItem(new RelicKeyItem());
             Finder.DefineCustomLocation(new RelicKeyLocation());
-
+            Finder.DefineCustomItem(new BirthplaceKeyItem());
+            Finder.DefineCustomLocation(new BirthplaceKeyLocation());
             Finder.DefineCustomItem(new GladeItem());
 
             using Stream passStream = assembly.GetManifestResourceStream("AccessRandomizer.Resources.Data.PassItems.json");
@@ -277,6 +278,34 @@ namespace AccessRandomizer.Manager {
                     {
                         Name = "Relic_Key",
                         SceneName = SceneNames.Waterways_01,
+                        FlexibleCount = false,
+                        AdditionalProgressionPenalty = false
+                    };
+                });
+            }
+
+            if (AccessManager.Settings.CustomKeys.BirthplaceKey)
+            {
+                rb.AddItemByName("Birthplace_Key");
+                if (rb.gs.DuplicateItemSettings.DuplicateUniqueKeys)
+                    rb.AddItemByName($"{PlaceholderItem.Prefix}Birthplace_Key");
+                rb.EditItemRequest("Birthplace_Key", info => 
+                {
+                    info.getItemDef = () => new()
+                    {
+                        MajorItem = false,
+                        Name = "Birthplace_Key",
+                        Pool = "Key",
+                        PriceCap = 500
+                    };
+                });
+                rb.AddLocationByName("Birthplace_Key");
+                rb.EditLocationRequest("Birthplace_Key", info =>
+                {
+                    info.getLocationDef = () => new()
+                    {
+                        Name = "Birthplace_Key",
+                        SceneName = SceneNames.Abyss_06_Core,
                         FlexibleCount = false,
                         AdditionalProgressionPenalty = false
                     };

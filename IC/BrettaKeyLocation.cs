@@ -1,4 +1,5 @@
 using AccessRandomizer.Fsm;
+using AccessRandomizer.Manager;
 using HutongGames.PlayMaker;
 using HutongGames.PlayMaker.Actions;
 using ItemChanger;
@@ -47,6 +48,9 @@ namespace AccessRandomizer.IC
 
         private void ToggleDoor(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.CustomKeys.BrettaKey)
+                return;
+
             AccessBooleanFsmCheck check = new("UnlockedBretta", "UNLOCKED", "LOCKED");
             FsmState init = fsm.GetState("Init");
             init.RemoveActionsOfType<PlayerDataBoolTest>();

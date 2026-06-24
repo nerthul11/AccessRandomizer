@@ -12,7 +12,7 @@ namespace AccessRandomizer
     {
         new public string GetName() => "AccessRandomizer";
         public static GameObject slyDoor;
-        public override string GetVersion() => "1.4.0.2";
+        public override string GetVersion() => "1.4.1.0";
 
         private static AccessRandomizer _instance;
         public AccessRandomizer() : base()
@@ -52,11 +52,11 @@ namespace AccessRandomizer
                 CondensedSpoilerLogger.AddCategory("Miscellaneous Access", () => AccessManager.Settings.Enabled, 
                     [
                         "Mantis_Respect", "Hollow_Knight_Chain",
-                        "Graveyard_Key", "Waterways_Key", "Pleasure_Key", "Coffin_Key", 
-                        "Mapper_Key", "Sly_Key", "Bretta_Key", "Zote_Key", "Relic_Key",
+                        "Graveyard_Key", "Waterways_Key", "Pleasure_Key", "Coffin_Key",
+                        "Birthplace_Key", "Bretta_Key", "Glade_Key", "Mapper_Key", "Relic_Key", "Sly_Key", "Zote_Key",
                         "Left_Elevator_Pass", "Right_Elevator_Pass",
                         "Upper_Tram_Pass", "Lower_Tram_Pass", 
-                        "Glade_Key", "Trap_Bench"
+                        "Trap_Bench"
                     ]
                 );
                 Instance.Log("Initialized.");

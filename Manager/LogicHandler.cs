@@ -147,6 +147,14 @@ namespace AccessRandomizer.Manager
                 lmb.DoLogicEdit(new("Opened_Glade_Door", "RestingGrounds_05 + Glade_Key"));
             }
 
+            if (AccessManager.Settings.CustomKeys.BirthplaceKey)
+            {
+                lmb.GetOrAddTerm("Birthplace_Key", TermType.SignedByte);
+                lmb.AddItem(new StringItemTemplate("Birthplace_Key", "Birthplace_Key++"));
+                lmb.AddLogicDef(new("Birthplace_Key", "Abyss_06_Core"));
+                lmb.DoSubst(new("Abyss_06_Core[bot1]", "KINGSOUL", "Birthplace_Key"));
+            }
+
             if (AccessManager.Settings.SplitTram && gs.PoolSettings.Keys)
             {
                 lmb.GetOrAddTerm("Upper_Tram_Pass", TermType.SignedByte);

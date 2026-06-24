@@ -21,6 +21,7 @@ namespace AccessRandomizer.Settings
         public bool ZoteKey;
         public bool RelicKey;
         public bool GladeKey;
-        public bool Any() => MapperKey || SlyKey || BrettaKey || ZoteKey || RelicKey || GladeKey;
+        public bool BirthplaceKey;
+        public bool Any() => MapperKey || SlyKey || BrettaKey || ZoteKey || RelicKey || GladeKey || BirthplaceKey;
     }
 }

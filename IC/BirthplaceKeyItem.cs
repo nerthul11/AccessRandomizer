@@ -5,23 +5,23 @@ using ItemChanger.UIDefs;
 
 namespace AccessRandomizer.IC
 {
-    public class BrettaKeyItem : AbstractItem
+    public class BirthplaceKeyItem : AbstractItem
     {
-        public override bool Redundant() => AccessModule.Instance.UnlockedBretta;
+        public override bool Redundant() => PlayerData.instance.openedBlackEggPath;
         public override void GiveImmediate(GiveInfo info)
         {
-            AccessModule.Instance.UnlockedBretta = true;
+            PlayerData.instance.openedBlackEggPath = true;
             AccessModule.Instance.CompletedChallenges();
         }
 
-        public BrettaKeyItem()
+        public BirthplaceKeyItem()
         {
-            name = "Bretta_Key";
+            name = "Birthplace_Key";
             UIDef = new MsgUIDef()
             {
-                name = new BoxedString("Bretta Key"),
-                shopDesc = new BoxedString("I hope you rescue me out of chivalry even though you can enter my home. -Bretta"),
-                sprite = new AccessSprite("BrettaKey")
+                name = new BoxedString("Birthplace Key"),
+                shopDesc = new BoxedString("I am the shadow, the keeper of light. If you want the sun's power, then show me your own."),
+                sprite = new AccessSprite("BirthplaceKey")
             };
             tags = [ItemTag(), CurseTag()];
         }
@@ -30,7 +30,7 @@ namespace AccessRandomizer.IC
             InteropTag tag = new();
             tag.Properties["ModSource"] = "AccessRandomizer";
             tag.Properties["PoolGroup"] = "Keys";
-            tag.Properties["PinSprite"] = new AccessSprite("BrettaKey");
+            tag.Properties["PinSprite"] = new AccessSprite("BirthplaceKey");
             tag.Message = "RandoSupplementalMetadata";
             return tag;
         }
@@ -38,7 +38,7 @@ namespace AccessRandomizer.IC
         {
             InteropTag tag = new();
             tag.Properties["CanMimic"] = new BoxedBool(true);
-            tag.Properties["MimicNames"] = new string[] {"Brettor Key", "Greta Key", "Barret Key", "Baretta Key"};
+            tag.Properties["MimicNames"] = new string[] {"Birthday Key", "Void Heart [67]", "Birtplace Key", "Birthplace"};
             tag.Message = "CurseData";
             return tag;
         }

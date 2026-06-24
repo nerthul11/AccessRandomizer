@@ -6,6 +6,7 @@ using Satchel;
 using System.Linq;
 using AccessRandomizer.Fsm;
 using UnityEngine;
+using AccessRandomizer.Manager;
 
 namespace AccessRandomizer.IC
 {
@@ -54,7 +55,7 @@ namespace AccessRandomizer.IC
 
         private void WeRespect(On.SceneAdditiveLoadConditional.orig_OnEnable orig, SceneAdditiveLoadConditional self)
         {
-            if (self.sceneNameToLoad == sceneName && !Placement.AllObtained())
+            if (self.sceneNameToLoad == sceneName && !Placement.AllObtained() && AccessManager.Settings.Enabled && AccessManager.Settings.MantisRespect)
             {
                 self.altSceneNameToLoad = self.sceneNameToLoad;
             }
@@ -63,6 +64,9 @@ namespace AccessRandomizer.IC
 
         private void ToggleChallenge(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.MantisRespect)
+                return;
+
             // Disable if location is cleared
             if (Placement.AllObtained() || Placement.Items.All(x => x.WasEverObtained()))
             {
@@ -83,13 +87,16 @@ namespace AccessRandomizer.IC
 
         private void ButStillWeFight(On.DeactivateIfPlayerdataTrue.orig_OnEnable orig, DeactivateIfPlayerdataTrue self)
         {
-            if (self.gameObject.name == "Challenge Prompt")
+            if (self.gameObject.name == "Challenge Prompt" && AccessManager.Settings.Enabled && AccessManager.Settings.MantisRespect)
                 return;
             orig(self);
         }
 
         private void DisrespectfulLords(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.MantisRespect)
+                return;
+
             // Add a complain state that locks you in the cage if respect is unobtained
             fsm.AddState("Complain");
             fsm.AddAction("Complain", new CustomAudio("MantisLord"));

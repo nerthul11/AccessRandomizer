@@ -24,7 +24,8 @@
         "logicOverrides": {},
         "logicSubstitutions": {
             "Fungus3_25[left1]": {"LEFTSHADOWDASH": "Shade_Gate-Fog_Canyon"},
-            "Fungus3_25[right1]": {"RIGHTSHADOWDASH": "Shade_Gate-Fog_Canyon"}
+            "Fungus3_25[right1]": {"RIGHTSHADOWDASH": "Shade_Gate-Fog_Canyon"},
+            "Fog_Canyon_Map": {"RIGHTSHADOWDASH": "Shade_Gate-Fog_Canyon"}
         }
     },
     {
@@ -77,6 +78,7 @@
         "logic": "Fungus3_23[left1] + Defeated_Traitor_Lord + RIGHTSHADOWDASH | Fungus3_23[right1] + (LEFTSHADOWDASH | Shade_Gate-Traitor_Lord + RIGHTSHADOWDASH)",
         "logicOverrides": {},
         "logicSubstitutions": {
+            "Defeated_Traitor_Lord": {"LEFTSHADOWDASH": "Shade_Gate-Traitor_Lord + ANYSHADOWDASH"},
             "Fungus3_23[left1]": {"LEFTSHADOWDASH": "Shade_Gate-Traitor_Lord"},
             "Fungus3_23[right1]": {"RIGHTSHADOWDASH": "Shade_Gate-Traitor_Lord"}
         }
@@ -106,7 +108,7 @@
         "y": 40.6,
         "logic": "Abyss_10[left2] + (RIGHTSHADOWDASH | Shade_Gate-Void_Tendrils + LEFTSHADOWDASH) | Abyss_10[left1] + LEFTSHADOWDASH + (RIGHTCLAW | (WINGS | LEFTCLAW) + (RIGHTSHADOWDASH | VOIDHEART) | WINGS + $SHADESKIP[2HITS] | $SHRIEKPOGO[2])",
         "logicOverrides": {
-            "Arcane_Egg-Shade_Cloak": "Abyss_10[left2] + Shade_Gate-Void_Tendrils | Abyss_10[left1] + (RIGHTSHADOWDASH | VOIDHEART + (SWIM | RIGHTDASH | RIGHTSUPERDASH | FULLCLAW | WINGS) | (RIGHTCLAW | WINGS + $SHADESKIP[2HITS] | $SHRIEKPOGO[2]) + (LEFTSHADOWDASH | VOIDHEART + (LEFTDASH | LEFTSUPERDASH)))",
+            "Arcane_Egg-Shade_Cloak": "(Abyss_10[left2] + Shade_Gate-Void_Tendrils | Abyss_10[left1]) + (RIGHTSHADOWDASH | VOIDHEART + (SWIM | RIGHTDASH | RIGHTSUPERDASH | FULLCLAW | WINGS) | (RIGHTCLAW | WINGS + $SHADESKIP[2HITS] | $SHRIEKPOGO[2]) + (LEFTSHADOWDASH | VOIDHEART + (LEFTDASH | LEFTSUPERDASH)))",
             "Shade_Cloak": "(Abyss_10[left2] + Shade_Gate-Void_Tendrils | Abyss_10[left1] + (RIGHTCLAW | WINGS + $SHADESKIP[2HITS] | $SHRIEKPOGO[2])) + (WINGS | RIGHTSUPERDASH | RIGHTDASH + (LEFTCLAW | PRECISEMOVEMENT | BACKGROUNDPOGOS)) | (Abyss_10[left2] + Shade_Gate-Void_Tendrils | Abyss_10[left1]) + (RIGHTSHADOWDASH | VOIDHEART + (RIGHTDASH | RIGHTSUPERDASH | SWIM | WINGS | FULLCLAW)) + (WINGS | LEFTCLAW + RIGHTSUPERDASH | LEFTCLAW + RIGHTDASH | BACKGROUNDPOGOS + RIGHTDASH)"
         },
         "logicSubstitutions": {

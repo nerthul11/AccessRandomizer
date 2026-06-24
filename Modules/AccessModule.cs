@@ -49,10 +49,10 @@ namespace AccessRandomizer.Modules
         {
             On.PlayerData.SetBool += Refresh;
             On.GameManager.BeginSceneTransition += ForceBools;
+            On.GameManager.OnNextLevelReady += LateEdit;
             if (Settings.CustomKeys.MapperKey && Settings.IsRando)
             {
                 PlayerData.instance.openedMapperShop = UnlockedIselda;
-                On.GameManager.OnNextLevelReady += SlyDoor;
             }
             if (Settings.SplitElevator && Settings.IsRando)
             {
@@ -74,7 +74,7 @@ namespace AccessRandomizer.Modules
         {
             On.PlayerData.SetBool -= Refresh;
             On.GameManager.BeginSceneTransition -= ForceBools;
-            On.GameManager.OnNextLevelReady -= SlyDoor;
+            On.GameManager.OnNextLevelReady -= LateEdit;
             Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_NAME_TRAM_PASS"), TramName);
             Events.RemoveLanguageEdit(new LanguageKey("UI", "INV_DESC_TRAM_PASS"), TramDesc);
             if (ItemChangerMod.Modules?.Get<InventoryTracker>() is InventoryTracker it)
@@ -147,10 +147,13 @@ namespace AccessRandomizer.Modules
                 PlayerData.instance.spiderCapture = !TrapBench;
         }
 
-        private void SlyDoor(On.GameManager.orig_OnNextLevelReady orig, GameManager self)
+        private void LateEdit(On.GameManager.orig_OnNextLevelReady orig, GameManager self)
         {
             orig(self);
-            if (self.sceneName == SceneNames.Crossroads_04)
+            if (!Settings.IsRando)
+                return;
+
+            if (self.sceneName == SceneNames.Crossroads_04 && Settings.CustomKeys.SlyKey)
             {
                 GameObject door = GameObject.Instantiate(AccessRandomizer.slyDoor, new Vector3(85.05f, 4.0f, -0.1f), Quaternion.identity);
                 door.SetActive(true);
@@ -158,6 +161,10 @@ namespace AccessRandomizer.Modules
                 doorClosed.SetActive(!UnlockedSly);
                 GameObject doorOpened = door.FindGameObjectInChildren("Door Opened");
                 doorOpened.SetActive(UnlockedSly);
+            }
+            if (self.sceneName == SceneNames.Abyss_06_Core && Settings.CustomKeys.BirthplaceKey)
+            {
+                GameObject.Find("Floor Opening Animation")?.SetActive(false); 
             }
         }
         
@@ -210,6 +217,8 @@ namespace AccessRandomizer.Modules
                 completed.Add("Relic Key");   
             if (PlayerData.instance.gladeDoorOpened)
                 completed.Add("Glade Access");
+            if (PlayerData.instance.openedBlackEggPath)
+                completed.Add("Birthplace Access");
 
             if (UpperTram)
                 completed.Add("Upper Tram Pass");

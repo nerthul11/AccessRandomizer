@@ -1,4 +1,5 @@
 using AccessRandomizer.Fsm;
+using AccessRandomizer.Manager;
 using ItemChanger;
 using ItemChanger.Locations;
 using ItemChanger.Tags;
@@ -43,6 +44,9 @@ namespace AccessRandomizer.IC
 
         private void ToggleTP(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.CustomKeys.SlyKey)
+                return;
+
             fsm.AddState("Is Locked?");
             fsm.AddAction("Is Locked?", new AccessBooleanFsmCheck("UnlockedSly", "UNLOCKED", "LOCKED"));
             fsm.ChangeTransition("Idle", "IN RANGE", "Is Locked?");

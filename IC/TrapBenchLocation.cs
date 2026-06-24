@@ -1,4 +1,5 @@
 using System;
+using AccessRandomizer.Manager;
 using ItemChanger;
 using ItemChanger.Locations;
 using ItemChanger.Tags;
@@ -43,6 +44,9 @@ namespace AccessRandomizer.IC
 
         private void SpawnShiny(PlayMakerFSM fsm)
         {
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.TrapBench)
+                return;
+
             fsm.AddState("Spawn Shiny");
             fsm.AddCustomAction("Spawn Shiny", () => 
                 {
@@ -59,7 +63,9 @@ namespace AccessRandomizer.IC
         }
         private void GiveItem(PlayMakerFSM fsm)
         {
-            AccessRandomizer.Instance.Log("This exists");
+            if (!AccessManager.Settings.Enabled || !AccessManager.Settings.TrapBench)
+                return;
+
             fsm.AddState("GiveItem");
             fsm.AddCustomAction("GiveItem", () => {
                 ItemUtility.GiveSequentially(Placement.Items, Placement, new GiveInfo()
